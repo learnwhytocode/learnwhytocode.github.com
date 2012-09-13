@@ -1,2 +1,69 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+
+article#alert-box{
+	text-align: left;
+	font-size: 13px;
+	background: #dcc;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+article#alert-box p{
+	padding: 5px 10px;
+	font-family: $sans;
+	line-height: 18px;
+	margin: 0 0 0 0;
+}
+
+div.hed{
+	font-size: 26px;
+	font-weight: 400;
+}
+
+div.hed a, div.hed a:link, div.hed a:visited{
+	color: #44f;
+	text-decoration: none;
+}
+
+li.post-listing{
+	margin-bottom: 24px;
+}
+
+.lesson-matter .q{
+	font-size: 17px;
+	color: #443;
+
+}
+.lesson h1{
+	margin-bottom: 10px;
+}
+.lesson h2{
+	border-top: thin solid #888;
+	margin-top: 50px;
+	padding-top: 40px
+}
+
+div#main, div#content article{
+/*	background: url("/images/light_toast.png");
+	background-repeat: repeat;*/
+}
+
+p.meta a.pagin{
+	font-size: 20px;
+}
+
+.read-on a:link, .read-on a:visited{
+	font-size: 14px;
+	margin: 1px 0px;
+	color: $link-color;
+}
+
+.imgwrap{
+	width: 100%;
+}
+
+.imgwrap img{
+	width: 99%
+}

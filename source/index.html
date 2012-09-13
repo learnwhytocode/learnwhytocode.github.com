@@ -2,30 +2,18 @@
 layout: default
 ---
 
-This primer to practical programming was originally designed for an [Online News Association class](http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576 "ONA12: Introduction to Practical Programming") that I'll be teaching on Sept. 20. [You can sign up here](http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576 "ONA12: Introduction to Practical Programming").
-
-<div class="blog-index">
-  {% assign index = true %}
-  {% for post in paginator.posts %}
-  {% assign content = post.content %}
-    <article>
-      {% include article.html %}
-    </article>
-  {% endfor %}
-  <div class="pagination">
-    {% if paginator.next_page %}
-      <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
-    {% endif %}
-    <a href="/blog/archives">Blog Archives</a>
-    {% if paginator.previous_page %}
-    <a class="next" href="{{paginator.previous_page}}">Newer &rarr;</a>
-    {% endif %}
-  </div>
-</div>
-<aside class="sidebar">
-  {% if site.blog_index_asides.size %}
-    {% include_array blog_index_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
-</aside>
+<article>
+	
+	
+	<p>This primer to practical programming was originally designed for an <a href="http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576" title="ONA12: Introduction to Practical Programming">Online News Association class</a> that I&#8217;ll be teaching on Sept. 20. If you're planning to attend ONA in San Francisco and are interested in this class, <a href="http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576" title="ONA12: Introduction to Practical Programming">sign up here</a>.
+	</p>
+	
+	<p>Check out the <a href="/toc">table of contents</a> to see the proposed lesson path. </p>
+	<div class="imgwrap">
+		<img src="/images/bklyn-park-sunset.jpg">
+	</div>
+	
+	<p>This primer is intended for absolute beginners. The few libraries and programs used in it can be run on any major operating system.</p>
+	<p>Ruby is the programming language used, but the concepts here apply the same to any other high-level programming language.</p>
+		
+</article>

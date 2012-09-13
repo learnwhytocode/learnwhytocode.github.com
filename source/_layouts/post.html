@@ -7,6 +7,17 @@ single: true
 <article class="hentry" role="article">
   {% include article.html %}
   <footer>
+	
+	<p class="meta">
+      {% if page.previous.url %}
+        <a class="basic-alignment left pagin" href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">&laquo; Previous: {{page.previous.title}}</a>
+      {% endif %}
+      {% if page.next.url %}
+        <a class="basic-alignment right pagin" href="{{page.next.url}}" title="Next Post: {{page.next.title}}">Next: {{page.next.title}} &raquo;</a>
+      {% endif %}
+    </p>
+
+
     <p class="meta">
       {% include post/author.html %}
       {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
@@ -15,14 +26,7 @@ single: true
     {% unless page.sharing == false %}
       {% include post/sharing.html %}
     {% endunless %}
-    <p class="meta">
-      {% if page.previous.url %}
-        <a class="basic-alignment left" href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">&laquo; {{page.previous.title}}</a>
-      {% endif %}
-      {% if page.next.url %}
-        <a class="basic-alignment right" href="{{page.next.url}}" title="Next Post: {{page.next.title}}">{{page.next.title}} &raquo;</a>
-      {% endif %}
-    </p>
+    
   </footer>
 </article>
 {% if site.disqus_short_name and page.comments == true %}
@@ -32,12 +36,4 @@ single: true
   </section>
 {% endif %}
 </div>
-{% unless page.sidebar == false %}
-<aside class="sidebar">
-  {% if site.post_asides.size %}
-    {% include_array post_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
-</aside>
-{% endunless %}
+

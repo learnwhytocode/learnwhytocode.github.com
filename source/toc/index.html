@@ -1,0 +1,28 @@
+---
+layout: page
+title: "Table of Contents"
+date: 2012-09-12 21:11
+comments: true
+sharing: true
+footer: true
+---
+<ol>
+{% for post in paginator.posts %}
+  	{% assign content = post.content %}
+	<li class="post-listing">
+		
+		<div class="hed"><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></div>
+		<div class="lesson-matter">
+			<div class="q"><strong>The problem:</strong> {{ post.problem }}</div>
+			<div class="q"><strong>The solution:</strong> {{ post.solution }}</div>	
+		</div>
+		<div class="read-on">
+			<a class="sans" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>	
+		</div>
+			
+  	</li>
+
+{% endfor %}
+	
+
+</ol>
