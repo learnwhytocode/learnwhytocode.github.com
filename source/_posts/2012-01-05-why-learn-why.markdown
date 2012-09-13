@@ -9,9 +9,9 @@ solution: "First learn why programming relates to your goals and ideas. Then lea
 ---
 
 
-This lesson was originally titled, "Learn How to Code in Six Hours." But this isn't going to happen, not if the goal is to learn code *well* enough that &ndash; six hours later &ndash; you don't give up out of frustration and confusion.
+This lesson was originally titled, "Learn How to Code in Six Hours." But that wasn't going to happen, not if the goal is to learn code *well* enough that &ndash; six hours later &ndash; you don't give up out of frustration and confusion.
 
-It takes longer than six hours to learn how to use Microsoft Excel, speak French, play the guitar, or  drive a stick-shift. So why would programming be any different? But eventually, we do learn those other skills, even if we hate the tedious process of learning them. Sometimes a job or school forces this on us. Or, before we take the time to learn, we've realized why these skills will make our lives better.
+It takes longer than six hours to learn how to use Microsoft Excel, speak French, play the guitar, or  drive a stick-shift. So why would programming be any different? But eventually we do learn those other skills, even if we hate the tedious process of learning them. Sometimes a job or school forces this on us. Or, before we take the time to learn, we've realized why these skills will make our lives better.
 
 This "Learn Why to Code" curriculum skims material that might take six weeks or even six months of moderate study to adequately cover. The lessons were designed for a six-hour workshop.
 
