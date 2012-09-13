@@ -9,8 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. (TODO)
-">
+  <meta name="description" content="This is just a skeleton of the actual lesson. Content is added as it is edited and polished. Let&#8217;s step back and ask a basic question: How do &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +80,7 @@
 	
 	<article id="alert-box">
 		<p>
-		<strong>Note:</strong> This guide is intended for the <a href="http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576" title="ONA12: Introduction to Practical Programming">9/20/2012 ONA practical programming class</a> and is a work in progress. Feel free to add comments or <a href="https://github.com/learnwhytocode/learnwhytocode.github.com">visit the Github repo</a>. Follow me at <a href="https://www.twitter.com/dancow">@dancow for updates</a>.
+		<strong>Note:</strong> This guide is intended for the <a href="http://ona2012.sched.org/event/4e894c10b238f8e99210261d941f6576" title="ONA12: Introduction to Practical Programming">9/20/2012 ONA practical programming class</a> and is a work in progress. Feel free to add comments or <a href="https://github.com/learnwhytocode/learnwhytocode.github.com/tree/source">visit the Github repo</a>. Follow me at <a href="https://www.twitter.com/dancow">@dancow for updates</a>.
 			
 		</p>
 	</article>	
@@ -133,7 +132,161 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>(TODO)</p>
+	<p>Let&#8217;s step back and ask a basic question: How do we download content from URLs?</p>
+
+<p>It&#8217;s something we do so automatically &ndash; we simply enter the URL into our browser and hit Enter &ndash; that we don&#8217;t think about it (many Web users don&#8217;t even realize that the browser is downloading something <em>every</em> time you visit a web address).</p>
+
+<p>But there&#8217;s no address bar in the Ruby programming environment. We just have text files and the blinking cursor of <strong>irb</strong> to work with.</p>
+
+<p>So where does the URL go?</p>
+
+<h4>Revisiting irb</h4>
+
+<div class="note">
+<h6>Break out with Ctrl-C</h6>
+<p>Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
+</p>    
+
+<p>And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you&#8217;re actually in irb and <em>not</em> at your system&#8217;s command prompt. They both look about the same.</p>
+</div>
+
+
+<p>For the first part of this course, we will be programming in the Interactive Ruby console. If you remember it from the <a href="post_url%202012-01-10-terminals-and-text-editors">setup guide</a>, it&#8217;s the box with the blinking cursor.</p>
+
+<p>Follow these instructions:</p>
+
+<ol>
+<li>Open up your Terminal or Command Line</li>
+<li>Open up the Interactive Ruby Shell by typing <code>irb</code> and pressing <strong>Enter</strong></li>
+<li>Type a <strong>few numbers</strong>, hit <strong>Enter</strong>; the <strong>irb</strong> prompt should echo those numbers back.</li>
+</ol>
+
+
+<p>In <strong>irb</strong>, the Ruby interpreter reads your input every time you hit <strong>Enter</strong>.</p>
+
+<p>So start off by typing some numbers:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>imac-09:~ dnguyen$ irb     &lt;--# this is the system's command line 
+</span><span class='line'>1.9.3p194 :001 &gt; 12        &lt;--# this is the irb prompt
+</span><span class='line'> =&gt; 12 
+</span><span class='line'>1.9.3p194 :002 &gt; 42
+</span><span class='line'> =&gt; 42 
+</span><span class='line'>1.9.3p194 :003 &gt; 8
+</span><span class='line'> =&gt; 8 
+</span><span class='line'>1.9.3p194 :004 &gt; </span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, the Ruby interpreter accepts input at every press of <strong>Enter</strong>. All we&#8217;re doing is giving it numbers so all it does in response is repeat those numbers.</p>
+
+<h3>The problem with URLs and other non-numbers</h3>
+
+<p>So let&#8217;s try the same thing with a URL:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p194 :008 &gt; http://www.bastardsbook.com/
+</span><span class='line'>SyntaxError: (irb):8: syntax error, unexpected $end
+</span><span class='line'>  from /Users/dnguyen/.rvm/rubies/ruby-1.9.3-p194/bin/irb:16:in `&lt;main&gt;'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That didn&#8217;t go well. None of the above should make sense to you, though the appearance of <strong>irb</strong> indicates that <strong>irb</strong> has a problem. And <code>syntax error</code> is pretty clear. And if you really have a good idea for detail, the <code>8</code> refers to the <code>008</code>, which is the line number of the user input that caused the error.</p>
+
+<p>But the only thing that matters is that the Ruby interpreter doesn&#8217;t like URLs.</p>
+
+<p>OK, but it seemed to like the phrase <code>Hello world</code> from our very first program. Type in that exact phrase into <strong>irb</strong>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p194 :009 &gt; hello world
+</span><span class='line'>NameError: undefined local variable or method `world' for main:Object
+</span><span class='line'>from (irb):9</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Doh</em>.</p>
+
+<h2>Command words and &#8220;normal&#8221; words</h2>
+
+<p>If you go back to the installation chapter where we ran the <code>Hello world</code> program, you&#8217;ll see that we didn&#8217;t just type <code>Hello world</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello world&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you copy-and-paste that into <strong>irb</strong>, everything should go smoothly:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">014</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s2">&quot;Hello world&quot;</span>
+</span><span class='line'><span class="no">Hello</span> <span class="n">world</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So the difference, besides that word <code>puts</code> which we&#8217;ll get to later, is the <strong>quotation marks:</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">015</span> <span class="o">&gt;</span> <span class="s2">&quot;hello world&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;hello world&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">016</span> <span class="o">&gt;</span> <span class="s2">&quot;hey there&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;hey there&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">017</span> <span class="o">&gt;</span> <span class="s2">&quot;you&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;you&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="s2">&quot;http://bastardsbook.com/&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;http://bastardsbook.com/&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The word <code>puts</code>, <em>without</em> quotation marks, seems to be some kind of command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">01</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s2">&quot;hi&quot;</span>
+</span><span class='line'><span class="n">hi</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">020</span> <span class="o">&gt;</span> <span class="nb">puts</span>
+</span><span class='line'>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">021</span> <span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(I&#8217;ll cut to the chase: it stands for &#8216;print to screen&#8217;. If you enter it in all by itself, nothing is printed to screen.)</p>
+
+<p>So think of it this way: There are obviously words in the Ruby language, such as <code>puts</code>, that <em>do</em> something. And it doesn&#8217;t seem likely that <em>every</em> word you type into <strong>irb</strong> could refer to an actual Ruby command.</p>
+
+<p>So <em>how</em> can the Ruby interpreter tell the difference between command words, such as <code>puts</code>, and words that you want it to take in literally, like <code>http://www.google.com/</code>? Or, even if you want to use <code>puts</code> just as a literal word, not a Ruby command?</p>
+
+<h3>Quotation marks</h3>
+
+<p>(todo)</p>
+
+<h2>The String Class</h2>
+
+<h5>Exercise: Fix the broken quotes</h5>
 </div>
 
 
