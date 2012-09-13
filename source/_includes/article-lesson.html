@@ -6,14 +6,13 @@
       <h1 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
     {% endif %}
 
-	{% unless page.meta == false %}
     
 		<div class="lesson-matter">
 			<div class="q"><strong>The problem:</strong> {{ page.problem }}</div>
 			<div class="q"><strong>The solution:</strong> {{ page.solution }}</div>	
 		</div>
-	{% endunless %}
     
+
 
     {% unless page.meta == false %}
       <p class="meta">
@@ -29,7 +28,7 @@
 
 {% if index %}
   <div class="entry-content">
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	
 	
 	{{ content | excerpt }}
 	
@@ -41,5 +40,9 @@
     </footer>
   {% endif %}
 {% else %}
-<div class="entry-content">{{ content }}</div>
+<div class="entry-content">
+	
+	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	
+	{{ content }}</div>
 {% endif %}

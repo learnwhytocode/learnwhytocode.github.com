@@ -5,9 +5,17 @@
 article#alert-box{
 	text-align: left;
 	font-size: 13px;
-	background: #dcc;
+	background: #edd;
 	padding-top: 0px;
 	padding-bottom: 0px;
+}
+
+.alert-note{
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	font-size: 15px;
+	color: #444;
 }
 
 article#alert-box p{
