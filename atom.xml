@@ -1,16 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Learn Why to Code]]></title>
   <link href="http://learnwhytocode.github.com/atom.xml" rel="self"/>
   <link href="http://learnwhytocode.github.com/"/>
-  <updated>2012-09-12T09:31:08-04:00</updated>
+  <updated>2012-09-13T09:40:42-04:00</updated>
   <id>http://learnwhytocode.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Dan Nguyen]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mash more mashup]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/mash-more-mashup/"/>
+    <updated>2012-09-12T06:30:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/mash-more-mashup</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Make a mashup]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/make-a-mashup/"/>
+    <updated>2012-09-12T06:20:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/make-a-mashup</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Judging tweets by their text]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/judging-tweets-by-their-text/"/>
+    <updated>2012-09-12T06:15:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/judging-tweets-by-their-text</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Flexible and fast data analysis]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/flexible-analysis/"/>
+    <updated>2012-09-12T06:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/flexible-analysis</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Data-crunching]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/data-crunching/"/>
+    <updated>2012-09-12T06:05:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/data-crunching</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Handle JSON files]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/handle-json-files/"/>
+    <updated>2012-09-12T05:25:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/handle-json-files</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Handle datafiles faster]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/handle-datafiles-faster/"/>
+    <updated>2012-09-12T05:20:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/handle-datafiles-faster</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Read the columns of a spreadsheet]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/read-the-columns-of-a-spreadsheet/"/>
+    <updated>2012-09-12T05:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/read-the-columns-of-a-spreadsheet</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Read a list]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/read-a-list/"/>
+    <updated>2012-09-12T05:02:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/read-a-list</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Automate the downloads]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/automate-the-downloads/"/>
+    <updated>2012-09-12T04:18:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/automate-the-downloads</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[If this, then that. Or else.]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/if-this/"/>
+    <updated>2012-09-12T04:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/if-this</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Loop and repeat]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/loop-and-repeat/"/>
+    <updated>2012-09-12T04:05:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/loop-and-repeat</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Organizing the code]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/organizing-the-code/"/>
+    <updated>2012-09-12T03:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/organizing-the-code</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Writing our own methods]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/writing-our-own-methods-to-save-time/"/>
+    <updated>2012-09-12T03:05:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/writing-our-own-methods-to-save-time</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Labeling the data]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/labeling-the-data/"/>
+    <updated>2012-09-12T03:01:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/labeling-the-data</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to save a file]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/how-to-save-a-file/"/>
+    <updated>2012-09-12T02:13:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/how-to-save-a-file</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to download a file]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/how-to-download-a-file/"/>
+    <updated>2012-09-12T02:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/how-to-download-a-file</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Adding strings together]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/adding-strings-together/"/>
+    <updated>2012-09-12T02:03:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/adding-strings-together</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to write an address]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/how-to-write-an-address/"/>
+    <updated>2012-09-12T01:10:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/how-to-write-an-address</id>
+    <content type="html"><![CDATA[<p>(TODO)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Project]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/the-project/"/>
+    <updated>2012-09-12T00:30:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/the-project</id>
+    <content type="html"><![CDATA[<p>This lesson will cross-reference a subset of Twitter content with Congressional data <a href="http://services.sunlightlabs.com/">gathered by the Sunlight Foundation</a>.</p>
+
+<p><em>todo</em></p>
+]]></content>
+  </entry>
   
 </feed>
