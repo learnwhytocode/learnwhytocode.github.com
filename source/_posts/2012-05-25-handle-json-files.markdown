@@ -20,7 +20,7 @@ Write a method named `get_all_tweets_for` that:
 
 Sample usage:
 
-``` ruby
+``` lang:ruby
 tweets = get_all_tweets_for('TKNAME')
 puts "The user " + `TKNAME` + " has this many tweets: " + tweets.length.to_s
 ```

@@ -12,7 +12,7 @@ Think of the `Hash` and `Array` objects as **collections**. Hence, each line we 
 
 Sometimes, we just want *one* value from a collection, just like when we wanted the Twitter account names from each line in the Congressmembers' datafile. To make an array of these values, we can use `each` to fill a new array.
 
-``` ruby
+``` lang:ruby
 TKFasterCSV.each do tk
 ```
 
@@ -20,7 +20,7 @@ TKFasterCSV.each do tk
 
 This is such a common pattern, though, that Ruby collections have a method named `map` (also aliased as `collect`) that returns an array:
 
-``` ruby
+``` lang:ruby
 
 
 ```
@@ -31,7 +31,7 @@ This is such a common pattern, though, that Ruby collections have a method named
 The `do` and `end` notation is a little confusing when we're assigning the result of a method, so we can use the **curly braces** notation (we could also do this with `each`):
 
 
-``` ruby
+``` lang:ruby
 
 ```
 
@@ -49,7 +49,7 @@ This is a vastly simplified explanation (not going to get into **closures** for 
 
 For example, given an array of words, I want an array of those words *capitalized*. Using `map`:
 
-``` ruby
+``` lang:ruby
 new_arr  = ["dog", "cat", "apple"].map{|a| a.upcase}
 puts new_arr.join(", ")
 # => DOG, CAT, APPLE
@@ -57,7 +57,7 @@ puts new_arr.join(", ")
 
 To re-emphasize:
 
-``` ruby
+``` lang:ruby
 new_arr  = ["dog", "cat", "apple"].map{|a| 
 	b = "this line is irrelevant " + a
 	a.upcase

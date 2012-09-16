@@ -23,3 +23,22 @@ We've actually been doing this all along, of course.
 
 ## Build our own short-link database
 
+
+
+
+require 'net/http'
+require 'net/https' if RUBY_VERSION < '1.9'
+require 'uri'
+
+
+def find_url_real_destination(shortlink)
+	u = URI.parse(shortlink)
+	h = Net::HTTP.new u.host, u.port
+	h.use_ssl = u.scheme == 'https'
+
+	head = h.start do |ua|
+	  ua.head u.path
+	end
+
+	puts head['location']
+end

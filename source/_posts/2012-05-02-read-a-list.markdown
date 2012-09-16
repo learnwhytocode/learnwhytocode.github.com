@@ -24,7 +24,6 @@ But we didn't come this far to copy-and-paste 500+ names. How can we get this li
 
 
 ## Reading the lines of a file
-We know how to *write* to a local file, but we've never gotten around to reading from a file.
 
 TK
 

@@ -86,7 +86,7 @@ from (irb):9
 
 If you go back to the installation chapter where we ran the `Hello world` program, you'll see that we didn't just type `Hello world`:
 
-``` ruby
+``` lang:ruby
 puts "Hello world"
 ```
 
@@ -163,7 +163,7 @@ No errors! Congrats, we've just discovered the **String**, one of Ruby's basic d
 
 Here are some examples of strings:
 
-``` ruby
+``` lang:ruby
 "A"
 'A deer.'
 "100 + 12"
@@ -226,7 +226,7 @@ For simplicity sake, I recommend using **double-quotes** at all times during the
 
 Knowing the above pitfall above, fix the broken strings on each line below so that each line is its own self-contained string:
 
-``` ruby
+``` lang:ruby
 puts "Hello world'
 'The cat's at""
 "The man said, 'Why hello good sir, how do you do?'. And I responded, 'Well.'

@@ -80,28 +80,20 @@ Whatever was in the file previously was wiped out with the new input. Obviously,
 
 Write the code that: 
 
-1. Downloads the data from `http://learnwhytocode.danwin.com`
-2. Saves the result to a file named 
+1. Downloads the data from TK
+2. Saves the result to a file named "TKtweets.json"
 
 
-``` ruby
+``` lang:ruby
 require 'rubygems'
 require 'httparty'
 
-the_url = "http://learnwhytocode.danwin.com"
-resp = HTTParty.get(the_url_)
+resp = HTTParty.get("TK")
 
-fname = "learnwhytocode.html"
-
-fstream = File.open(fname, "w")
-fstream.write(resp)
-fstream.close
+fh = File.open("TKtweets.json", "w")
+fh.write(resp)
+fh.close
 
 ```
 
-There should be a file named `learnwhytocode.html` wherever you executed the code above.
-
-**Note:** the variable `fname` is only used once after it is assigned. Why? Because it's just the *filename*, i.e. a string. All the file writing and saving is done with the `fstream` `File` object. This is something easy to mix-up.
-
-
-
+There should be a file named `TKtweets.json` wherever you executed the code above.
