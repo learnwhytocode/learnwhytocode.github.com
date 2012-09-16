@@ -126,7 +126,7 @@ What is the `class` of `42.2`?
 
 What is the resulting `class` of: `100 + 42.2` ?
 
-Use addition and a conversion method to join these objects:  `"http://TK_DATA_ROOT_PATH/user_timeline.json/"`, `TKissa`, `"/"`, `2`
+Use addition and a conversion method to join these objects:  `"http://TK_DATA_ROOT_PATH/"`, `TKissa`, `"/"`, `2`, `"/"`, `"user_timeline.json"` 
 
 
 Check out Ruby's [documentation of the String class](http://www.ruby-doc.org/core-1.9.3/String.html "Class: String (Ruby 1.9.3)") for more `String` methods. See if you can find the method that replaces characters in a string with other characters.

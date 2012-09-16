@@ -12,21 +12,21 @@ solution: "Strings can be added to other strings. But not all types of data can 
 
 Now that we know how to enter URLs as **strings**, let's review the URL format for retrieving a user's account information:
 
-`http://TK_DATA_ROOT_PATH/TKuser.json/TKPelosi`
+`http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json`
 
 That gets us the information the Twitter account, `TKPelosi`
 
 To get the information for `TKBohner`:
 
-`http://TK_DATA_ROOT_PATH/TKuser.json/TKBohner`
+`http://TK_DATA_ROOT_PATH/users/TKBohner/show.json`
 
 And for `TKrandpaul`:
 
-`http://TK_DATA_ROOT_PATH/TKuser.json/TKrandpaul`
+`http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json`
 
 In other words, the URL pattern for the account information for any given user is:
 
-`http://TK_DATA_ROOT_PATH/TKuser.json/TWEET_USER_NAME`
+`http://TK_DATA_ROOT_PATH/users/TWEET_USER_NAME/show.json`
 
 &ndash; where `TWEET_USER_NAME` is the name of the account.
 
@@ -39,17 +39,17 @@ That is, it will use the same *root* string for that URL and append (i.e. *add*)
 But how do we add two strings together? Let's try the first thing that comes to mind:
 
 ```
-1.9.3p258 :019 > "http://TK_DATA_ROOT_PATH/TKuser.json/" + "TKPelosi"
- => "http://TK_DATA_ROOT_PATH/TKuser.json/TKPelosi" 
-1.9.3p258 :020 > "http://TK_DATA_ROOT_PATH/TKuser.json/" + "TKBohner"
- => "http://TK_DATA_ROOT_PATH/TKuser.json/TKBohner"
+1.9.3p258 :019 > "http://TK_DATA_ROOT_PATH/users/"  + "TKPelosi/" + "show.json"
+ => "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json" 
+1.9.3p258 :020 > "http://TK_DATA_ROOT_PATH/users/" + "TKBohner/" + "show.json"
+ => "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json"
 ```
 
 That was easy. Let's examine the pattern for getting pages of tweets for user `TKissa`:
 
-`http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/1`
-`http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/2`
-`http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/3`
+`http://TK_DATA_ROOT_PATH/statuses/TKissa/1/user_timeline.json`
+`http://TK_DATA_ROOT_PATH/statuses/TKissa/2/user_timeline.json`
+`http://TK_DATA_ROOT_PATH/statuses/TKissa/3/user_timeline.json`
 
 Before we [first learned of strings](TK), we saw that the Ruby interpreter interprets numbers as they are:
 
@@ -72,7 +72,7 @@ And addition seems to work as expected:
 What happens when we try to add a string to a non-quoted number?
 
 ``` ruby
-1.9.3p258 :025 > "http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/" + 5
+1.9.3p258 :025 > "http://TK_DATA_ROOT_PATH/statuses/TKissa/" + 5 + "/user_timeline.json"
 TypeError: can't convert Fixnum into String
 	from (irb):25:in `+'
 	from (irb):25
@@ -86,10 +86,9 @@ And strings and numbers apparently can't be added together.
 
 However, we learned *that anything enclosed by quotes is a* **string**. So what happens when we enclose a number with quotes?
 
-
 ```
-1.9.3p258 :026 > "http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/" + "5"
- => "http://TK_DATA_ROOT_PATH/user_timeline.json/TKissa/5"
+1.9.3p258 :026 > "http://TK_DATA_ROOT_PATH/statuses/TKissa/" + "5" + "/user_timeline.json"
+ => "http://TK_DATA_ROOT_PATH/statuses/TKissa/5/user_timeline.json"
 ```
 
 This works because `"5"`, unlike `5`, is a **string**. And two strings can be added together.
