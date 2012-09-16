@@ -128,20 +128,110 @@ hi
 So think of it this way: There are obviously words in the Ruby language, such as `puts`, that *do* something. And it doesn't seem likely that *every* word you type into **irb** could refer to an actual Ruby command.
 
 
-So *how* can the Ruby interpreter tell the difference between command words, such as `puts`, and words that you want it to take in literally, like `http://www.google.com/`? Or, even if you want to use `puts` just as a literal word, not a Ruby command?
-
+So how can the Ruby interpreter tell the difference between command words, such as `puts`, and words that we want it to take in literally, like `http://www.google.com/`? Or, even if we want to use `puts` just as a literal word, not a Ruby command?
 
 
 ### Quotation marks
+
+Just as quotation marks in written English denote dialogue:
+
+tkblockquote
+tksomething
+
+So do they denote something special in programming: 
+
+puts ""
+
+
+TK
 (todo)
+
+Try pasting the URL at the beginning of the lesson into **irb**
+
+```
+"TK"
+```
+
+No errors! Congrats, we've just discovered the **String**, one of Ruby's basic datatypes (and for most other programming languages).
+
 
 
 
 ## The String Class
 
+**Strings** are sequences &ndash; i.e. *strings* &ndash; of characters, which can include a single letter, words, numbers, or the entire text of Shakespeare. 
 
+Here are some examples of strings:
+
+``` ruby
+"A"
+'A deer.'
+"100 + 12"
+"2 be, or not 2 be!"
+"@#4jasdfklj23kl4j#@$@#$"
+```
+
+The quotation marks are the symbols that set off the string. When the Ruby interpreter sees the first quotation mark, it knows that we are creating a string. Everything *after* that quotation mark is considered a string. When the *second* quotation mark is reached, the Ruby interpreter knows the string is done:
+
+```
+1.9.3p258 :001 > " this is a beginning of a string
+1.9.3p258 :002"> strings can include new lines
+1.9.3p258 :003"> 1
+1.9.3p258 :004"> 2  3  4 
+1.9.3p258 :005"> 5
+1.9.3p258 :006"> still going on
+1.9.3p258 :007"> And this is
+1.9.3p258 :008"> the end"
+ => " this is a beginning of a string\nstrings can include new lines\n1\n2  3  4 \n5\nstill going on\nAnd this is\nthe end" 
+1.9.3p258 :009 > 
+```
+
+### Single quote marks
+
+Either double-quote *or* single-quote marks can be used to create strings:
+
+```
+'Hey there'
+"How's it going?"
+'Good'
+```
+
+Note that in the second example, a **single-quote** mark was treated as a *literal* character (i.e. with no special meaning by the Ruby interpreter) because the string is enclosed in **double-quote** marks.
+
+The upshot of this &ndash; and a common cause of error and confusion for beginners &ndash; is that the **same type of quote-mark that opens a string must be used to close it**.
+
+In **irb**, we're used to the Ruby interpreter responding with feedback after we press **Enter**. However, if we don't close the string properly when hitting **Enter**, the Ruby interpreter will assume that the pressing of **Enter** means we want a *new line*. Because inside a string, a *new line* is just another character:
+
+```
+1.9.3p258 :013 > puts "Hello world!'
+1.9.3p258 :014"> 
+1.9.3p258 :015"> hey 
+1.9.3p258 :016"> why didn't anything get puts?
+1.9.3p258 :017"> ???
+1.9.3p258 :018"> oops, need to use double quote => "
+Hello world!'
+
+hey 
+why didn't anything get puts?
+???
+oops, need to use double quote => 
+ => nil 
+1.9.3p258 :019 > 
+```
+
+For simplicity sake, I recommend using **double-quotes** at all times during the scope of this tutorial.
 
 
 ##### Exercise: Fix the broken quotes
 
+Knowing the above pitfall above, fix the broken strings on each line below so that each line is its own self-contained string:
 
+``` ruby
+puts "Hello world'
+'The cat's at""
+"The man said, 'Why hello good sir, how do you do?'. And I responded, 'Well.'
+```
+
+----
+
+What have we learned so far? Just how to get the Ruby interpreter to read URLs as strings. Think of it as that we now know the *method of entry* for data. Nothing has happened yet (other than the string being echoed back).
