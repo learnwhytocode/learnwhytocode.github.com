@@ -7,3 +7,18 @@ categories:
 problem: "How do we put everything together into a smoothly-running routine?"
 solution: "Review the techniques and concepts used so far."
 ---
+
+
+
+Remember the `save_and_download` method that we wrote in a [previous chapter](TK)?
+
+
+
+
+``` ruby
+
+def dow
+
+
+
+```
