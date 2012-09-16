@@ -29,7 +29,7 @@ According to the [documentation](https://github.com/jnunemaker/httparty#readme),
 ```
 require 'rubygems'
 require 'httparty'
-response = HTTParty.get(TK)
+response = HTTParty.get('http://learnwhytocode.danwin.com')
 puts response
 
 ```
@@ -64,13 +64,13 @@ In irb, you should see this:
 This next line is where the interesting work is done:
 
 ```
-response = HTTParty.get('TK')
+response = HTTParty.get('http://learnwhytocode.danwin.com')
 ```
 
 First, focus on what's to the *right* of the **equals sign** (which we learned is the **assignment operator**).
 
 ```
-HTTParty.get('TK')
+HTTParty.get('http://learnwhytocode.danwin.com')
 ```
 
 Following the `get` is a **string**, wrapped in **parentheses**. These parentheses denote the **arguments** for the `get` method. I'll explain **arguments** later.
@@ -80,13 +80,13 @@ Following the `get` is a **string**, wrapped in **parentheses**. These parenthes
 
 **To review:** 
 
-To download a file from `"TK"`, we call this method:
+To download a file from `"http://learnwhytocode.danwin.com"`, we call this method:
 
-`HTTParty.get("TK")`
+`HTTParty.get("http://learnwhytocode.danwin.com")`
 
 * `HTTParty` is the **object**
 * `get` is a **method** of `HTTParty`
-* and the string `"TK"` is an **argument** that we pass to the `get` **method**
+* and the string `"http://learnwhytocode.danwin.com"` is an **argument** that we pass to the `get` **method**
 
 
 Why is the object named `HTTParty` and its method `get`? Because the author wanted it that way. What is the code behind `get`? You can examine it later on your own, as the author [has generously made it open source](https://github.com/jnunemaker/httparty), but let's be content for now that it works as the author claims in the documentation.
@@ -97,11 +97,48 @@ Why is the object named `HTTParty` and its method `get`? Because the author want
 Let's go back to the original code that contained the variable assignment:
 
 ```
-response = HTTParty.get('TK')
+response = HTTParty.get('http://learnwhytocode.danwin.com')
 ```
 
 The variable named `response` contains the return value of the `get` method. 
 
-TK What does it contain? 
+What does `response` contain? Let's try it out:
+
+
+``` ruby
+1.9.3-head :001 > require 'rubygems'
+ => true 
+1.9.3-head :002 > require 'httparty'
+ => true 
+1.9.3-head :003 > response = HTTParty.get('http://learnwhytocode.danwin.com')
+ => #<HTTParty::Response:0x103877b30 parsed_response="\n...">
+1.9.3-head :004 > response.class
+ => HTTParty::Response 
+```
+
+*Note: you only have to do the `require` statements once each time you startup irb. If you exit and re-launch irb, you'll have to call `require` again to bring in the libraries*
+
+
+If you look through the [HTTParty documentation](https://github.com/jnunemaker/httparty), you'll find that the `body` method of this `HTTParty::Response` class contains the contents of the webpage:
+
+```
+1.9.3-head :005 > response.body.class
+ => String 
+1.9.3-head :006 > response.body.length
+ => 7551
+```
+
+That's all there is to downloading a file. If you look through the [HTTParty documentation](https://github.com/jnunemaker/httparty), you'll see that it's actually a complicated affair. But thanks to the nature of programming and how it abstracts complexity to a single word, we just need to know how to invoke `HTTParty.get` 
+
+We'll find out what to do with the result of `HTTParty.get` in the next chapter.
+
+
+##### Exercises
+Use the `HTTParty` library to download this URL: `TK`
+
+
+
+
+
 
 
