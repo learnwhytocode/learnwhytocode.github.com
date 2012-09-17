@@ -10,7 +10,7 @@ end
 
 puts "Hello world"
 
-sunlight_list_url = "http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt"
+sunlight_list_url = "http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt"
 
 puts "Testing HTTParty...fetching #{sunlight_list_url}"
 puts "(you need to be online for this)"

@@ -5,6 +5,15 @@ single: true
 
 <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      {% if page.previous.url %}
+        <a class="basic-alignment left pagin" href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">&laquo; Previous: {{page.previous.title}}</a>
+      {% endif %}
+      {% if page.next.url %}
+        <a class="basic-alignment right pagin" href="{{page.next.url}}" title="Next Post: {{page.next.title}}">Next: {{page.next.title}} &raquo;</a>
+      {% endif %}
+    </p>
+	
 	
 	
 	

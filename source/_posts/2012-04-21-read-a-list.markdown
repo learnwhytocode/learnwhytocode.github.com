@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Read a list"
-date: 2012-09-12 05:02
+date: 2012-09-12 04:21
 comments: true
 categories: 
 problem: "We don't want to manually enter each line of a datafile into our program."
@@ -12,15 +12,16 @@ So we know how to download a lot of Twitter URLs really quickly. All we need is 
 
 We have such a list from the [Sunlight Foundation](http://services.sunlightlabs.com/). For the purposes of practice, I've cut it down to just ten Congressmembers. You can see the sample list at this URL:
 
-[http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt](http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt)
+[http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt](http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt)
 
-Take [a look at it](http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt). It should look something like this:
+Take [a look at it](http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt). It should look something like this:
 
-```
+<code>
 title	firstname	middlename	lastname	name_suffix	nickname	party	state	district	in_office	gender	phone	fax	website	webform	congress_office	bioguide_id	votesmart_id	fec_id	govtrack_id	crp_id	twitter_id	congresspedia_url	youtube_url	facebook_id	official_rss	senate_class	birthdate
 Sen	Joseph	R.	Biden	Jr.		D	DE	Senior Seat	0	M						B000444	53279	S8DE00012	300008	N00001669	joebiden	http://www.opencongress.org/wiki/Joseph_Biden				II	11/20/42
 Rep	John	A.	Boehner			R	OH	8	1	M	202-225-6205	202-225-0704	http://johnboehner.house.gov/	http://www.johnboehner.house.gov/Contact/	1011 Longworth House Office Building	B000589	27015	H0OH08029	400036	N00003675	SpeakerBoehner	http://www.opencongress.org/wiki/John_Boehner	http://www.youtube.com/JohnBoehner	johnboehner			11/17/49
-```
+</code>
+
 
 It looks like a bunch of jumbled text and we'll organize it in the next chapter. But there *are* Twitter usernames there.
 
@@ -39,7 +40,7 @@ First, let's download the file. You can use the downloading methods we've writte
 require 'rubygems'
 require 'httparty'
 
-sunlight_list_url = "http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt"
+sunlight_list_url = "http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt"
 
 
 textlines = HTTParty.get(sunlight_list_url).body
@@ -47,9 +48,9 @@ textlines = HTTParty.get(sunlight_list_url).body
 
 That mess inside `textlines` now looks like this:
 
-```
+<code>
 "title\tfirstname\tmiddlename\tlastname\tname_suffix\tnickname\tparty\tstate\tdistrict\tin_office\tgender\tphone\tfax\twebsite\twebform\tcongress_office\tbioguide_id\tvotesmart_id\tfec_id\tgovtrack_id\tcrp_id\ttwitter_id\tcongresspedia_url\tyoutube_url\tfacebook_id\tofficial_rss\tsenate_class\tbirthdate\nSen\tJoseph\tR.\tBiden\tJr.\t\tD\tDE\tSenior Seat\t0\tM\t\t\t\t\t\tB000444\t53279\tS8DE00012\t300008\tN00001669\tjoebiden\thttp://www.opencongress.org/wiki/Joseph_Biden\t\t\t\tII\t11/20/42\nRep\tJohn\tA.\tBoehner\t\t\tR\tOH\t8\t1\tM\t202-225-6205\t202-225-0704\thttp://johnboehner.house.gov/\thttp://www.johnboehner.house.gov/Contact/\t1011 Longworth House Office Building\tB000589\t27015\tH0OH08029\t400036\tN00003675\tSpeakerBoehner\thttp://www.opencongress.org/wiki/John_Boehner\thttp://www.youtube.com/JohnBoehner\tjohnboehner\t\t\t11/17/49\nSen\tRoy\t\tBlunt\t..."
-```
+</code>
 
 Where did all the line breaks go? In Ruby strings, newlines are just characters. And in this case, they are represented by a backslash character, `\`, combined with the letter `n`:
 
@@ -117,16 +118,6 @@ row[3]	# refers to the fourth element
 row[4]	# refers to the fifth element
 ```
 
-
-
-``` ruby irb
-1.9.3-head :023 > puts rows[0]
-title	firstname	middlename	lastname	name_suffix	nickname	party	state	district	in_office	gender	phone	fax	website	webform	congress_office	bioguide_id	votesmart_id	fec_id	govtrack_id	crp_id	twitter_id	congresspedia_url	youtube_url	facebook_iofficial_rss	senate_class	birthdate
- => nil 
-1.9.3-head :024 > puts rows[3]
-Sen	Roy		Blunt			R	MO	Junior Seat	1	M	202-224-5721		http://www.blunt.senate.gov	http://www.blunt.senate.gov/public/index.cfm/contact-form?p=contact-roy	260 Russell Senate Office Building	B000575	418	H6MO07128	400034	N00005195	RoyBlunt	http://www.opencongress.org/wiki/Roy_Blunt	http://www.youtube.com/RepRoyBlunt	SenatorBlunt		III	1/10/50
- => nil 
-```
 
 In the next chapter, we'll get more into detail with Arrays. But now we know how to read from a list.
 

@@ -4,6 +4,12 @@
 
 h4{
 	font-size: 1.1em;
+	margin-top: 1.0em;
+}
+
+p code, li code {
+	color: #333;
+	padding: 0 0.5em;
 }
 
 article#alert-box{
@@ -15,11 +21,12 @@ article#alert-box{
 }
 
 .alert-note{
-	padding-top: 0;
-	padding-bottom: 0;
-	margin-bottom: 0;
+	padding: 5px;
+	margin-bottom: 10px;
 	font-size: 15px;
 	color: #444;
+	background: #fff;
+	border: thin dashed #933;
 }
 
 article#alert-box p{

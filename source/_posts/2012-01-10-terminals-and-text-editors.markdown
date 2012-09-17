@@ -139,7 +139,7 @@ The term URL refers to the address of some resource, such as a webpage or image,
 So the URL for Google's webpage is `http://www.google.com`
 
 This is also a URL:
-`http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt`
+`http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt`
 
 
 #### Manually visiting URLs

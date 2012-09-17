@@ -64,7 +64,7 @@ And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure
 So let's try the same thing with a URL:
 
 ```
-1.9.3p194 :008 > http://www.bastardsbook.com/
+1.9.3p194 :008 > http://journalists.org
 SyntaxError: (irb):8: syntax error, unexpected $end
 	from /Users/dnguyen/.rvm/rubies/ruby-1.9.3-p194/bin/irb:16:in `<main>'
 ```
@@ -109,8 +109,8 @@ So the difference, besides that word `puts` which we'll get to later, is the **q
  => "hey there" 
 1.9.3p194 :017 > "you"
  => "you" 
-1.9.3p194 :018 > "http://bastardsbook.com/"
- => "http://bastardsbook.com/" 
+1.9.3p194 :018 > "http://journalists.org/"
+ => "http://journalists.org/" 
 ```
 
 The word `puts`, *without* quotation marks, seems to be some kind of command:
@@ -134,24 +134,24 @@ So how can the Ruby interpreter tell the difference between command words, such 
 
 
 ### Quotation marks
+Quotation marks in written English denote dialogue:
 
-Just as quotation marks in written English denote dialogue:
-
-tkblockquote
-tksomething
-
-So do they denote something special in programming: 
-
-puts ""
+{% blockquote Steve Wozniak, Keynote address at 5th HOPE conference %}
+"Wherever smart people work, doors are unlocked."
+{% endblockquote %}
 
 
-TK
-(todo)
+They also denote something special in programming: 
+
+``` ruby
+puts "Hello"
+puts "puts"
+```
 
 Try pasting the URL at the beginning of the lesson into **irb**
 
 ```
-"TK"
+"http://journalists.org"
 ```
 
 No errors! Congrats, we've just discovered the **String**, one of Ruby's basic datatypes (and for most other programming languages).

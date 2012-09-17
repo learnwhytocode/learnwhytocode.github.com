@@ -18,7 +18,7 @@ We've seen how the URLs for pulling in Twitter information have a pattern. For e
 
 Everything about the URLs, except the account name, is the same. Using **variables**, we can store the repetitive parts of the strings for repeated references:
 
-``` ruby
+``` 
 1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
  => "http://TK_DATA_ROOT_PATH/users/" 
 1.9.3p258 :016 > end_twit_url = "/show.json"
@@ -41,7 +41,7 @@ What does `base_twit_url` *point* to? The string, `"http://TK_DATA_ROOT_PATH/use
 
 How does the the Ruby interpreter know that `base_twit_url` refers to that string? Because we used the **assignment operator** &ndash; the equals sign,  `=`
 
-``` ruby
+```
 1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
 ```
 

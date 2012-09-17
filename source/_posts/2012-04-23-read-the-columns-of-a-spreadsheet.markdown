@@ -8,7 +8,7 @@ problem: "We need to pick out values from a given part of each data-line"
 solution: "Turn each line into its own Array of values."
 ---
 
-In the last chapter, we learned how to store the [Congressmembers' sample datafile](http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt), line by line, into an **array**.
+In the last chapter, we learned how to store the [Congressmembers' sample datafile](http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt), line by line, into an **array**.
 
 The problem is that we don't want a list of text lines. We want a list of Twitter usernames, which are contained *within* those text lines.
 
@@ -22,7 +22,7 @@ First, let's get `textlines` again as we did in the last chapter:
 require 'rubygems'
 require 'httparty'
 
-sunlight_list_url = "http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt"
+sunlight_list_url = "http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt"
 
 
 textlines = HTTParty.get(sunlight_list_url).body
