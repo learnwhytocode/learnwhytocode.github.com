@@ -35,12 +35,12 @@ The variable `my_file` is assigned to what is called a **stream**, into which yo
 
 Just in case you're confused where **irb** is doing its work, here's some walkthrough code:
 
-````
+```
 1.9.3-head :001 > Dir.getwd
  => "/Users/dairy/Desktop" 
 1.9.3-head :002 > my_file = File.open("this_is_a_test_file.txt", "w")
  => #<File:this_is_a_test_file.txt>
-````
+```
 
 
 The `Dir.getwd` method (`wd` stands for "working directory") returns the directory that **irb** is working from. So passing a filename into the `File.open` will create a file with that name in the working directory. Use your operating system's GUI to verify that `this_is_a_test_file.txt` exists. If you open that file, it should be empty.
@@ -49,23 +49,23 @@ The `Dir.getwd` method (`wd` stands for "working directory") returns the directo
 
 Continuing from the code snippet above, here's how to fill that empty text file and save it:
 
-````
+```
 1.9.3-head :003 > my_file.write("Hello text file!")
  => 16
 1.9.3-head :004 > my_file.close
  => nil
-````
+```
 
 Just as we `open` a file, it makes sense that we need to `close` it. The `close` method saves the stream to disk, so open up `this_is_a_test_file.txt` and verify that it contains `Hello text file!`.
 
 After you `close` a file, you cannot write to it again without re-opening it:
 
-````
+```
 1.9.3-head :005 > my_file.write("trying to write some more")
 IOError: closed stream
 	from (irb):5:in `write'
 	from (irb):5
-````
+```
 
 ### Rewrite and overwrite
 
@@ -84,7 +84,7 @@ Write the code that:
 2. Saves the result to a file named "TKtweets.json"
 
 
-``` lang:ruby
+``` ruby
 require 'rubygems'
 require 'httparty'
 

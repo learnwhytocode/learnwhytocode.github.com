@@ -68,7 +68,7 @@ Lucky for us, there is a `split` method for strings (see the [documentation here
 
 **Note:** you *must* use double quotes here when enclosing the `\n` character.
 
-``` irb lang:ruby
+``` ruby irb
 1.9.3-head :018 > rows = textlines.split("\n")
 1.9.3-head :018 > rows.class
  => Array 
@@ -85,7 +85,7 @@ Arrays happen to be another type of collection object, just as `Range` is.
 Which means we can loop across it in the same way. The sequence below simply prints out the length of each member of `rows` (a line of text, i.e. a `String`):
 
 
-``` irb lang:ruby
+``` ruby irb
 1.9.3-head :020 > rows.each do |row|
 1.9.3-head :021 >     puts row.length
 1.9.3-head :022?>   end
@@ -119,7 +119,7 @@ row[4]	# refers to the fifth element
 
 
 
-``` irb lang:ruby
+``` ruby irb
 1.9.3-head :023 > puts rows[0]
 title	firstname	middlename	lastname	name_suffix	nickname	party	state	district	in_office	gender	phone	fax	website	webform	congress_office	bioguide_id	votesmart_id	fec_id	govtrack_id	crp_id	twitter_id	congresspedia_url	youtube_url	facebook_iofficial_rss	senate_class	birthdate
  => nil 

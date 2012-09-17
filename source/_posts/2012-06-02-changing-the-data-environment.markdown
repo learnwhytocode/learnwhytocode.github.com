@@ -13,7 +13,7 @@ TK: Do I introduce constants in the make method?
 In the [project description](TK), I said we weren't actually using the Twitter API for logistical reasons, and that is why we've been pulling from a datasource with a similar pattern than what Twitter uses.
 
 
-``` lang:ruby
+``` ruby
 # TK this should be in make-methods chapter
 
 # `http://TK_DATA_ROOT_PATH/users/TKRepPaulRyan/show.json`
@@ -28,7 +28,7 @@ end
 
 What happens when you want to use Twitter's actual API? For version 1, then we simply change the definition of our `twitter_account_info_path` method:
 
-``` lang:ruby
+``` ruby
 
 def twitter_account_info_path(screen_name)
 	_twitter_root_data_path = 'https://api.twitter.com/TK'
@@ -46,7 +46,7 @@ end
 In a few months, you'll have to move to [version 1.1](TKdocs) of Twitter's API. So you'll have to adjust `twitter_account_info_path` once again:
 
 
-``` lang:ruby
+``` ruby
 
 def twitter_account_info_path(screen_name)
 	_twitter_root_data_path = 'https://api.twitter.com/TK'

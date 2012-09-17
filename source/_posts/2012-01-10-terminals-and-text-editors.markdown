@@ -96,7 +96,7 @@ Here's what the OS X terminal looks like:
 
 #### Find your working directory
 
-In Windows, the command to "change directory" is `chdir`. In OS X, use `cd`.
+In Windows and in OS X, the command to "change directory" is `cd`
 
 Example usage:
 

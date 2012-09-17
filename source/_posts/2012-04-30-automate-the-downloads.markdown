@@ -18,9 +18,9 @@ Remember the `save_and_download` method that we wrote in a [previous chapter](TK
 
 
 
-``` lang:ruby
+``` ruby
 
-def dow
+# def dow
 
 
 

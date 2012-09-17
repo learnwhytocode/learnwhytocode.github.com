@@ -39,6 +39,6 @@ If only we could give human-readable indicies for the values of each line.
 
 Using the `FasterCSV` library, open the `TKdatafileCONSTANT` and loop through each line and print out the URLs needed to access every Congressmember's Twitter account info.
 
-``` lang:ruby
+``` ruby
 
 ```

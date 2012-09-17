@@ -71,7 +71,7 @@ And addition seems to work as expected:
 
 What happens when we try to add a string to a non-quoted number?
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :025 > "http://TK_DATA_ROOT_PATH/statuses/TKissa/" + 5 + "/user_timeline.json"
 TypeError: can't convert Fixnum into String
 	from (irb):25:in `+'
@@ -104,7 +104,7 @@ So we won't delve into numbers too much, because this tutorial won't involve muc
 
 Guess the result of the following addition operations:
 
-``` lang:ruby
+``` ruby
 "http://" + "en.wikipedia.org" + "/wiki" + "/Ruby"
 12 + 300
 "11" + "11"

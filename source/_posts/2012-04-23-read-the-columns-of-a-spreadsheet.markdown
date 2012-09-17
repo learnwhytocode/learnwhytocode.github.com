@@ -34,7 +34,7 @@ Now iterate through `textlines`, splitting each text line by the `"\t"` characte
 
 Then, print out the *third* value in that line-array:
 
-``` lang:ruby
+``` ruby
 
 textlines.each do |line|
 	cols = line.split("\t")
@@ -68,7 +68,7 @@ Write a method named `get_twitter_name_from_line` that **accepts a single argume
 
 For now, we'll assume that this method has no reference to the array of data lines.
 
-``` lang:ruby First attempt at get_twitter_name_from_line method
+``` ruby First attempt at get_twitter_name_from_line method
 
 def get_twitter_name_from_line(line)
 	line.split("\t")[TK9]
@@ -83,7 +83,7 @@ What if in a new datafile, the position of the column for Twitter names changes?
 
 Use the `index` method that's part of the `Array` class.
 
-``` lang:ruby Second attempt at get_twitter_name_from_line method
+``` ruby Second attempt at get_twitter_name_from_line method
 
 def get_twitter_name_from_line(line, array_of_column_names)
 	col_idx = array_of_column_names.index['TKtwittercolname']
@@ -98,7 +98,7 @@ Why limit ourselves to extracting data from just the Twitter account column? Wri
 2. An array of headers
 3. The column name
 
-``` lang:ruby The get_column_value_from_line method
+``` ruby The get_column_value_from_line method
 def get_column_value_from_line(line, array_of_column_names, col_name)
 	col_idx = array_of_column_names.index[col_name]
 	line.split("\t")[col_idx]
@@ -108,7 +108,7 @@ end
 
 Rewrite `get_twitter_name_from_line` so that it calls `get_column_value_from_line`. You should be able to rewrite it so that it accepts only *two* arguments.
 
-``` lang:ruby Third attempt at get_twitter_name_from_line method
+``` ruby Third attempt at get_twitter_name_from_line method
 def get_twitter_name_from_line(line, array_of_column_names)
 	get_column_value_from_line(line, array_of_column_names, "TKtwittercolname")
 end

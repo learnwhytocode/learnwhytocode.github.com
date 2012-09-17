@@ -10,13 +10,13 @@ solution: "With Google, StackOverflow, and a little patience."
 
 
 
-*This will likely be the most painful, least fun part of the lesson. If you are planning to take the ONA class, I strongly suggest you get this squared away. I will try to finish this chapter as quickly as possible. In the meantime, [Googling plain-language questions about Ruby installation](will get you pretty far.)*
-
-*I wrote a detailed, but now [slightly-outdated primer on installation](http://ruby.bastardsbook.com/chapters/installation/) for the BBoRuby*
+Depending on your system, the installation process might go very quickly. Or this might be the most annoying lesson. If you are planning to take the ONA class, I strongly suggest you get this squared away. I will try to finish this chapter as quickly as possible. In the meantime, [Googling plain-language questions about Ruby installation](http://www.google.com/search?q=installing+ruby+on+windows)
 
 
+If you have trouble running the script at the end of this lesson, and Google please contact me at [dan@danwin.com](mailto:&#x64;&#x61;&#x6E;&#x40;&#x64;&#x61;&#x6E;&#x77;&#x69;&#x6E;&#x2E;&#x63;&#x6F;&#x6D;) or on Twitter via [@dancow](http://www.twitter.com/dancow)
 
-## The Ruby version
+
+## Installing Ruby
 
 For the purposes of this tutorial, Ruby 1.8.7+ or Ruby 1.9.x (i.e. 1.9.2+ or 1.9.3) should work fine. Ruby 1.9.x is the preferred version
 
@@ -26,8 +26,16 @@ For Windows, the RubyInstaller website may make installing Ruby [as simple as do
 
 
 
-(TODO: some more basic instructions for installing Ruby.)
+#### For Mac users
 
+Good news. If you're using Mac OS X from 10.5 (Leopard) on, Ruby is pre-installed on your computer.
+
+If you want to get a little more advanced, you can follow the [excellent instructions here](http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/). It's actually a lot of copy-and-pasting and downloading dependencies and just carefully following the steps.
+
+
+
+
+#### Testing out Ruby
 
 Once you have Ruby installed, you should be able to go to your **command line** and **Enter** in:
 
@@ -61,51 +69,123 @@ So go to your command line and run the following commands to install the previou
 
 * `gem install httparty`
 * `gem install fastercsv` (only if you aren't on Ruby 1.9.x)
-* `gem install json` (probably don't have to do this either on Ruby 1.9.x)
-
-
-
-
-
-
-
-
-## For Mac users
-
-Good news. If you're using Mac OS X from 10.5 (Leopard) on, Ruby is pre-installed on your computer.
-
-If you want to get advanced, you can follow the [excellent instructions here](http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/). It's actually a lot of copy-and-pasting and downloading dependencies and following the steps.
-
-
-
-## The test script
-
-Are you ready to go? Try running the following script:
-
-{% include_code A script to test your Ruby installation lang:ruby test-script.rb %}
-
-Did it run without error? Congratulations. Else, please contact me at [dan@danwin.com](mailto:&#x64;&#x61;&#x6E;&#x40;&#x64;&#x61;&#x6E;&#x77;&#x69;&#x6E;&#x2E;&#x63;&#x6F;&#x6D;) or on Twitter via [@dancow](http://www.twitter.com/dancow)
+* `gem install json` (probably don't have to do this on Ruby 1.9.x either)
 
 
 
 
 ## How to run a Ruby program
 
-(todo)
+Go back to your **command line** window, where you previously had run the `gem install` commands.
+
+This is how you run a Ruby program. 
+1. Writing code into a **text file**
+2. Saving that text file (using the *.rb* extension is preferred)
+3. At the command line, *navigate* to the directory where you saved your program
+4. At the command line prompt, type: `ruby thenameofyourfile.rb` and hit **Enter**
+
+Try this now. You can use the **helloworld.rb** file saved into your working directory (if you finished the previous chapter).
+
+
 
 ### Interactive Ruby
 
-How to run **irb**
-(todo)
+For large, complex programs, you'll want to write them into text files and run them using the command-line `ruby` call, as above.
 
-(see chapter in my [Ruby book for now](http://ruby.bastardsbook.com/chapters/installation/#h-2-5))
+But for more immediate feedback and quick scripts, you might prefer **irb**, the **Interactive Ruby Shell**
 
-### "Hello World"
+**irb** is itself a program, which you run at the command line:
 
-(todo)
+<div class="imgwrap">
+	<img src="/images/lessons/terminals/irb-test.png">
+</div>
 
 
+**To exit irb**: type in `exit` and you will return to the command prompt.
+
+### Keep track of irb and the command prompt
+When looking at the **irb** program above, notice anything? Or, rather, *not* notice anything?
+
+The command prompt in which you run system commands, including changing directories or running `irb` or `ruby`, looks nearly *exactly* the same as the **irb** console.
+
+The prompt is different, but that's a detail that your eye might miss at first.
+
+Here's a diagram of the Terminal window, as it enters and exits **irb**. The <span style="background: #fdd">red shaded area</span> represents the part where **irb** is running:
+
+<div class="imgwrap">
+	<img src="/images/lessons/terminals/irb-shell-color-numbered.png">
+</div>
+
+Here's the description of the numbered labels:
+
+1. At the command prompt, I execute system commands: in this case, `ls`, to list directory files
+2. Then I start **irb** by typing `irb` at the command prompt.
+3. With **irb** started, I can execute Ruby commands.
+4. I quit **irb** by typing `exit` and hitting **Enter**.
+5. That kicks me back to the **command prompt**. I type another system command &ndash; `echo` &ndash; to confirm this.
+
+
+#### "Hello World" in irb
+
+Run **irb**. Let's repeat the "Hello world" script we tried previously.
+
+At the **irb** prompt, type: 
+
+`puts "Hello world"`
+
+&ndash; and hit **Enter** (make sure you get the quote marks)
+
+**irb** should immediately respond with feedback. If you get into a spot where hitting **Enter** is doing nothing, hit **Ctrl-C** a few times and hit **Enter** again.
+
+``` plain
+1.9.3p258 :005 > puts "Hello world"
+Hello world
+ => nil 
+1.9.3p258 :006 > puts "I'm in irb!"
+I'm in irb!
+ => nil 
+1.9.3p258 :007 > exit
+dans-macbook-air:~ dairy$ 
+```
 
 ### Running programs in the text-editor
 
-(todo)
+**irb** is great for experimenting with Ruby, but can be cumbersome to run routines that span over more than a dozen lines. You'll eventually find it easier to create and edit in your text editor.
+
+Depending on your text editor, you might be able to run your program *inside the text-editor* using a key-combination (e.g. **Ctrl-R** or **F5**) or menu command (e.g. **Run** or **Go**). 
+
+This is little different than running your program from the command prompt. But it saves you the hassle of having to switch to the command prompt to type `ruby myscript.rb`.
+
+This is what it looks like to run a program inside the Windows SciTE: 
+
+
+<div class="imgwrap">
+	<img src="/images/lessons/terminals/step-4-go.png">
+</div>
+
+<div class="imgwrap">
+	<img src="/images/lessons/terminals/step-4-output.png">
+</div>
+
+
+
+
+## Testing out your system
+
+Are you ready to go? Try running the following script:
+
+{% include_code A script to test your Ruby installation lang:ruby test-script.rb %}
+
+You can copy and paste it into a text file named **test-script.rb** in your **working directory**. And then run:
+
+`rake test-script.rb`
+
+Or, you could paste the entire thing into **irb**. Or run it directly from your text-editor. Whatever your preference.
+
+Did it run without error? Congratulations. Else, please contact me at [dan@danwin.com](mailto:&#x64;&#x61;&#x6E;&#x40;&#x64;&#x61;&#x6E;&#x77;&#x69;&#x6E;&#x2E;&#x63;&#x6F;&#x6D;) or on Twitter via [@dancow](http://www.twitter.com/dancow)
+
+
+
+
+
+

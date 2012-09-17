@@ -50,7 +50,7 @@ Let's review what we've covered so far. In order to download from a URL and save
 
 Here's the code to do that:
 
-``` lang:ruby
+``` ruby
 require 'rubygems'
 require 'cgi'
 require 'httparty'
@@ -72,7 +72,7 @@ Not counting the `require` statements, that's a lot of code. So let's write our 
 
 Here's the basic structure of a method:
 
-``` lang:ruby
+``` ruby
 
 def the_method_name(argument1, argument2, argumentetc)
 	# do some work here, such as:	
@@ -88,7 +88,7 @@ The other thing to note for now is that the `return` keyword designates the valu
 
 Let's write a simple method to print `"Hello world"`
 
-``` lang:ruby
+``` ruby
 
 def hello_world
 	puts "Hello world"
@@ -100,7 +100,7 @@ The above method has no arguments since it needs none. And it doesn't really ret
 
 Here's a variation of this method to print `"Hello"` to something of our choice.
 
-``` lang:ruby
+``` ruby
 def hello(some_target)
 	puts "Hello " + some_target.to_s
 end
@@ -108,7 +108,7 @@ end
 
 Again, this method prints to screen but nothing is returned. Try the method out in **irb**:
 
-``` lang:ruby
+``` ruby
 # parentheses are optional, but it helps for readability
 
 1.9.3-head :006 > hello("world")
@@ -131,7 +131,7 @@ As I pointed out, the `hello_world` and `hello` methods do not **return** a valu
 
 So let's redefine `hello` to return an actual string:
 
-``` lang:ruby
+``` ruby
 def hello(some_target)
 	return "Hello " + some_target.to_s
 end
@@ -139,7 +139,7 @@ end
 
 As I said earlier, if you don't specifically use `return`, Ruby just returns whatever was in the last line:
 
-``` lang:ruby
+``` ruby
 def hello(some_target)
 	"Hello " + some_target.to_s
 end
@@ -147,7 +147,7 @@ end
 
 Why would you want to return a string, instead of just putting to screen? Maybe you want to do something else to that string besides echo it to screen. Maybe you want to write the result of `hello` to a file. Or maybe you want to transform the result in another way:
 
-``` lang:ruby
+``` ruby
 def hello(str)
 	"Hello " + str.to_s
 end
@@ -155,7 +155,7 @@ end
 
 Usage in irb:
 
-``` lang:ruby
+``` ruby
 1.9.3-head :014 > def hello(str)
 1.9.3-head :015?>   "Hello " + str.to_s
 1.9.3-head :016?>   end
@@ -187,7 +187,7 @@ As I mentioned earlier, the names of arguments only have **scope** within their 
 
 But for now, consider this:
 
-``` lang:ruby
+``` ruby
 1.9.3-head :024 > def hello_method(my_special_string)
 1.9.3-head :025?>   return my_special_string.to_s.upcase + "! :)"
 1.9.3-head :026?>   end
@@ -218,7 +218,7 @@ Let's start off easy. Define the `download_from_url` method which:
 
 Here's one way to do it:
 
-``` lang:ruby
+``` ruby
 def download_from_url(the_url)
 	resp = HTTParty.get(the_url)
 	return resp
@@ -254,7 +254,7 @@ The requirements:
 
 This should be simpler to define than the `download_from_url` method
 
-``` lang:ruby
+``` ruby
 def url_to_local_filename(url)
 	CGI.escape(url)
 end
@@ -262,7 +262,7 @@ end
 
 While we're at it, define the method that reverses the conversion:
 
-``` lang:ruby
+``` ruby
 def local_filename_to_url(fname)
 	CGI.unescape(fname)
 end
@@ -275,7 +275,7 @@ end
 
 File writing seems more complicated than it should, doesn't it? Three steps to just write some content to a file and save it?
 
-``` lang:ruby
+``` ruby
 fstream = File.open("somefilename.txt", 'w')
 fstream.write("a bunch of content")
 fstream.close
@@ -283,7 +283,7 @@ fstream.close
 
 Wrap up these steps in a method called `my_file_writer`. It doesn't really need to return anything, but think carefully about how many arguments it should accept.
 
-``` lang:ruby
+``` ruby
 def my_file_writer(filename, content)
 	fstream = File.open(filename, "w")
 	fstream.write(content)
@@ -300,7 +300,7 @@ So, *assuming the methods we just defined are in memory*, write a `download_and_
 
 ##### Answer
 
-``` lang:ruby
+``` ruby
 def download_and_save(url)
 	content = download_from_url(url)
 	filename = url_to_local_filename(url)

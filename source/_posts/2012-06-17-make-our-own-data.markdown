@@ -25,7 +25,7 @@ We've actually been doing this all along, of course.
 
 
 
-
+```
 require 'net/http'
 require 'net/https' if RUBY_VERSION < '1.9'
 require 'uri'
@@ -42,3 +42,4 @@ def find_url_real_destination(shortlink)
 
 	puts head['location']
 end
+```	

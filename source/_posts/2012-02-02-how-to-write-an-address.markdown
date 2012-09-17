@@ -18,19 +18,11 @@ But there's no address bar in the Ruby programming environment. We just have tex
 So where does the URL go?
 
 
-#### Revisiting irb
+### Revisiting irb
 
 
-<div class="note">
-<h6>Break out with Ctrl-C</h6>
-<p>Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
-</p>    
 
-<p>And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you're actually in irb and <em>not</em> at your system's command prompt. They both look about the same.</p>
-</div>
-
-
-For the first part of this course, we will be programming in the Interactive Ruby console. If you remember it from the [setup guide](post_url 2012-01-10-terminals-and-text-editors), it's the box with the blinking cursor.
+For the first part of this course, we will be programming in the Interactive Ruby shell. If you remember it from the [setup guide](/lessons/terminals-and-text-editors), it's the box with the blinking cursor.
 
 Follow these instructions:
 
@@ -43,18 +35,28 @@ In **irb**, the Ruby interpreter reads your input every time you hit **Enter**.
 So start off by typing some numbers:
 
 ```
-imac-09:~ dnguyen$ irb     <--# this is the system's command line 
-1.9.3p194 :001 > 12        <--# this is the irb prompt
+imac-09:~ dnguyen$ irb     # <-- this is the system's command line 
+1.9.3p194 :001 > 12        # <-- this is the irb prompt
  => 12 
 1.9.3p194 :002 > 42
  => 42 
 1.9.3p194 :003 > 8
  => 8 
 1.9.3p194 :004 > 
+
 ```
 
 
 As you can see, the Ruby interpreter accepts input at every press of **Enter**. All we're doing is giving it numbers so all it does in response is repeat those numbers.
+
+
+**Break out with Ctrl-C**:
+
+Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
+
+And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you're actually in irb and <em>not</em> at your system's command prompt. They both look about the same.
+
+
 
 
 ### The problem with URLs and other non-numbers
@@ -86,7 +88,7 @@ from (irb):9
 
 If you go back to the installation chapter where we ran the `Hello world` program, you'll see that we didn't just type `Hello world`:
 
-``` lang:ruby
+``` ruby
 puts "Hello world"
 ```
 
@@ -163,7 +165,7 @@ No errors! Congrats, we've just discovered the **String**, one of Ruby's basic d
 
 Here are some examples of strings:
 
-``` lang:ruby
+``` ruby
 "A"
 'A deer.'
 "100 + 12"
@@ -182,8 +184,14 @@ The quotation marks are the symbols that set off the string. When the Ruby inter
 1.9.3p258 :006"> still going on
 1.9.3p258 :007"> And this is
 1.9.3p258 :008"> the end"
- => " this is a beginning of a string\nstrings can include new lines\n1\n2  3  4 \n5\nstill going on\nAnd this is\nthe end" 
-1.9.3p258 :009 > 
+ => " this is a start of a string
+strings can include new lines
+1 
+2 3 4
+5
+still going on
+And this is
+the end" 
 ```
 
 ### Single quote marks
@@ -226,7 +234,7 @@ For simplicity sake, I recommend using **double-quotes** at all times during the
 
 Knowing the above pitfall above, fix the broken strings on each line below so that each line is its own self-contained string:
 
-``` lang:ruby
+``` ruby
 puts "Hello world'
 'The cat's at""
 "The man said, 'Why hello good sir, how do you do?'. And I responded, 'Well.'

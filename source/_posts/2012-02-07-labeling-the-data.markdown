@@ -18,7 +18,7 @@ We've seen how the URLs for pulling in Twitter information have a pattern. For e
 
 Everything about the URLs, except the account name, is the same. Using **variables**, we can store the repetitive parts of the strings for repeated references:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
  => "http://TK_DATA_ROOT_PATH/users/" 
 1.9.3p258 :016 > end_twit_url = "/show.json"
@@ -41,7 +41,7 @@ What does `base_twit_url` *point* to? The string, `"http://TK_DATA_ROOT_PATH/use
 
 How does the the Ruby interpreter know that `base_twit_url` refers to that string? Because we used the **assignment operator** &ndash; the equals sign,  `=`
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
 ```
 
@@ -81,13 +81,13 @@ In Ruby, and in other language, variables that begin with uppercase letters (or 
 
 It's still not clear how Ruby distinguishes between a word like `puts` and some variable we just made up, such as `puts_this_in_your_pipe`. Try entering both into **irb**:
 
-````
+```
 1.9.3p258 :001 > puts
 
  => nil 
 1.9.3p258 :002 > puts_this_in_your_pipe
 NameError: undefined local variable or method `puts_this_in_your_pipe' for main:Object
-````
+```
 
 What happened here? The Ruby interpreter didn't choke on `puts` because *somewhere*, somehow, `puts` was defined.
 
@@ -95,12 +95,12 @@ However, the word `puts_this_in_your_pipe` apparently was *not* defined; hence, 
 
 The most common way to tell Ruby that "*this here word I've made up is meant to be a variable*" is to *assign* it a value using the *assignment operator*:
 
-````
+```
 1.9.3p258 :003 > puts_this_in_your_pipe = 'water'
  => "water" 
 1.9.3p258 :004 > puts_this_in_your_pipe
  => "water" 
-````
+```
 
 The Ruby interpreter doesn't throw an error here because we've defined the `puts_this_in_your_pipe` variable.
 

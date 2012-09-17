@@ -14,7 +14,7 @@ In Ruby, everything is considered an "object". We've encountered at least two di
 
 In the last chapter, we saw how they don't add together so easily:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :001 > "two" + 2
 TypeError: can't convert Fixnum into String
 	from (irb#1):1:in `+'
@@ -31,7 +31,7 @@ Just so we don't run into this `TypeError` problem again, how *do* we tell objec
 
 Try these commands in **irb**:
 
-``` lang:ruby
+``` ruby
 1.class
 "1".class
 "one".class
@@ -39,7 +39,7 @@ Try these commands in **irb**:
 
 You should see something like this:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :003 > 1.class
  => Fixnum 
 1.9.3p258 :004 > "1".class
@@ -64,14 +64,14 @@ Every `class` of object has its own methods.
 
 For example, the `length` method returns the number of characters in the invoking string:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :005 > "supercalifragilistic".length
  => 20
 ```
 
 But the `length` method does not exist for numbers:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :006 > 42.length
 NoMethodError: undefined method `length' for 42:Fixnum
 	from (irb#1):6
@@ -79,14 +79,14 @@ NoMethodError: undefined method `length' for 42:Fixnum
 
 Methods **return** a value. This means you can **chain** together methods. Let's find out type of object string's `length` method returns by invoking the `class` method like so:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :009 > "http://www.nytimes.com".length.class
  => Fixnum
 ```
 
 If the result is a `Fixnum` (i.e. a number), then this is possible:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :010 > "supercalifragilistic".length + "http://www.nytimes.com".length
  => 42 
 ```
@@ -95,7 +95,7 @@ If the result is a `Fixnum` (i.e. a number), then this is possible:
 
 Here's one method that will be particularly useful to us: the `to_s` method, which converts its invoking object to a *string*:
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :011 > "10" + 20
 TypeError: can't convert Fixnum into String
 	from (irb#1):11:in `+'
@@ -106,7 +106,7 @@ TypeError: can't convert Fixnum into String
 
 There's also a `to_i` method (the `i` stands for *integer*):
 
-``` lang:ruby
+``` ruby
 1.9.3p258 :013 > "10".to_i + "20".to_i
  => 30
 ```

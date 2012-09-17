@@ -38,7 +38,7 @@ This is especially necessary for occasions, as in the problem of this chapter, w
 
 Examine this simple method definition:
 
-``` lang:ruby
+``` ruby
 def number_as_percentage(val)
 	if val < 1
 		val = val * 100.0
