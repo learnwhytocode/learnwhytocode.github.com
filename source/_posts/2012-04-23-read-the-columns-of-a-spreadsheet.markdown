@@ -1,16 +1,26 @@
 ---
 layout: post
 title: "Read the columns of a spreadsheet"
-date: 2012-09-12 05:10
+date: 2012-09-12 04:23
 comments: true
 categories: 
 problem: "We need to pick out values from a given part of each data-line"
 solution: "Turn each line into its own Array of values."
 ---
 
-In the last chapter, we learned how to read the Congressmembers' datafile TK, line by line, into an **array**.
+In the last chapter, we learned how to store the [Congressmembers' sample datafile](http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt), line by line, into an **array**.
 
-The problem is that we don't want
+The problem is that we don't want a list of text lines. We want a list of Twitter usernames, which are contained *within* those text lines.
+
+Remember that the datafile is **tab-delimited**, meaning that the values in each line are separated by the **tab-character**. Like newlines, which have a special escape sequence, `"\n"`, tab characters are represented as `"\t"`.
+
+So let's split the lines by
+
+```
+
+
+```
+
 
 
 

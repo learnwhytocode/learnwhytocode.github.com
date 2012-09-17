@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Handle data files faster with Hashes"
-date: 2012-09-12 05:20
+date: 2012-09-12 04:25
 comments: true
 categories: 
 problem: "Arrays are cumbersome when trying to get the actual column of a given line."
