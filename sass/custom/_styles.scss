@@ -2,6 +2,10 @@
 // Add styles here to make changes without digging in too much
 
 
+h4{
+	font-size: 1.1em;
+}
+
 article#alert-box{
 	text-align: left;
 	font-size: 13px;
@@ -53,6 +57,8 @@ li.post-listing{
 	padding-top: 40px
 }
 
+
+
 div#main, div#content article{
 /*	background: url("/images/light_toast.png");
 	background-repeat: repeat;*/
@@ -70,8 +76,9 @@ p.meta a.pagin{
 
 .imgwrap{
 	width: 100%;
+	text-align: center;
 }
 
 .imgwrap img{
-	width: 99%
+	margin: auto auto;
 }

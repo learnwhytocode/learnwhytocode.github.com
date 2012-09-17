@@ -39,6 +39,10 @@ For **Windows**, there is [Notepad++](http://notepad-plus-plus.org/ "Notepad++ H
 
 For Mac OS X, there is [TextWrangler](http://www.barebones.com/products/TextWrangler/ "Bare Bones Software | TextWrangler"). You can download it from its [homepage](http://www.barebones.com/products/TextWrangler/) or get it from the Mac App Store.
 
+The advantage of a dedicated text-editor is that it can provide <span style="background:#FAF14E">highlighted syntax</span>. As you'll find out early, certain words and symbols in Ruby have special meaning in the language. Text-editors distinguish these characters from the non-special ones:
+
+
+<div class="imgwrap"><img src="/images/lessons/terminals/hello-world-textwrangler.png"></div>
 
 ### Make a Ruby program
 
@@ -102,7 +106,7 @@ Example usage:
 
 `cd ~/Desktop/learn_why`
 
-`chdir C:\learn_why`
+`cd C:\learn_why`
 
 Once you're in your working directory, use the appropriate command to list files. Do you see the "helloworld.rb" file?
 
@@ -130,14 +134,20 @@ There's no specific web browser requirement for this tutorial. Use whatever you 
 
 The term URL refers to the address of some resource, such as a webpage or image, somewhere on the Internet.
 
+
+#### URLs
 So the URL for Google's webpage is `http://www.google.com`
 
 This is also a URL:
 `http://so.danwin.com.s3.amazonaws.com/onacode/sunlight-foundation-congress-10.txt`
 
+
+#### Manually visiting URLs
 Copy-and-paste that URL into your browser's Address Bar and hit **Enter**.
 
 You should see a jumble of text. This is because that URL pointed to a text file, not a fancy web page.
+
+#### Saving pages to disk
 
 Go to your web browser's **File** menu and select the **Save As...** or **Save Page As...**
 
