@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="This is just a skeleton of the actual lesson. Content is added as it is edited and polished. This lesson will cross-reference a subset of Twitter &hellip;">
+  <meta name="description" content="&laquo; Previous: Installing Ruby Next: How to write an address &raquo; The Project The problem: How to gather and analyze U.S. Congressmembers &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/installing-ruby/" title="Previous Post: Installing Ruby">&laquo; Previous: Installing Ruby</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/how-to-write-an-address/" title="Next Post: How to write an address">Next: How to write an address &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,13 +137,106 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>This lesson will cross-reference a subset of Twitter content with Congressional data <a href="http://services.sunlightlabs.com/">gathered by the Sunlight Foundation</a>.</p>
+	<p>This tutorial involves the mashing together of Twitter data with Congressional data <a href="http://services.sunlightlabs.com/">gathered by the Sunlight Foundation</a>. We&#8217;ll use programming to collect, analyze, and publish it.</p>
 
-<p><em>todo</em></p>
+<p>It&#8217;s election season and just about everyone in the information business has at least a psasing interest in what politicians are saying. And in 2012, members of Congress (or their staff) are getting comfortable (a <a href="http://slatest.slate.com/posts/2011/06/06/anthony_weiner_photos_andrew_breitbart_publishes_photo_he_says_i_0.html">little too comfortable, sometimes</a>) with using Twitter as a podium.</p>
+
+<p>Maybe you&#8217;re a political reporter and you want to be the first to report a gaffe. If you&#8217;re a social media expert, maybe you want to analyze social media usage by government. If you&#8217;re a policy wonk, then you realize that Twitter provides a nicely structured stream of links to a politician&#8217;s public statements, appearances, and interests.</p>
+
+<p>Don&#8217;t care about tweets? Then use the same patterns and techniques but with Federal Election Commission spending data or whatever you think is worth investigating. Don&#8217;t want to publish a whiz-bang web visualization? Then publish your findings in a book.</p>
+
+<p>All of these goals and aspirations have a common hurdle: the time sunk into the mind-numbing work of collecting and organizing data.</p>
+
+<p>The goal of this tutorial is to show how programming can vastly reduce the least interesting parts of data work so that you can focus on what you actually want to do.</p>
+
+<h2>Test your system</h2>
+
+<p>Just in case you skipped the two previous installation and setup chapters, make sure you can run the following script:</p>
+
+<figure class='code'><figcaption><span> (test-script.rb)</span> <a href='/downloads/code/test-script.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;fastercsv&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello world&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">sunlight_list_url</span> <span class="o">=</span> <span class="s2">&quot;http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Testing HTTParty...fetching </span><span class="si">#{</span><span class="n">sunlight_list_url</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;(you need to be online for this)&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">response</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sunlight_list_url</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">response</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2"> bytes downloaded from </span><span class="si">#{</span><span class="n">sunlight_list_url</span><span class="si">}</span><span class="s2">.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Testing the (Faster)CSV library&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="ss">:col_sep</span><span class="o">=&gt;</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="n">csv</span> <span class="o">=</span> <span class="no">FasterCSV</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="ss">:col_sep</span><span class="o">=&gt;</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="n">csv</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="s1">&#39;firstname&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">csv</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;The name in the second row is: &quot;</span> <span class="o">+</span> <span class="n">str</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> * Script is done. Success&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Did it work? Good.</p>
+
+<p>Now go into your system&#8217;s <strong>terminal</strong> and start up <strong>irb</strong>. Copy and paste the contents of the above script and see if it executes without problems.</p>
+
+<p>If no errors come up, great, move on to the next chapter. If not, please contact me at <a href="mailto:&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x40;&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x77;&amp;#x69;&amp;#x6E;&amp;#x2E;&amp;#x63;&amp;#x6F;&amp;#x6D;">dan@danwin.com</a> or on Twitter via <a href="http://www.twitter.com/dancow">@dancow</a></p>
 </div>
 
 

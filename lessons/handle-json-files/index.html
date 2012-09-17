@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: Automate the downloads Next: Transforming collections &raquo; Handle JSON Files The problem: How do we deal with JSON data files? &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/automate-the-downloads/" title="Previous Post: Automate the downloads">&laquo; Previous: Automate the downloads</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/map-collections/" title="Next Post: Transforming collections">Next: Transforming collections &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,11 +137,86 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<h5>Exercises</h5>
+
+<p>Write a method named <code>get_all_tweets_for</code> that:</p>
+
+<p>1) Takes one argument, a Twitter account name
+2) Reads every JSON tweets file for that account name
+3) Parses the JSON and returns a single array containing all the tweets for the given user</p>
+
+<p>Sample usage:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets</span> <span class="o">=</span> <span class="n">get_all_tweets_for</span><span class="p">(</span><span class="s1">&#39;TKNAME&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;The user &quot;</span> <span class="o">+</span> <span class="sb">`TKNAME`</span> <span class="o">+</span> <span class="s2">&quot; has this many tweets: &quot;</span> <span class="o">+</span> <span class="n">tweets</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">to_s</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note: You&#8217;ll have to build off the other methods we&#8217;ve used to access local tweet files.</p>
+
+<h5>Answers</h5>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># TK save to file</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">do</span> <span class="n">we</span> <span class="n">need</span> <span class="n">this</span> <span class="n">from</span> <span class="n">previous</span> <span class="n">chapter</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_local_filenames_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data-hold/TK&quot;</span><span class="p">)</span> <span class="c1"># should we do CONSTANT for path here?</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">arr</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_all_tweets_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">arr_of_fnames</span> <span class="o">=</span> <span class="n">get_tweets_local_filenames_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">arr_of_tweets</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">arr_of_fnames</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">fname</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">jsonstr</span> <span class="o">=</span> <span class="n">my_file_reader</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>      <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">jsonstr</span><span class="p">)</span>
+</span><span class='line'>      <span class="c1"># TK</span>
+</span><span class='line'>      <span class="n">arr_of_tweets</span> <span class="o">&lt;&lt;</span> <span class="no">TK</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">arr_of_tweets</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -140,10 +224,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/handle-datafiles-faster/" title="Previous Post: Handle datafiles faster">&laquo; Previous: Handle datafiles faster</a>
+        <a class="basic-alignment left pagin" href="/lessons/automate-the-downloads/" title="Previous Post: Automate the downloads">&laquo; Previous: Automate the downloads</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/data-crunching/" title="Next Post: Data-crunching">Next: Data-crunching &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/map-collections/" title="Next Post: Transforming collections">Next: Transforming collections &raquo;</a>
       
     </p>
 

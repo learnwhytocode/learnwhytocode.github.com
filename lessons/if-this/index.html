@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: Loop and repeat Next: Read a list &raquo; If This, Then That. Or Else. The problem: We need our loop to behave differently when it &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/loop-and-repeat/" title="Previous Post: Loop and repeat">&laquo; Previous: Loop and repeat</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/read-a-list/" title="Next Post: Read a list">Next: Read a list &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -99,7 +108,7 @@
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> We need our loop to behave differently when it downloads an unwanted file.</div>
+			<div class="q"><strong>The problem:</strong> We need our loop to behave differently when it encounters an erroneous file.</div>
 			<div class="q"><strong>The solution:</strong> Use an if/else statement.</div>	
 		</div>
     
@@ -128,11 +137,350 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>Re-examine the answer to the last chapter&#8217;s loop problem:</p>
+
+<figure class='code'><figcaption><span> (answer.rb)</span> <a href='/downloads/code/loop-and-repeat/answer.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">screen_name</span> <span class="o">=</span> <span class="s2">&quot;joebiden&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">url</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">download_and_save</span><span class="p">(</span><span class="n">url_1</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How exactly did we know to go from <code>1</code> to <code>3</code>? Because I told you that there were exactly <code>3</code> files to download.</p>
+
+<p>But we won&#8217;t have that luxury in the real world of data-gathering. So learning about loops gave us a new problem: how do we stop the loop if we don&#8217;t know the stopping condition <em>beforehand</em>?</p>
+
+<p>Try downloading the non-existent page <code>4</code> of tweets for Twitter user <code>joebiden</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TK</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can try it for <code>5</code>, <code>6</code>, <code>7</code> and so on, and the response will be similar.</p>
+
+<p>So if the response for a page fetch looks like TK, then it&#8217;s safe to assume that there are no more pages for a given user. Let&#8217;s use that as a condition of breaking out of the loop.</p>
+
+<h2>if</h2>
+
+<p>The <code>if</code> keyword, nearly ubiquitous across all modern programming languages, lets us state a <strong>condition</strong> that we want to <em>affect</em> how our program <em>flows</em>. In effect, we are creating a <em>branch</em> in our otherwise straight-and-narrow program execution, and the <code>if</code> lets us describe which path our program should choose.</p>
+
+<p>This is especially necessary for occasions, as in the problem of this chapter, when we can&#8217;t decide for our program <em>beforehand</em>.</p>
+
+<p>Examine this simple method definition:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">number_as_percentage</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="n">val</span> <span class="o">=</span> <span class="n">val</span> <span class="o">*</span> <span class="mi">100</span><span class="o">.</span><span class="mi">0</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">00</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="n">number_as_percentage</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;12%&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">00</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="n">number_as_percentage</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;150%&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">010</span> <span class="o">&gt;</span> <span class="n">number_as_percentage</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;20.0%&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Whenever the input to <code>number_as_percentage</code> is <em>greater than</em> <code>1</code>, the method returns the number converted to a string with a percent sign appended to it.</p>
+
+<p>However, <strong>if</strong> the argument is <em>less than 1</em>, then the method enters an optional <strong>branch</strong>, in which the variable <code>val</code> is reassigned to the result of itself multiplied by <code>100.0</code>. Why would anyone design such a method? Maybe it&#8217;s for a web form in which people are asked to enter the &#8220;percentage&#8221; of something and many of them enter <code>0.25</code> when they really mean <code>"25%"</code></p>
+
+<p>Either way, this is a really dumb implementation; what happens when the input is <em>less than</em> <code>0</code>? But don&#8217;t worry about that, just worry about the use of <code>if</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="n">val</span> <span class="o">=</span> <span class="n">val</span> <span class="o">*</span> <span class="mi">100</span><span class="o">.</span><span class="mi">0</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What follows the <code>if</code> is a <strong>condition</strong>, which can be read in English as: <em>the value of <code>val</code> is less than 1</em>. If that condition is <code>true</code>, then the code between the <code>if</code> line and the <code>end</code> is executed. If that condition is <code>false</code>, then that <code>if</code> code is skipped entirely.</p>
+
+<h2>About true and false</h2>
+
+<p>Very briefly, the words <code>true</code> and <code>false</code> are special keywords in the Ruby language. So don&#8217;t use them as variable names. And don&#8217;t confuse them with the strings <code>"true"</code> and <code>"false"</code>.</p>
+
+<p>You will get <code>true</code> and <code>false</code> objects when you execute a statement that tests a condition:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">50</span> <span class="o">&lt;</span> <span class="mi">12</span>
+</span><span class='line'><span class="c1"># =&gt; false </span>
+</span><span class='line'><span class="mi">50</span> <span class="o">&gt;</span> <span class="mi">12</span>
+</span><span class='line'><span class="c1"># =&gt; true </span>
+</span><span class='line'><span class="mi">50</span> <span class="o">==</span> <span class="mi">50</span>
+</span><span class='line'><span class="c1"># =&gt; true </span>
+</span><span class='line'><span class="s2">&quot;dog&quot;</span> <span class="o">==</span> <span class="s2">&quot;cat&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hopefully you remember those <em>greater than</em> and <em>less than</em> symbols from math class. Of special note is the double equals sign <code>==</code>, also known as the <strong>equality operator</strong>. Do <em>not</em> confuse it with the <strong>assignment operator</strong> &ndash; the single equals sign &ndash; though you probably will as do many experienced programmers in their careers.</p>
+
+<h3>else</h3>
+
+<p>Sometimes we want an alternative besides &#8216;just skip the <code>if</code> block&#8217;. That is where <code>else</code> comes in:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">even_or_odd</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;odd&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;even&quot;</span>
+</span><span class='line'>  <span class="k">end</span>  
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When the <code>if</code> statement is false, the code after the <code>else</code> statement executes (that <code>%</code> symbol is how you find the <strong>remainder</strong> when dividing two numbers.)</p>
+
+<h3>elsif</h3>
+
+<p>What if you have more than two possible outcomes? The <code>elsif</code> lets you state additional conditions and outcomes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">even_or_odd</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;odd&quot;</span>
+</span><span class='line'>  <span class="k">elsif</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;zero&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;even&quot;</span>
+</span><span class='line'>  <span class="k">end</span>  
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Exercise</h5>
+
+<p>Write a method named <code>is_valid_http_response</code> that:<br/>
+1. Accepts one argument: the result from a <code>HTTParty.get</code> call.
+2. returns <code>true</code> or <code>false</code> depending if it was a successful call</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">is_valid_http_response</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">resp</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="mi">200</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are different ways we could choose a condition for this method. Due to how <code>HTTParty</code> works, we just have to check to see if the code is 200. Read this for <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">more background on HTTP codes</a>.</p>
+
+<p><strong>How to break a loop:</strong> Here&#8217;s how the keyword <code>break</code> is used to <em>break</em> out of a loop:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">n</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">7</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;Oops, supposed to be under 7&quot;</span>
+</span><span class='line'>      <span class="k">break</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># irb: </span>
+</span><span class='line'>
+</span><span class='line'><span class="mi">1</span>
+</span><span class='line'><span class="mi">2</span>
+</span><span class='line'><span class="mi">3</span>
+</span><span class='line'><span class="mi">4</span>
+</span><span class='line'><span class="mi">5</span>
+</span><span class='line'><span class="mi">6</span>
+</span><span class='line'><span class="mi">7</span>
+</span><span class='line'><span class="mi">8</span>
+</span><span class='line'><span class="no">Oops</span><span class="p">,</span> <span class="n">supposed</span> <span class="n">to</span> <span class="n">be</span> <span class="n">under</span> <span class="mi">7</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Write a method named <code>fetch_all_tweets_for_user</code> that:
+1. Accepts a single argument
+2. Loops no more than <code>20</code> times to download and save tweet pages for a user
+3. If you come across a non-existent page <em>before</em> the counter hits <code>20</code>, <code>break</code> out of the loop
+4. Use the <code>is_valid_http_response</code> method</p>
+
+<p>And one more twist. Remember the <code>download_and_save</code> method?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">download_and_save</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">content</span> <span class="o">=</span> <span class="n">download_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">filename</span> <span class="o">=</span> <span class="n">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">content</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can&#8217;t really use this. Look at the definition for <code>download_from_url</code> to have a better idea. Basically, we would download from a given URL <em>twice</em>: once to check for a valid response. And once again, since <code>download_from_url</code> is invoked by <code>download_and_save</code> to actually get the <code>content</code> to save.</p>
+
+<p>If you don&#8217;t understand that, don&#8217;t worry. Just have <code>fetch_all_tweets_for_user</code> include functionality to write to your hard drive.</p>
+
+<h5>Answer</h5>
+
+<p>The complete answer, including previous method definitions:</p>
+
+<figure class='code'><figcaption><span> (answer.rb)</span> <a href='/downloads/code/if-this/answer.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">is_valid_http_response</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">resp</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="mi">200</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">fetch_all_tweets_for_user</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/&quot;</span> <span class="o">+</span> <span class="n">screen_name</span>  <span class="o">+</span> <span class="s2">&quot;/_PAGENUM_/user_timeline.json&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">url</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;_PAGENUM_&#39;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Loop no. &quot;</span> <span class="o">+</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fetching from: &quot;</span> <span class="o">+</span> <span class="n">url</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">download_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">is_valid_http_response</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span> <span class="o">==</span> <span class="kp">false</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;Invalid file at this url...breaking&quot;</span>
+</span><span class='line'>      <span class="k">break</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Success...saving response&quot;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">filename</span> <span class="o">=</span> <span class="n">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">resp</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;sleeping for 0.2 seconds&quot;</span>
+</span><span class='line'>    <span class="nb">sleep</span> <span class="mi">0</span><span class="o">.</span><span class="mi">2</span> <span class="c1"># generally a good idea not to hammer file server</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -143,7 +491,7 @@
         <a class="basic-alignment left pagin" href="/lessons/loop-and-repeat/" title="Previous Post: Loop and repeat">&laquo; Previous: Loop and repeat</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/automate-the-downloads/" title="Next Post: Automate the downloads">Next: Automate the downloads &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/read-a-list/" title="Next Post: Read a list">Next: Read a list &raquo;</a>
       
     </p>
 

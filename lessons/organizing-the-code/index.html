@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: Writing our own methods Next: Loop and repeat &raquo; Organizing the Code The problem: There's a lot of boilerplate code that we' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/writing-our-own-methods-to-save-time/" title="Previous Post: Writing our own methods">&laquo; Previous: Writing our own methods</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,11 +137,242 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>So given all the method definitions we&#8217;ve written, how do we actually <em>use</em> them? Do we have to keep them in a file and keep copying and pasting into <strong>irb</strong>?</p>
+
+<p>We <em>could</em> do that. But what a pain that would be.</p>
+
+<p>Instead, we&#8217;ll move this boilerplate code to a separate file and re-use it as we&#8217;ve been re-using the <code>HTTParty</code> code: with the <code>require</code> statement.</p>
+
+<h2>Setup the working directory</h2>
+
+<p>First, if you haven&#8217;t already, make a directory in which you&#8217;ll be doing all your coding for today. You can do this in the GUI:</p>
+
+<p>TK</p>
+
+<p>Or from the <strong>command-line</strong>:</p>
+
+<p>TK</p>
+
+<p>This working directory should be where you save your files and subdirectories to:</p>
+
+<p>TK</p>
+
+<p>And this is where you will be running <strong>irb</strong> from.</p>
+
+<h2>The my-first-methods.rb file</h2>
+
+<p>Let&#8217;s save all the methods we wrote to a file named <code>my-first-methods.rb</code>. And while we&#8217;re at it, let&#8217;s throw in the <code>require</code> statements that we&#8217;ve been typing so far:</p>
+
+<figure class='code'><figcaption><span> (my-first-methods-1.rb)</span> <a href='/downloads/code/organizing-the-code/my-first-methods-1.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;cgi&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">download_from_url</span><span class="p">(</span><span class="n">the_url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">resp</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">the_url</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># note: when resp is converted to a string, it contains only the </span>
+</span><span class='line'>  <span class="c1"># content from the_url, not the methods and attributes from HTTParty</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">resp</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">CGI</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">local_filename_to_url</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">CGI</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">close</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">download_and_save</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">content</span> <span class="o">=</span> <span class="n">download_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">filename</span> <span class="o">=</span> <span class="n">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">content</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now launch <strong>irb</strong> in the <em>same directory</em> that you saved <code>my-first-methods.rb</code> into. And this is how you access the methods you&#8217;ve written so far:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>load './my-first-methods-1.rb'
+</span><span class='line'>download_and_save('http://en.wikipedia.org')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>load</code> method works similar to <code>require</code>, except that it will <em>reload</em> the Ruby code whereas <code>require</code> will only load the code once unless you restart irb.</p>
+
+<p>The above code snippet should result in a file named <code>http%3A%2F%2Fen.wikipedia.org</code> inside your working directory.</p>
+
+<h2>Constants</h2>
+
+<p>If we run <code>download_and_save</code> many more times, our working directory is going to be cluttered. So let&#8217;s make a new subdirectory called <code>my-storage</code>.</p>
+
+<p>For the rest of our programming, we may want to use this directory for all of our downloaded files. And then maybe later, we might change that directory&#8217;s location. This sounds like a good use case for variables.</p>
+
+<p>Back in the variables chapter, I mentioned that Ruby variables in all-caps have special meaning. They refer to <strong>constants</strong>, variables with unchanging values.</p>
+
+<p>Let&#8217;s create a new Ruby file, in your working-directory, called <code>my-first-constants.rb</code>. In that file, just include a single line:</p>
+
+<p><code>LOCAL_STORAGE_DIR = "my-storage"</code></p>
+
+<p>Now, if you <code>load</code> the <code>my-first-constants.rb</code> file in your <code>my-first-methods.rb</code> file, you can have access to the constants defined there.</p>
+
+<h5>Exercise</h5>
+
+<p>In order to prevent downloaded files from cluttering our working directory, we have to alter our existing methods to use the <code>LOCAL_STORAGE_DIR</code> constant.</p>
+
+<p>Since the <code>url_to_local_filename</code> and <code>local_file_name_to_url</code> methods deal with the file naming, it makes sense to do the work there.</p>
+
+<p>So, alter the <code>url_to_local_filename</code> to return a filename that also includes what&#8217;s in the <code>LOCAL_STORAGE_DIR</code> constant. The <code>local_file_name_to_url</code> also needs to use that constant to reverse translate the filename.</p>
+
+<p>Here are two methods you should consider using:</p>
+
+<p><code>File.join</code>, which takes in as many arguments as you want directories and subdirectories in a given path, including the file name, and returns a string. It handles the problem of joining different parts of paths together without repeating the forward-slash character:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3-head :010 &gt; File.join("directory_alpha", "sub_directory", "filename.txt")
+</span><span class='line'> =&gt; "directory_alpha/sub_directory/filename.txt"
+</span><span class='line'>1.9.3-head :011 &gt; File.join("directory_alpha/", "/sub_directory", "/filename.txt")
+</span><span class='line'> =&gt; "directory_alpha/sub_directory/filename.txt" </span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>File.basename</code>, which takes in a filename as a single argument and removes the directory part of the filename:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3-head :012 &gt; fname = "directory_alpha/sub_directory/filename.txt" 
+</span><span class='line'> =&gt; "directory_alpha/sub_directory/filename.txt" 
+</span><span class='line'>1.9.3-head :013 &gt; File.basename(fname)
+</span><span class='line'> =&gt; "filename.txt"</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Answer</h5>
+
+<figure class='code'><figcaption><span> (my-first-methods.rb)</span> <a href='/downloads/code/organizing-the-code/my-first-methods.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;cgi&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-constants.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">download_from_url</span><span class="p">(</span><span class="n">the_url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">resp</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">the_url</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># note: when resp is converted to a string, it contains only the </span>
+</span><span class='line'>  <span class="c1"># content from the_url, not the methods and attributes from HTTParty</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">resp</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fn</span> <span class="o">=</span> <span class="no">CGI</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">LOCAL_STORAGE_DIR</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">local_filename_to_url</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fn</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">CGI</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">close</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">download_and_save</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">content</span> <span class="o">=</span> <span class="n">download_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">filename</span> <span class="o">=</span> <span class="n">url_to_local_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_file_writer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">content</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 

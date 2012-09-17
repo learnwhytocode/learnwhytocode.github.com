@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: If this, then that. Or else. Next: Read the columns of a spreadsheet &raquo; Read a List The problem: We don't want to manually &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/if-this/" title="Previous Post: If this, then that. Or else.">&laquo; Previous: If this, then that. Or else.</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/read-the-columns-of-a-spreadsheet/" title="Next Post: Read the columns of a spreadsheet">Next: Read the columns of a spreadsheet &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -119,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T05:02:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:21:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -128,11 +137,145 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>So we know how to download a lot of Twitter URLs really quickly. All we need is a list of Twitter account names.</p>
+
+<p>We have such a list from the <a href="http://services.sunlightlabs.com/">Sunlight Foundation</a>. For the purposes of practice, I&#8217;ve cut it down to just ten Congressmembers. You can see the sample list at this URL:</p>
+
+<p><a href="http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt">http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt</a></p>
+
+<p>Take <a href="http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt">a look at it</a>. It should look something like this:</p>
+
+<p><code>
+title   firstname   middlename  lastname    name_suffix nickname    party   state   district    in_office   gender  phone   fax website webform congress_office bioguide_id votesmart_id    fec_id  govtrack_id crp_id  twitter_id  congresspedia_url   youtube_url facebook_id official_rss    senate_class    birthdate
+Sen Joseph  R.  Biden   Jr.     D   DE  Senior Seat 0   M                       B000444 53279   S8DE00012   300008  N00001669   joebiden    http://www.opencongress.org/wiki/Joseph_Biden               II  11/20/42
+Rep John    A.  Boehner         R   OH  8   1   M   202-225-6205    202-225-0704    http://johnboehner.house.gov/   http://www.johnboehner.house.gov/Contact/   1011 Longworth House Office Building    B000589 27015   H0OH08029   400036  N00003675   SpeakerBoehner  http://www.opencongress.org/wiki/John_Boehner   http://www.youtube.com/JohnBoehner  johnboehner         11/17/49
+</code></p>
+
+<p>It looks like a bunch of jumbled text and we&#8217;ll organize it in the next chapter. But there <em>are</em> Twitter usernames there.</p>
+
+<p>At this point, you could do it the non-programmer way, which is to search for the Twitter handles and copy and paste each one into your tweet downloading program.</p>
+
+<p>But we didn&#8217;t come this far to copy-and-paste 500 names or even just 10 names, as the case may be.</p>
+
+<p>How can we get this list of names into some kind of loopable operation?</p>
+
+<h2>Reading the lines of a file</h2>
+
+<p>First, let&#8217;s download the file. You can use the downloading methods we&#8217;ve written in the past. I&#8217;ll just make a <code>HTTParty</code> call:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
+</span><span class='line'>require 'httparty'
+</span><span class='line'>
+</span><span class='line'>sunlight_list_url = "http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt"
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>textlines = HTTParty.get(sunlight_list_url).body</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That mess inside <code>textlines</code> now looks like this:</p>
+
+<p><code>
+"title\tfirstname\tmiddlename\tlastname\tname_suffix\tnickname\tparty\tstate\tdistrict\tin_office\tgender\tphone\tfax\twebsite\twebform\tcongress_office\tbioguide_id\tvotesmart_id\tfec_id\tgovtrack_id\tcrp_id\ttwitter_id\tcongresspedia_url\tyoutube_url\tfacebook_id\tofficial_rss\tsenate_class\tbirthdate\nSen\tJoseph\tR.\tBiden\tJr.\t\tD\tDE\tSenior Seat\t0\tM\t\t\t\t\t\tB000444\t53279\tS8DE00012\t300008\tN00001669\tjoebiden\thttp://www.opencongress.org/wiki/Joseph_Biden\t\t\t\tII\t11/20/42\nRep\tJohn\tA.\tBoehner\t\t\tR\tOH\t8\t1\tM\t202-225-6205\t202-225-0704\thttp://johnboehner.house.gov/\thttp://www.johnboehner.house.gov/Contact/\t1011 Longworth House Office Building\tB000589\t27015\tH0OH08029\t400036\tN00003675\tSpeakerBoehner\thttp://www.opencongress.org/wiki/John_Boehner\thttp://www.youtube.com/JohnBoehner\tjohnboehner\t\t\t11/17/49\nSen\tRoy\t\tBlunt\t..."
+</code></p>
+
+<p>Where did all the line breaks go? In Ruby strings, newlines are just characters. And in this case, they are represented by a backslash character, <code>\</code>, combined with the letter <code>n</code>:</p>
+
+<p><code>\n</code></p>
+
+<p>That <strong>backslash</strong> has a special meaning in Ruby strings. It acts as an <strong>escape character</strong>, and it affects the character that immediately follows it. In this case, this is the letter <code>n</code>.</p>
+
+<p>In other words, <code>\n</code> is not just a normal, literal <code>n</code> character, but the symbol for a <strong>newline</strong>, i.e. a line break.</p>
+
+<h3>Counting rows</h3>
+
+<p>So it seems that if we could break apart the giant string that is <code>textlines</code> on the character <code>\n</code>, we&#8217;ll get rows.</p>
+
+<p>Lucky for us, there is a <code>split</code> method for strings (see the <a href="http://www.ruby-doc.org/core-1.9.3/String.html">documentation here</a>).</p>
+
+<p><strong>Note:</strong> you <em>must</em> use double quotes here when enclosing the <code>\n</code> character.</p>
+
+<figure class='code'><figcaption><span>irb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">textlines</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="n">rows</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">Array</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">01</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="n">rows</span><span class="o">.</span><span class="n">length</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">11</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The Array</h2>
+
+<p>Apparently the <code>split</code> method returns a data object of <code>Array</code> class.</p>
+
+<p>Arrays happen to be another type of collection object, just as <code>Range</code> is.</p>
+
+<p>Which means we can loop across it in the same way. The sequence below simply prints out the length of each member of <code>rows</code> (a line of text, i.e. a <code>String</code>):</p>
+
+<figure class='code'><figcaption><span>irb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">020</span> <span class="o">&gt;</span> <span class="n">rows</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">021</span> <span class="o">&gt;</span>     <span class="nb">puts</span> <span class="n">row</span><span class="o">.</span><span class="n">length</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">022</span><span class="o">?&gt;</span>   <span class="k">end</span>
+</span><span class='line'><span class="mi">276</span>
+</span><span class='line'><span class="mi">161</span>
+</span><span class='line'><span class="mi">327</span>
+</span><span class='line'><span class="mi">338</span>
+</span><span class='line'><span class="mi">331</span>
+</span><span class='line'><span class="mi">336</span>
+</span><span class='line'><span class="mi">382</span>
+</span><span class='line'><span class="mi">316</span>
+</span><span class='line'><span class="mi">302</span>
+</span><span class='line'><span class="mi">264</span>
+</span><span class='line'><span class="mi">319</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If a <code>Range</code> was a collection of numbers, think of the <code>Array</code> class as a collection of objects. Those objects could be anything: numbers, strings, other collections, even. In the Python language, arrays are referred to as <strong>lists</strong>, and that name works as well.</p>
+
+<h2>Array addressing</h2>
+
+<p>What if we just wanted to print out the first line? Or the fourth line?</p>
+
+<p>This is the notation for addressing specific elements in an array:</p>
+
+<figure class='code'><figcaption><span>irb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">row</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>  <span class="c1"># refers to the first element</span>
+</span><span class='line'><span class="n">row</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>   <span class="c1"># refers to the fourth element</span>
+</span><span class='line'><span class="n">row</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>   <span class="c1"># refers to the fifth element</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the next chapter, we&#8217;ll get more into detail with Arrays. But now we know how to read from a list.</p>
 </div>
 
 
@@ -140,7 +283,7 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/automate-the-downloads/" title="Previous Post: Automate the downloads">&laquo; Previous: Automate the downloads</a>
+        <a class="basic-alignment left pagin" href="/lessons/if-this/" title="Previous Post: If this, then that. Or else.">&laquo; Previous: If this, then that. Or else.</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/read-the-columns-of-a-spreadsheet/" title="Next Post: Read the columns of a spreadsheet">Next: Read the columns of a spreadsheet &raquo;</a>
@@ -166,7 +309,7 @@
   
 
 
-<time datetime="2012-09-12T05:02:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:21:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 

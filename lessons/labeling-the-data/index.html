@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: How to save a file Next: Writing our own methods &raquo; Labeling the Data The problem: A lot of the text we're using is repeated &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/how-to-save-a-file/" title="Previous Post: How to save a file">&laquo; Previous: How to save a file</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/writing-our-own-methods-to-save-time/" title="Next Post: Writing our own methods">Next: Writing our own methods &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,11 +137,125 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>We&#8217;ve seen how the URLs for pulling in Twitter information have a pattern. For example, the user info URLs for 4 different users looks like this:</p>
+
+<p><code>http://TK_DATA_ROOT_PATH/users/TKBohner/show.json</code>
+<code>http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json</code>
+<code>http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json</code>
+<code>http://TK_DATA_ROOT_PATH/users/TKRepPaulRyan/show.json</code></p>
+
+<p>Everything about the URLs, except the account name, is the same. Using <strong>variables</strong>, we can store the repetitive parts of the strings for repeated references:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
+</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/" 
+</span><span class='line'>1.9.3p258 :016 &gt; end_twit_url = "/show.json"
+</span><span class='line'> =&gt; "/show.json" 
+</span><span class='line'>
+</span><span class='line'>1.9.3p258 :017 &gt; base_twit_url + "TKBohner" + end_twit_url
+</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json" 
+</span><span class='line'>1.9.3p258 :018 &gt; base_twit_url + "TKPelosi" + end_twit_url
+</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json"</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Labels for data</h2>
+
+<p>After learning about strings, your first thought may be: <em>Hey, why aren&#8217;t those non-quoted strings causing errors? Does the Ruby language reserve a word called <code>base_twit_url</code>?</em></p>
+
+<p>In the above example, the <code>base_twit_url</code> is neither a string (because it&#8217;s not set off by quotes) nor a reference to a Ruby command. Instead, it is a Ruby <strong>variable</strong>; it is also called a <strong>pointer</strong>, because it <em>points</em> to something.</p>
+
+<p>What does <code>base_twit_url</code> <em>point</em> to? The string, <code>"http://TK_DATA_ROOT_PATH/users/"</code></p>
+
+<p>How does the the Ruby interpreter know that <code>base_twit_url</code> refers to that string? Because we used the <strong>assignment operator</strong> &ndash; the equals sign,  <code>=</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After that <strong>assignment</strong>, Ruby knows that we are using <code>base_twit_url</code> as a stand-in for the longer string.</p>
+
+<p>Think of variables as a way of <em>labeling</em> objects, as if to say, <em>I&#8217;m giving this here data object the nickname of <code>my_string</code></em></p>
+
+<h3>Variable naming</h3>
+
+<p>How did Ruby know that <code>base_twit_url</code> was going to be a proper variable, rather than erroneous input (as is the case if you type in a URL at the irb prompt)?</p>
+
+<p>The Ruby interpreter recognizes sequences of <strong>alphanumeric characters and underscores</strong>, as variables.</p>
+
+<p>So, these are <em>not</em> variable names:</p>
+
+<ul>
+<li><code>hey-you</code> (hyphens are not alphanumeric, though the underscore character is allowed)</li>
+<li><code>hey!</code> (exclamation marks are not alphanumeric)</li>
+<li><code>hello world</code> (spaces aren&#8217;t allowed)</li>
+<li><code>100var</code> (you can&#8217;t begin a variable with a number)</li>
+</ul>
+
+
+<p>Here are proper variables:</p>
+
+<ul>
+<li><code>hey_you</code></li>
+<li><code>HEY</code></li>
+<li><code>helloWorld</code></li>
+<li><code>var100</code></li>
+<li><code>x</code></li>
+<li><code>super_cali_fragilistic_expealidocious</code></li>
+</ul>
+
+
+<p>In Ruby, and in other language, variables that begin with uppercase letters (or are <em>all</em> uppercase) have a special meaning. To keep things simple for now, just stick to using alphabetical and underscore characters (I would try to avoid using numbers, because they can be confusing).</p>
+
+<h3>Variable assignment</h3>
+
+<p>It&#8217;s still not clear how Ruby distinguishes between a word like <code>puts</code> and some variable we just made up, such as <code>puts_this_in_your_pipe</code>. Try entering both into <strong>irb</strong>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :001 &gt; puts
+</span><span class='line'>
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>1.9.3p258 :002 &gt; puts_this_in_your_pipe
+</span><span class='line'>NameError: undefined local variable or method `puts_this_in_your_pipe' for main:Object</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What happened here? The Ruby interpreter didn&#8217;t choke on <code>puts</code> because <em>somewhere</em>, somehow, <code>puts</code> was defined.</p>
+
+<p>However, the word <code>puts_this_in_your_pipe</code> apparently was <em>not</em> defined; hence, the complaint about a <code>undefined local variable or method</code>.</p>
+
+<p>The most common way to tell Ruby that &#8221;<em>this here word I&#8217;ve made up is meant to be a variable</em>&#8221; is to <em>assign</em> it a value using the <em>assignment operator</em>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :003 &gt; puts_this_in_your_pipe = 'water'
+</span><span class='line'> =&gt; "water" 
+</span><span class='line'>1.9.3p258 :004 &gt; puts_this_in_your_pipe
+</span><span class='line'> =&gt; "water" </span></code></pre></td></tr></table></div></figure>
+
+
+<p>The Ruby interpreter doesn&#8217;t throw an error here because we&#8217;ve defined the <code>puts_this_in_your_pipe</code> variable.</p>
+
+<h5>Exercises</h5>
+
+<p>(todo) What do we name our variables?</p>
 </div>
 
 

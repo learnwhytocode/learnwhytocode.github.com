@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="This is just a skeleton of the actual lesson. Content is added as it is edited and polished. Let&#8217;s step back and ask a basic question: How do &hellip;">
+  <meta name="description" content="&laquo; Previous: The Project Next: Adding strings together &raquo; How to Write an Address The problem: How do we even put URLs into our programs? &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/the-project/" title="Previous Post: The Project">&laquo; Previous: The Project</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/adding-strings-together/" title="Next Post: Adding strings together">Next: Adding strings together &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,7 +137,8 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
@@ -140,18 +150,9 @@
 
 <p>So where does the URL go?</p>
 
-<h4>Revisiting irb</h4>
+<h3>Revisiting irb</h3>
 
-<div class="note">
-<h6>Break out with Ctrl-C</h6>
-<p>Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
-</p>    
-
-<p>And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you&#8217;re actually in irb and <em>not</em> at your system&#8217;s command prompt. They both look about the same.</p>
-</div>
-
-
-<p>For the first part of this course, we will be programming in the Interactive Ruby console. If you remember it from the <a href="post_url%202012-01-10-terminals-and-text-editors">setup guide</a>, it&#8217;s the box with the blinking cursor.</p>
+<p>For the first part of this course, we will be programming in the Interactive Ruby shell. If you remember it from the <a href="/lessons/terminals-and-text-editors">setup guide</a>, it&#8217;s the box with the blinking cursor.</p>
 
 <p>Follow these instructions:</p>
 
@@ -174,17 +175,24 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>imac-09:~ dnguyen$ irb     &lt;--# this is the system's command line 
-</span><span class='line'>1.9.3p194 :001 &gt; 12        &lt;--# this is the irb prompt
+</pre></td><td class='code'><pre><code class=''><span class='line'>imac-09:~ dnguyen$ irb     # &lt;-- this is the system's command line 
+</span><span class='line'>1.9.3p194 :001 &gt; 12        # &lt;-- this is the irb prompt
 </span><span class='line'> =&gt; 12 
 </span><span class='line'>1.9.3p194 :002 &gt; 42
 </span><span class='line'> =&gt; 42 
 </span><span class='line'>1.9.3p194 :003 &gt; 8
 </span><span class='line'> =&gt; 8 
-</span><span class='line'>1.9.3p194 :004 &gt; </span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>1.9.3p194 :004 &gt; 
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>As you can see, the Ruby interpreter accepts input at every press of <strong>Enter</strong>. All we&#8217;re doing is giving it numbers so all it does in response is repeat those numbers.</p>
+
+<p><strong>Break out with Ctrl-C</strong>:</p>
+
+<p>Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.</p>
+
+<p>And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you&#8217;re actually in irb and <em>not</em> at your system&#8217;s command prompt. They both look about the same.</p>
 
 <h3>The problem with URLs and other non-numbers</h3>
 
@@ -193,7 +201,7 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p194 :008 &gt; http://www.bastardsbook.com/
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p194 :008 &gt; http://journalists.org
 </span><span class='line'>SyntaxError: (irb):8: syntax error, unexpected $end
 </span><span class='line'>  from /Users/dnguyen/.rvm/rubies/ruby-1.9.3-p194/bin/irb:16:in `&lt;main&gt;'</span></code></pre></td></tr></table></div></figure>
 
@@ -250,8 +258,8 @@
 </span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;hey there&quot;</span>
 </span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">017</span> <span class="o">&gt;</span> <span class="s2">&quot;you&quot;</span>
 </span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;you&quot;</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="s2">&quot;http://bastardsbook.com/&quot;</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;http://bastardsbook.com/&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p194</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="s2">&quot;http://journalists.org/&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;http://journalists.org/&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -278,15 +286,157 @@
 
 <p>So think of it this way: There are obviously words in the Ruby language, such as <code>puts</code>, that <em>do</em> something. And it doesn&#8217;t seem likely that <em>every</em> word you type into <strong>irb</strong> could refer to an actual Ruby command.</p>
 
-<p>So <em>how</em> can the Ruby interpreter tell the difference between command words, such as <code>puts</code>, and words that you want it to take in literally, like <code>http://www.google.com/</code>? Or, even if you want to use <code>puts</code> just as a literal word, not a Ruby command?</p>
+<p>So how can the Ruby interpreter tell the difference between command words, such as <code>puts</code>, and words that we want it to take in literally, like <code>http://www.google.com/</code>? Or, even if we want to use <code>puts</code> just as a literal word, not a Ruby command?</p>
 
 <h3>Quotation marks</h3>
 
-<p>(todo)</p>
+<p>Quotation marks in written English denote dialogue:</p>
+
+<blockquote><p>&#8220;Wherever smart people work, doors are unlocked.&#8221;</p><footer><strong>Steve Wozniak</strong> <cite>Keynote Address at 5th HOPE Conference</cite></footer></blockquote>
+
+
+<p>They also denote something special in programming:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;puts&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Try pasting the URL at the beginning of the lesson into <strong>irb</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;http://journalists.org&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>No errors! Congrats, we&#8217;ve just discovered the <strong>String</strong>, one of Ruby&#8217;s basic datatypes (and for most other programming languages).</p>
 
 <h2>The String Class</h2>
 
+<p><strong>Strings</strong> are sequences &ndash; i.e. <em>strings</em> &ndash; of characters, which can include a single letter, words, numbers, or the entire text of Shakespeare.</p>
+
+<p>Here are some examples of strings:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;A&quot;</span>
+</span><span class='line'><span class="s1">&#39;A deer.&#39;</span>
+</span><span class='line'><span class="s2">&quot;100 + 12&quot;</span>
+</span><span class='line'><span class="s2">&quot;2 be, or not 2 be!&quot;</span>
+</span><span class='line'><span class="s2">&quot;@#4jasdfklj23kl4j#@$@#$&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The quotation marks are the symbols that set off the string. When the Ruby interpreter sees the first quotation mark, it knows that we are creating a string. Everything <em>after</em> that quotation mark is considered a string. When the <em>second</em> quotation mark is reached, the Ruby interpreter knows the string is done:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="s2">&quot; this is a beginning of a string</span>
+</span><span class='line'><span class="s2">1.9.3p258 :002&quot;</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="n">can</span> <span class="kp">include</span> <span class="kp">new</span> <span class="n">lines</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">003</span><span class="s2">&quot;&gt; 1</span>
+</span><span class='line'><span class="s2">1.9.3p258 :004&quot;</span><span class="o">&gt;</span> <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">005</span><span class="s2">&quot;&gt; 5</span>
+</span><span class='line'><span class="s2">1.9.3p258 :006&quot;</span><span class="o">&gt;</span> <span class="n">still</span> <span class="n">going</span> <span class="n">on</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">007</span><span class="s2">&quot;&gt; And this is</span>
+</span><span class='line'><span class="s2">1.9.3p258 :008&quot;</span><span class="o">&gt;</span> <span class="n">the</span> <span class="k">end</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="s2"> =&gt; &quot;</span> <span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">start</span> <span class="n">of</span> <span class="n">a</span> <span class="n">string</span>
+</span><span class='line'><span class="n">strings</span> <span class="n">can</span> <span class="kp">include</span> <span class="kp">new</span> <span class="n">lines</span>
+</span><span class='line'><span class="mi">1</span>
+</span><span class='line'><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span>
+</span><span class='line'><span class="mi">5</span>
+</span><span class='line'><span class="n">still</span> <span class="n">going</span> <span class="n">on</span>
+</span><span class='line'><span class="no">And</span> <span class="n">this</span> <span class="n">is</span>
+</span><span class='line'><span class="n">the</span> <span class="k">end</span><span class="s2">&quot; </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Single quote marks</h3>
+
+<p>Either double-quote <em>or</em> single-quote marks can be used to create strings:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s1">&#39;Hey there&#39;</span>
+</span><span class='line'><span class="s2">&quot;How&#39;s it going?&quot;</span>
+</span><span class='line'><span class="s1">&#39;Good&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that in the second example, a <strong>single-quote</strong> mark was treated as a <em>literal</em> character (i.e. with no special meaning by the Ruby interpreter) because the string is enclosed in <strong>double-quote</strong> marks.</p>
+
+<p>The upshot of this &ndash; and a common cause of error and confusion for beginners &ndash; is that the <strong>same type of quote-mark that opens a string must be used to close it</strong>.</p>
+
+<p>In <strong>irb</strong>, we&#8217;re used to the Ruby interpreter responding with feedback after we press <strong>Enter</strong>. However, if we don&#8217;t close the string properly when hitting <strong>Enter</strong>, the Ruby interpreter will assume that the pressing of <strong>Enter</strong> means we want a <em>new line</em>. Because inside a string, a <em>new line</em> is just another character:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">013</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="s2">&quot;Hello world!&#39;</span>
+</span><span class='line'><span class="s2">1.9.3p258 :014&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">015</span><span class="s2">&quot;&gt; hey </span>
+</span><span class='line'><span class="s2">1.9.3p258 :016&quot;</span><span class="o">&gt;</span> <span class="n">why</span> <span class="n">didn</span><span class="s1">&#39;t anything get puts?</span>
+</span><span class='line'><span class="s1">1.9.3p258 :017&quot;&gt; ???</span>
+</span><span class='line'><span class="s1">1.9.3p258 :018&quot;&gt; oops, need to use double quote =&gt; &quot;</span>
+</span><span class='line'><span class="s1">Hello world!&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">hey</span>
+</span><span class='line'><span class="n">why</span> <span class="n">didn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">anything</span> <span class="n">get</span> <span class="nb">puts</span><span class="p">?</span>
+</span><span class='line'><span class="sc">??</span><span class="p">?</span>
+</span><span class='line'><span class="n">oops</span><span class="p">,</span> <span class="n">need</span> <span class="n">to</span> <span class="n">use</span> <span class="n">double</span> <span class="n">quote</span> <span class="o">=&gt;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">nil</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">01</span><span class="mi">9</span> <span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For simplicity sake, I recommend using <strong>double-quotes</strong> at all times during the scope of this tutorial.</p>
+
 <h5>Exercise: Fix the broken quotes</h5>
+
+<p>Knowing the above pitfall above, fix the broken strings on each line below so that each line is its own self-contained string:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello world&#39;</span>
+</span><span class='line'><span class="s2">&#39;The cat&#39;s at&quot;&quot;</span>
+</span><span class='line'><span class="s2">&quot;</span><span class="no">The</span> <span class="n">man</span> <span class="n">said</span><span class="p">,</span> <span class="s1">&#39;Why hello good sir, how do you do?&#39;</span><span class="o">.</span> <span class="no">And</span> <span class="n">I</span> <span class="n">responded</span><span class="p">,</span> <span class="s1">&#39;Well.&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>What have we learned so far? Just how to get the Ruby interpreter to read URLs as strings. Think of it as that we now know the <em>method of entry</em> for data. Nothing has happened yet (other than the string being echoed back).</p>
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="This is just a skeleton of the actual lesson. Content is added as it is edited and polished. This will likely be the most painful, least fun part of &hellip;">
+  <meta name="description" content="&laquo; Previous: Terminals and Text Editors Next: The Project &raquo; Installing Ruby The problem: How do we install Ruby and run Ruby programs? &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/terminals-and-text-editors/" title="Previous Post: Terminals and Text Editors">&laquo; Previous: Terminals and Text Editors</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/the-project/" title="Next Post: The Project">Next: The Project &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,15 +137,180 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p><em>This will likely be the most painful, least fun part of the lesson. If you are planning to take the ONA class, I strongly suggest you get this squared away. I will try to finish this chapter as quickly as possible. In the meantime, <a href="will%20get%20you%20pretty%20far.">Googling plain-language questions about Ruby installation</a></em></p>
+	<p>Depending on your system, the installation process might go very quickly. Or this might be the most annoying lesson. If you are planning to take the ONA class, I strongly suggest you get this squared away. I will try to finish this chapter as quickly as possible. In the meantime, <a href="http://www.google.com/search?q=installing+ruby+on+windows">Googling plain-language questions about Ruby installation</a></p>
 
-<p><em>I wrote a detailed, but now <a href="http://ruby.bastardsbook.com/chapters/installation/">slightly-outdated primer on installation</a> for the BBoRuby</em></p>
+<p>If you have trouble running the script at the end of this lesson, and Google please contact me at <a href="mailto:&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x40;&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x77;&amp;#x69;&amp;#x6E;&amp;#x2E;&amp;#x63;&amp;#x6F;&amp;#x6D;">dan@danwin.com</a> or on Twitter via <a href="http://www.twitter.com/dancow">@dancow</a></p>
 
-<p>After installing Ruby (1.8 or 1.9 should be fine) and the <a href="https://github.com/jnunemaker/httparty">HTTParty</a> and <a href="http://fastercsv.rubyforge.org/">FasterCSV</a> rubygems, you should be able to run this script without raising any errors:</p>
+<h2>Installing Ruby</h2>
+
+<p>For the purposes of this tutorial, Ruby 1.8.7+ or Ruby 1.9.x (i.e. 1.9.2+ or 1.9.3) should work fine. Ruby 1.9.x is the preferred version</p>
+
+<p>Some versions of Mac OS X have Ruby installed already. If you have 1.8.6, that <em>might</em> work but no guarantees.</p>
+
+<p>For Windows, the RubyInstaller website may make installing Ruby <a href="http://rubyinstaller.org/downloads/">as simple as downloading a file</a>.</p>
+
+<h4>For Mac users</h4>
+
+<p>Good news. If you&#8217;re using Mac OS X from 10.5 (Leopard) on, Ruby is pre-installed on your computer.</p>
+
+<p>If you want to get a little more advanced, you can follow the <a href="http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/">excellent instructions here</a>. It&#8217;s actually a lot of copy-and-pasting and downloading dependencies and just carefully following the steps.</p>
+
+<h4>Testing out Ruby</h4>
+
+<p>Once you have Ruby installed, you should be able to go to your <strong>command line</strong> and <strong>Enter</strong> in:</p>
+
+<p><code>ruby -v</code></p>
+
+<p>Which should print out the version of your system&#8217;s Ruby.</p>
+
+<h2>Rubygems</h2>
+
+<p>&#8220;Gems&#8221; are the name for Ruby code libraries. Installing them can give us access to some amazing functionality.</p>
+
+<p>For this lesson, we will want these gems:</p>
+
+<ul>
+<li><a href="https://github.com/jnunemaker/httparty">HTTParty</a></li>
+<li><a href="http://fastercsv.rubyforge.org/">FasterCSV</a> (unless you are using Ruby version 1.9.x)</li>
+<li><a href="http://flori.github.com/json/">json</a></li>
+</ul>
+
+
+<p>Before we can install these gems, we need to install RubyGems, which may also not be fun.</p>
+
+<ul>
+<li>If you&#8217;re on Windows and used <a href="http://rubyinstaller.org/downloads/">RubyInstaller</a>, then RubyGems may already be installed.</li>
+</ul>
+
+
+<p>Otherwise, Google &#8220;[your operating system] + installing rubygems&#8221;</p>
+
+<h3>Installing gems</h3>
+
+<p>RubyGems provides a command-line utility for installing the Ruby packages known as &#8220;gems&#8221;</p>
+
+<p>So go to your command line and run the following commands to install the previously-mentioned gems:</p>
+
+<ul>
+<li><code>gem install httparty</code></li>
+<li><code>gem install fastercsv</code> (only if you aren&#8217;t on Ruby 1.9.x)</li>
+<li><code>gem install json</code> (probably don&#8217;t have to do this on Ruby 1.9.x either)</li>
+</ul>
+
+
+<h2>How to run a Ruby program</h2>
+
+<p>Go back to your <strong>command line</strong> window, where you previously had run the <code>gem install</code> commands.</p>
+
+<p>This is how you run a Ruby program.
+1. Writing code into a <strong>text file</strong>
+2. Saving that text file (using the <em>.rb</em> extension is preferred)
+3. At the command line, <em>navigate</em> to the directory where you saved your program
+4. At the command line prompt, type: <code>ruby thenameofyourfile.rb</code> and hit <strong>Enter</strong></p>
+
+<p>Try this now. You can use the <strong>helloworld.rb</strong> file saved into your working directory (if you finished the previous chapter).</p>
+
+<h3>Interactive Ruby</h3>
+
+<p>For large, complex programs, you&#8217;ll want to write them into text files and run them using the command-line <code>ruby</code> call, as above.</p>
+
+<p>But for more immediate feedback and quick scripts, you might prefer <strong>irb</strong>, the <strong>Interactive Ruby Shell</strong></p>
+
+<p><strong>irb</strong> is itself a program, which you run at the command line:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/irb-test.png">
+</div>
+
+
+<p><strong>To exit irb</strong>: type in <code>exit</code> and you will return to the command prompt.</p>
+
+<h3>Keep track of irb and the command prompt</h3>
+
+<p>When looking at the <strong>irb</strong> program above, notice anything? Or, rather, <em>not</em> notice anything?</p>
+
+<p>The command prompt in which you run system commands, including changing directories or running <code>irb</code> or <code>ruby</code>, looks nearly <em>exactly</em> the same as the <strong>irb</strong> console.</p>
+
+<p>The prompt is different, but that&#8217;s a detail that your eye might miss at first.</p>
+
+<p>Here&#8217;s a diagram of the Terminal window, as it enters and exits <strong>irb</strong>. The <span style="background: #fdd">red shaded area</span> represents the part where <strong>irb</strong> is running:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/irb-shell-color-numbered.png">
+</div>
+
+
+<p>Here&#8217;s the description of the numbered labels:</p>
+
+<ol>
+<li>At the command prompt, I execute system commands: in this case, <code>ls</code>, to list directory files</li>
+<li>Then I start <strong>irb</strong> by typing <code>irb</code> at the command prompt.</li>
+<li>With <strong>irb</strong> started, I can execute Ruby commands.</li>
+<li>I quit <strong>irb</strong> by typing <code>exit</code> and hitting <strong>Enter</strong>.</li>
+<li>That kicks me back to the <strong>command prompt</strong>. I type another system command &ndash; <code>echo</code> &ndash; to confirm this.</li>
+</ol>
+
+
+<h4>&#8220;Hello World&#8221; in irb</h4>
+
+<p>Run <strong>irb</strong>. Let&#8217;s repeat the &#8220;Hello world&#8221; script we tried previously.</p>
+
+<p>At the <strong>irb</strong> prompt, type:</p>
+
+<p><code>puts "Hello world"</code></p>
+
+<p>&ndash; and hit <strong>Enter</strong> (make sure you get the quote marks)</p>
+
+<p><strong>irb</strong> should immediately respond with feedback. If you get into a spot where hitting <strong>Enter</strong> is doing nothing, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :005 &gt; puts "Hello world"
+</span><span class='line'>Hello world
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>1.9.3p258 :006 &gt; puts "I'm in irb!"
+</span><span class='line'>I'm in irb!
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>1.9.3p258 :007 &gt; exit
+</span><span class='line'>dans-macbook-air:~ dairy$ </span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Running programs in the text-editor</h3>
+
+<p><strong>irb</strong> is great for experimenting with Ruby, but can be cumbersome to run routines that span over more than a dozen lines. You&#8217;ll eventually find it easier to create and edit in your text editor.</p>
+
+<p>Depending on your text editor, you might be able to run your program <em>inside the text-editor</em> using a key-combination (e.g. <strong>Ctrl-R</strong> or <strong>F5</strong>) or menu command (e.g. <strong>Run</strong> or <strong>Go</strong>).</p>
+
+<p>This is little different than running your program from the command prompt. But it saves you the hassle of having to switch to the command prompt to type <code>ruby myscript.rb</code>.</p>
+
+<p>This is what it looks like to run a program inside the Windows SciTE:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/step-4-go.png">
+</div>
+
+
+
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/step-4-output.png">
+</div>
+
+
+<h2>Testing out your system</h2>
+
+<p>Are you ready to go? Try running the following script:</p>
 
 <figure class='code'><figcaption><span>A script to test your Ruby installation  (test-script.rb)</span> <a href='/downloads/code/test-script.rb'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -154,53 +328,71 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;fastercsv&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;fastercsv&#39;</span>
+</span><span class='line'><span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello world&quot;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://learnwhytocode.danwin.com&quot;</span>
-</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Testing HTTParty...fetching </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="n">sunlight_list_url</span> <span class="o">=</span> <span class="s2">&quot;http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Testing HTTParty...fetching </span><span class="si">#{</span><span class="n">sunlight_list_url</span><span class="si">}</span><span class="s2">&quot;</span>
 </span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;(you need to be online for this)&quot;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">response</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">response</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2"> bytes downloaded from </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">.&quot;</span>
+</span><span class='line'><span class="n">response</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sunlight_list_url</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> * Script is done.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">#{</span><span class="n">response</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2"> bytes downloaded from </span><span class="si">#{</span><span class="n">sunlight_list_url</span><span class="si">}</span><span class="s2">.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Testing the (Faster)CSV library&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="n">csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="ss">:col_sep</span><span class="o">=&gt;</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="n">csv</span> <span class="o">=</span> <span class="no">FasterCSV</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="ss">:col_sep</span><span class="o">=&gt;</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="n">csv</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="s1">&#39;firstname&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">csv</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;The name in the second row is: &quot;</span> <span class="o">+</span> <span class="n">str</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> * Script is done. Success&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>For Mac users</h2>
+<p>You can copy and paste it into a text file named <strong>test-script.rb</strong> in your <strong>working directory</strong>. And then run:</p>
 
-<p>Good news. If you&#8217;re using Mac OS X from 10.5 (Leopard) on, Ruby is pre-installed on your computer.</p>
+<p><code>rake test-script.rb</code></p>
 
-<p>If you want to get advanced, you can follow the <a href="http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/">excellent instructions here</a>. It&#8217;s actually a lot of copy-and-pasting and downloading dependencies and following the steps.</p>
+<p>Or, you could paste the entire thing into <strong>irb</strong>. Or run it directly from your text-editor. Whatever your preference.</p>
 
-<h2>For Windows Users</h2>
-
-<p>(todo)</p>
-
-<h2>Installing RubyGems</h2>
-
-<p>(todo)</p>
-
-<h2>How to run a Ruby program</h2>
-
-<p>(todo)</p>
-
-<h3>Interactive Ruby</h3>
-
-<p>(todo)</p>
-
-<h3>&#8220;Hello World&#8221;</h3>
-
-<p>(todo)</p>
-
-<h3>Running programs in the text-editor</h3>
-
-<p>(todo)</p>
+<p>Did it run without error? Congratulations. Else, please contact me at <a href="mailto:&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x40;&amp;#x64;&amp;#x61;&amp;#x6E;&amp;#x77;&amp;#x69;&amp;#x6E;&amp;#x2E;&amp;#x63;&amp;#x6F;&amp;#x6D;">dan@danwin.com</a> or on Twitter via <a href="http://www.twitter.com/dancow">@dancow</a></p>
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: How to download a file Next: Labeling the data &raquo; How to Save a File The problem: How do we save downloaded files to our hard &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/how-to-download-a-file/" title="Previous Post: How to download a file">&laquo; Previous: How to download a file</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/labeling-the-data/" title="Next Post: Labeling the data">Next: Labeling the data &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -99,7 +108,7 @@
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> How do we save files to our hard drive?</div>
+			<div class="q"><strong>The problem:</strong> How do we save downloaded files to our hard drive?</div>
 			<div class="q"><strong>The solution:</strong> Use the methods belonging to Ruby's File class.</div>	
 		</div>
     
@@ -128,11 +137,113 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>We know how to <em>get</em> files. But we don&#8217;t yet know how to <em>save</em> them, in the way that we can from a web browser.</p>
+
+<p>Let&#8217;s look up Ruby&#8217;s methods to open and save files in the <a href="http://www.ruby-doc.org/core-1.9.3/File.html" title="Class: File (Ruby 1.9.3)"><code>File</code> class documentation</a></p>
+
+<h2>The File class</h2>
+
+<p>The <a href="http://www.ruby-doc.org/core-1.9.3/File.html#method-c-open">documentation for <code>File.open</code></a> has what we want, though it tells us to check out the documentation for <a href="http://www.ruby-doc.org/core-1.9.3/IO.html#method-c-new"><code>IO.new</code></a> for more details.</p>
+
+<p><strong>Note</strong>: &#8220;IO&#8221; stands for &#8220;input/output&#8221; and is &#8220;the basis for all input and output in Ruby.&#8221; The <code>File</code> class is the <em>child</em> of the <code>File</code> class, a concept in object-oriented programming that we won&#8217;t be digging into right now. The upshot is that the <code>File</code> class <em>inherits</em> methods from the <code>IO</code> class, hence the extra click-through.</p>
+
+<p>The documentation actually takes its time to answer our simple question, so I&#8217;ll just get right to the syntax on how to save a file to disk:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>my_file = File.open("somefilename.txt", 'w')</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>File.open</code> takes two parameters:
+1. <strong>filename</strong>
+2. a <strong>string</strong> that represents the <em>mode</em>. <code>"w"</code>, as you might guess, stands for <strong>write</strong>-mode. The <code>IO.new</code> <a href="http://www.ruby-doc.org/core-1.9.3/IO.html#method-c-new">documentation</a> lists the other modes, though the other one we&#8217;re primarily interested in is <code>r</code> for <strong>read</strong>-mode</p>
+
+<p>The variable <code>my_file</code> is assigned to what is called a <strong>stream</strong>, into which you can write data. The above statement should result in a file called <code>somefilename.txt</code> in the directory that you are running <strong>irb</strong> in.</p>
+
+<p>Just in case you&#8217;re confused where <strong>irb</strong> is doing its work, here&#8217;s some walkthrough code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3-head :001 &gt; Dir.getwd
+</span><span class='line'> =&gt; "/Users/dairy/Desktop" 
+</span><span class='line'>1.9.3-head :002 &gt; my_file = File.open("this_is_a_test_file.txt", "w")
+</span><span class='line'> =&gt; #&lt;File:this_is_a_test_file.txt&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>Dir.getwd</code> method (<code>wd</code> stands for &#8220;working directory&#8221;) returns the directory that <strong>irb</strong> is working from. So passing a filename into the <code>File.open</code> will create a file with that name in the working directory. Use your operating system&#8217;s GUI to verify that <code>this_is_a_test_file.txt</code> exists. If you open that file, it should be empty.</p>
+
+<h3>Writing data to disk</h3>
+
+<p>Continuing from the code snippet above, here&#8217;s how to fill that empty text file and save it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3-head :003 &gt; my_file.write("Hello text file!")
+</span><span class='line'> =&gt; 16
+</span><span class='line'>1.9.3-head :004 &gt; my_file.close
+</span><span class='line'> =&gt; nil</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just as we <code>open</code> a file, it makes sense that we need to <code>close</code> it. The <code>close</code> method saves the stream to disk, so open up <code>this_is_a_test_file.txt</code> and verify that it contains <code>Hello text file!</code>.</p>
+
+<p>After you <code>close</code> a file, you cannot write to it again without re-opening it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3-head :005 &gt; my_file.write("trying to write some more")
+</span><span class='line'>IOError: closed stream
+</span><span class='line'>  from (irb):5:in `write'
+</span><span class='line'>  from (irb):5</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Rewrite and overwrite</h3>
+
+<p>Try opening the same filename as used above in <strong>write</strong> mode again. Write some text and <strong>close</strong> the file.</p>
+
+<p>What happens?</p>
+
+<p>Whatever was in the file previously was wiped out with the new input. Obviously, you want to be <strong>careful</strong> about how you use the write-mode when opening files. For the purposes of this lesson, we won&#8217;t be writing to any files that we can&#8217;t easily replace, but if you haven&#8217;t been already, you&#8217;re going to have to <em>think</em> before you run code because it&#8217;s not all benign.</p>
+
+<h5>Exercise</h5>
+
+<p>Write the code that:</p>
+
+<ol>
+<li>Downloads the data from TK</li>
+<li>Saves the result to a file named &#8220;TKtweets.json&#8221;</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">resp</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TK&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">fh</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;TKtweets.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class='line'><span class="n">fh</span><span class="o">.</span><span class="n">close</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There should be a file named <code>TKtweets.json</code> wherever you executed the code above.</p>
 </div>
 
 

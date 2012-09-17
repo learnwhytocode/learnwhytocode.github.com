@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: Read a list Next: Handle data files faster with Hashes &raquo; Read the Columns of a Spreadsheet The problem: We need to pick out &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/read-a-list/" title="Previous Post: Read a list">&laquo; Previous: Read a list</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/handle-datafiles-faster-with-hashes/" title="Next Post: Handle data files faster with Hashes">Next: Handle data files faster with Hashes &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -119,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T05:10:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:23:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -128,11 +137,161 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>In the last chapter, we learned how to store the <a href="http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt">Congressmembers&#8217; sample datafile</a>, line by line, into an <strong>array</strong>.</p>
+
+<p>The problem is that we don&#8217;t want a list of text lines. We want a list of Twitter usernames, which are contained <em>within</em> those text lines.</p>
+
+<p>Remember that the datafile is <strong>tab-delimited</strong>, meaning that the values in each line are separated by the <strong>tab-character</strong>. Like newlines, which have a special escape sequence, <code>"\n"</code>, tab characters are represented as <code>"\t"</code>.</p>
+
+<p>So let&#8217;s split each line by tab character, creating an array of arrays.</p>
+
+<p>First, let&#8217;s get <code>textlines</code> again as we did in the last chapter:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
+</span><span class='line'>require 'httparty'
+</span><span class='line'>
+</span><span class='line'>sunlight_list_url = "http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt"
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>textlines = HTTParty.get(sunlight_list_url).body
+</span><span class='line'>textlines = textlines.split("\n")
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now iterate through <code>textlines</code>, splitting each text line by the <code>"\t"</code> character and effectively turning that text line into an array.</p>
+
+<p>Then, print out the <em>third</em> value in that line-array:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">textlines</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cols</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">cols</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">017</span> <span class="o">&gt;</span> <span class="n">textlines</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">01</span><span class="mi">8</span> <span class="o">&gt;</span>     <span class="n">cols</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">01</span><span class="mi">9</span><span class="o">?&gt;</span>   <span class="nb">puts</span> <span class="n">cols</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">020</span><span class="o">?&gt;</span>   <span class="k">end</span>
+</span><span class='line'><span class="n">firstname</span>
+</span><span class='line'><span class="no">Joseph</span>
+</span><span class='line'><span class="no">John</span>
+</span><span class='line'><span class="no">Roy</span>
+</span><span class='line'><span class="no">Barbara</span>
+</span><span class='line'><span class="no">Darrell</span>
+</span><span class='line'><span class="no">Joseph</span>
+</span><span class='line'><span class="no">Ronald</span>
+</span><span class='line'><span class="no">Jared</span>
+</span><span class='line'><span class="no">Rand</span>
+</span><span class='line'><span class="no">Nancy</span> 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Exercise</h5>
+
+<p>Write a method named <code>get_twitter_name_from_line</code> that <strong>accepts a single argument</strong>: a tab-delimited data line from the Congressmembers&#8217; datafile. It should <strong>return</strong> the Twitter account name from that line.</p>
+
+<p>For now, we&#8217;ll assume that this method has no reference to the array of data lines.</p>
+
+<figure class='code'><figcaption><span>First attempt at get_twitter_name_from_line method</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_twitter_name_from_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">[</span><span class="no">TK9</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What if in a new datafile, the position of the column for Twitter names changes? Rewrite this method to get the Twitter account name <em>without</em> using a hard-coded variable for the column position. This means it will take in two arguments:</p>
+
+<ol>
+<li>The line of data</li>
+<li>An array of headers</li>
+</ol>
+
+
+<p>Use the <code>index</code> method that&#8217;s part of the <code>Array</code> class.</p>
+
+<figure class='code'><figcaption><span>Second attempt at get_twitter_name_from_line method</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_twitter_name_from_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">array_of_column_names</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">col_idx</span> <span class="o">=</span> <span class="n">array_of_column_names</span><span class="o">.</span><span class="n">index</span><span class="o">[</span><span class="s1">&#39;TKtwittercolname&#39;</span><span class="o">]</span>
+</span><span class='line'>  <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">[</span><span class="n">col_idx</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Why limit ourselves to extracting data from just the Twitter account column? Write a method named  <code>get_column_value_from_line</code> which returns the value from any given column from any given line. This will now require <strong>three</strong> arguments:</p>
+
+<ol>
+<li>The line of data</li>
+<li>An array of headers</li>
+<li>The column name</li>
+</ol>
+
+
+<figure class='code'><figcaption><span>The get_column_value_from_line method</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_column_value_from_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">array_of_column_names</span><span class="p">,</span> <span class="n">col_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">col_idx</span> <span class="o">=</span> <span class="n">array_of_column_names</span><span class="o">.</span><span class="n">index</span><span class="o">[</span><span class="n">col_name</span><span class="o">]</span>
+</span><span class='line'>  <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">[</span><span class="n">col_idx</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Rewrite <code>get_twitter_name_from_line</code> so that it calls <code>get_column_value_from_line</code>. You should be able to rewrite it so that it accepts only <em>two</em> arguments.</p>
+
+<figure class='code'><figcaption><span>Third attempt at get_twitter_name_from_line method</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_twitter_name_from_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">array_of_column_names</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">get_column_value_from_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">array_of_column_names</span><span class="p">,</span> <span class="s2">&quot;TKtwittercolname&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While you were doing the above exercises, something should have smelled a little funny about all this code. We basically want to extract a <em>cell</em> from a <em>row</em> of data, yet with every call to <code>get_twitter_name_from_line</code>, we&#8217;re recalculating column positions. Unless the datafile is changing <em>while the program runs</em> &ndash; unlikely &ndash; we should only have to calculate those once.</p>
+
+<p>So how should we cut down on this repeated calculation (even though the method definition helps us abstract it away)? We could set a constant somewhere at the time the data file is loaded. We could learn more about object-oriented programming to do it the &#8220;best practices&#8221; way.</p>
+
+<p>The former way is clunky, because it requires us to write methods that are not very abstract. And the latter path isn&#8217;t feasible in a beginner&#8217;s tutorial. But in the next chapter, we&#8217;ll learn one more useful collection object: the <code>Hash</code>.</p>
 </div>
 
 
@@ -143,7 +302,7 @@
         <a class="basic-alignment left pagin" href="/lessons/read-a-list/" title="Previous Post: Read a list">&laquo; Previous: Read a list</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/handle-datafiles-faster/" title="Next Post: Handle datafiles faster">Next: Handle datafiles faster &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/handle-datafiles-faster-with-hashes/" title="Next Post: Handle data files faster with Hashes">Next: Handle data files faster with Hashes &raquo;</a>
       
     </p>
 
@@ -166,7 +325,7 @@
   
 
 
-<time datetime="2012-09-12T05:10:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:23:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 

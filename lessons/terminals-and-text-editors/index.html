@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="This is just a skeleton of the actual lesson. Content is added as it is edited and polished. This lesson is intended for beginners, so I can&#8217;t &hellip;">
+  <meta name="description" content="&laquo; Previous: Why Learn Why Next: Installing Ruby &raquo; Terminals and Text Editors The problem: What do we use to write code? The solution: We &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/why-learn-why/" title="Previous Post: Why Learn Why">&laquo; Previous: Why Learn Why</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/installing-ruby/" title="Next Post: Installing Ruby">Next: Installing Ruby &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,7 +137,8 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
@@ -138,19 +148,157 @@
 
 <h2>Navigating your file system</h2>
 
-<p>(todo)</p>
+<p>This tutorial doesn&#8217;t require that you be an expert at computers (&#8230;<em>yet</em>). But you do need some basic familiarity with your operating system.</p>
+
+<p>Whatever your operating system, please make sure you know how to do this:</p>
+
+<ol>
+<li>Find either your <code>Desktop</code> or <code>Downloads</code> folder. Or you could go straight to your &#8220;C:&#34; drive</li>
+<li>In either of these folders, view the contained files as a <strong>list</strong>.</li>
+<li>Sort the list of files by name.</li>
+<li>Now <strong>create a new folder</strong> inside the current folder and name it <code>learn_why</code></li>
+</ol>
+
+
+<p>This <code>learn_why</code> subfolder will be the working directory for your work in this tutorial. Make sure you remember what its parent folder is &ndash; either <code>Desktop</code> or <code>Downloads</code>&#8230;or whatever you picked.</p>
+
+<p>From here on out, I will be referring to it as the <strong>working directory</strong>.</p>
 
 <h2>Install a text editor</h2>
 
-<p>(todo)</p>
+<p>The code for our programs is simply <strong>text</strong>.</p>
+
+<p>But Microsoft Word nor iWork will be ideal for this. We want a text editor that was designed for coding.</p>
+
+<p>For <strong>Windows</strong>, there is <a href="http://notepad-plus-plus.org/" title="Notepad++ Home">Notepad++</a> or <a href="http://www.scintilla.org/SciTE.html" title="Scintilla and SciTE">SciTE</a>.</p>
+
+<p>For Mac OS X, there is <a href="http://www.barebones.com/products/TextWrangler/" title="Bare Bones Software | TextWrangler">TextWrangler</a>. You can download it from its <a href="http://www.barebones.com/products/TextWrangler/">homepage</a> or get it from the Mac App Store.</p>
+
+<p>The advantage of a dedicated text-editor is that it can provide <span style="background:#FAF14E">highlighted syntax</span>. As you&#8217;ll find out early, certain words and symbols in Ruby have special meaning in the language. Text-editors distinguish these characters from the non-special ones:</p>
+
+<div class="imgwrap"><img src="/images/lessons/terminals/hello-world-textwrangler.png"></div>
+
+
+<h3>Make a Ruby program</h3>
+
+<p>All we&#8217;ve done is install a text editor and we&#8217;re already going to write our first Ruby program: that&#8217;s progress!</p>
+
+<ol>
+<li>Start a new text file</li>
+<li>Type the following, <em>exactly</em>: <code>puts "Hello world"</code></li>
+<li>Save this file as &#8220;helloworld.rb&#8221; in your <strong>working directory</strong></li>
+</ol>
+
+
+<p>Using your operating systems file explorer, try to find the <strong>helloworld.rb</strong> file. It should be the sole file in your <strong>working directory</strong> for now.</p>
+
+<p>All we did was write some Ruby code. It&#8217;s a program, but it won&#8217;t do anything until we <strong>execute</strong> it.</p>
+
+<p>If your system already has Ruby installed, you might even be able to run it from your text editor. You can see some instructions I wrote for my <a href="http://ruby.bastardsbook.com/chapters/installation/#text-editor-run">Ruby programming book</a>. If you can&#8217;t run the <strong>helloworld.rb</strong> program, no big deal for now.</p>
 
 <h2>The command line</h2>
 
-<p>(todo)</p>
+<p>This is where you may be entering unfamiliar territory.</p>
+
+<p>The <strong>command line</strong>, which I might sometimes refer to as the <strong>terminal</strong>, is the plain-text way of manipulating your operating system. You can do things such as change directories, rename files, or delete them. You just won&#8217;t be using your mouse.</p>
+
+<p>The steps to get there are different for each operating system.</p>
+
+<h3>Windows users</h3>
+
+<ol>
+<li>Click on the Windows menubar button, and select the <strong>Run&#8230;</strong> option. Or hit <strong>Ctrl-R</strong></li>
+<li>Type <code>cmd</code></li>
+<li>A bland program window should open up</li>
+<li>Type <code>dir</code> and hit <strong>Enter</strong></li>
+<li>A list of files should appear</li>
+<li>Make a shortcut to the command prompt by creating a shortcut on your Desktop linking to cmd.exe</li>
+</ol>
+
+
+<p>Your terminal window will kind of look like this:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/cmd.png">
+</div>
+
+
+<h3>Mac users</h3>
+
+<ol>
+<li>In <strong>Finder</strong>, go to the <strong>Applications » Utilities</strong> folder</li>
+<li>Open the <strong>Terminal.app</strong></li>
+<li>A bland program Window should open up.</li>
+<li>Type <code>ls</code> and hit <strong>Enter</strong></li>
+<li>A list of files should appear</li>
+<li>Make a shortcut to the command prompt by dragging the Terminal app to your dock.</li>
+</ol>
+
+
+<p>Here&#8217;s what the OS X terminal looks like:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/prompt-window-macosx.png">
+</div>
+
+
+<h4>Find your working directory</h4>
+
+<p>In Windows and in OS X, the command to &#8220;change directory&#8221; is <code>cd</code></p>
+
+<p>Example usage:</p>
+
+<p><code>cd ~/Desktop/learn_why</code></p>
+
+<p><code>cd C:\learn_why</code></p>
+
+<p>Once you&#8217;re in your working directory, use the appropriate command to list files. Do you see the &#8220;helloworld.rb&#8221; file?</p>
+
+<h4>Try ruby</h4>
+
+<p>This may or may not work for you. If you&#8217;re still in your working directory, type in:</p>
+
+<p><code>ruby helloworld.rb</code></p>
+
+<p>If Ruby is properly installed, you should see something like this:</p>
+
+<div class="imgwrap">
+    <img src="/images/lessons/terminals/learn-why-terminal.png">
+</div>
+
+
+<p>If you ran into an error, it may be because Ruby isn&#8217;t yet installed. We&#8217;ll get to there in the next chapter.</p>
 
 <h2>The web</h2>
 
-<p>(todo)</p>
+<p>There&#8217;s no specific web browser requirement for this tutorial. Use whatever you feel comfortable with.</p>
+
+<p><em>The following might seem pedantic, but you can never be sure&#8230;</em></p>
+
+<p>The term URL refers to the address of some resource, such as a webpage or image, somewhere on the Internet.</p>
+
+<h4>URLs</h4>
+
+<p>So the URL for Google&#8217;s webpage is <code>http://www.google.com</code></p>
+
+<p>This is also a URL:
+<code>http://so.danwin.com/onacode/sunlight-foundation-congress-10.txt</code></p>
+
+<h4>Manually visiting URLs</h4>
+
+<p>Copy-and-paste that URL into your browser&#8217;s Address Bar and hit <strong>Enter</strong>.</p>
+
+<p>You should see a jumble of text. This is because that URL pointed to a text file, not a fancy web page.</p>
+
+<h4>Saving pages to disk</h4>
+
+<p>Go to your web browser&#8217;s <strong>File</strong> menu and select the <strong>Save As&#8230;</strong> or <strong>Save Page As&#8230;</strong></p>
+
+<p>In the file-saving dialog box, save the current page (i.e. this text file) into your <strong>working directory</strong></p>
+
+<p>OK, now open that text file, whatever you named it, with your text-editor.</p>
+
+<p>And that&#8217;s it. Just wanted to make sure you could easily navigate around your operating system. Now to the hard part: installing Ruby. Or the right version of it.</p>
 </div>
 
 

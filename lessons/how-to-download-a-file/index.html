@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content=" This is just a skeleton of the actual lesson. Content is added as it is edited and polished. ">
+  <meta name="description" content="&laquo; Previous: Methods and the dot operator Next: How to save a file &raquo; How to Download a File The problem: How do we actually download &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +88,15 @@
 	
       <div>
 <article class="hentry" role="article">
+	<p class="meta">
+      
+        <a class="basic-alignment left pagin" href="/lessons/methods-and-the-dot-operator/" title="Previous Post: Methods and the dot operator">&laquo; Previous: Methods and the dot operator</a>
+      
+      
+        <a class="basic-alignment right pagin" href="/lessons/how-to-save-a-file/" title="Next Post: How to save a file">Next: How to save a file &raquo;</a>
+      
+    </p>
+	
 	
 	
 	
@@ -128,11 +137,149 @@
 
 
 
-<div class="entry-content">
+
+<div class="entry-content lesson">
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	
+	<p>So we&#8217;ve learned how to input URLs in the Ruby interpreter. But how do we actually <em>download</em> something?</p>
+
+<p>In the last chapter, we learned about how variables can <em>point</em> to data objects, such as strings. But there are also pointers to blocks of code that actually <em>do</em> something, such as <strong>methods</strong>.</p>
+
+<p>In fact, <code>puts</code> is a method. And there are many other methods which can do much more than print to screen. Much of the power of programming is being able to hugely complex operations by invoking a single word &ndash; the name of a method.</p>
+
+<p>So to download a file, all we need to do is find the name of the method that contains the downloading functionality.</p>
+
+<h3>It&#8217;s a HTTParty</h3>
+
+<p>Doing a few Google searches for &#8220;Ruby&#8221; and &#8220;download TK&#8221; will net us a few options. The most fun-sounding one is John Nunemaker&#8217;s <a href="https://github.com/jnunemaker/httparty">HTTParty</a> gem, which claims to make &#8220;http fun again!&#8221;</p>
+
+<div class="note">
+If you haven&#8217;t installed Rubygems yet or the HTTParty gem, refer back to the <a href="TK">installation chapter</a>. 
+</div>
+
+
+<p>According to the <a href="https://github.com/jnunemaker/httparty#readme">documentation</a>, here&#8217;s how to download from a URL:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
+</span><span class='line'>require 'httparty'
+</span><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')
+</span><span class='line'>puts response
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s dissect this code snippet.</p>
+
+<h4>The &#8216;require&#8217; statement</h4>
+
+<p>The Ruby keyword <code>require</code> is a <strong>method</strong> that, when given a <strong>string</strong>, pulls in the library of code that that string refers to.</p>
+
+<p>The first <code>require</code> call tells the Ruby interpreter that we&#8217;ll be using <strong>rubygems</strong>, Ruby&#8217;s convenient framework of packaging these libraries.</p>
+
+<p>The second <code>require</code> call pulls in the code for the <a href="https://github.com/jnunemaker/httparty">HTTParty</a> gem. By convention, the actual strings used to refer to the gem use lowercase letters, underscores, and sometimes hyphens (In the case of HTTParty, you <em>can</em> refer to it as <code>require "HTTParty"</code>).</p>
+
+<p>In irb, you should see this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :002 &gt; require 'rubygems'
+</span><span class='line'> =&gt; false 
+</span><span class='line'>1.9.3p258 :003 &gt; require 'httparty'
+</span><span class='line'> =&gt; true</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>The &#8216;get&#8217; method</h3>
+
+<p>This next line is where the interesting work is done:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First, focus on what&#8217;s to the <em>right</em> of the <strong>equals sign</strong> (which we learned is the <strong>assignment operator</strong>).</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Following the <code>get</code> is a <strong>string</strong>, wrapped in <strong>parentheses</strong>. These parentheses denote the <strong>arguments</strong> for the <code>get</code> method. I&#8217;ll explain <strong>arguments</strong> later.</p>
+
+<p><em>The parentheses are actually optional, but let&#8217;s pretend that they need to be there for now.</em></p>
+
+<p><strong>To review:</strong></p>
+
+<p>To download a file from <code>"http://learnwhytocode.danwin.com"</code>, we call this method:</p>
+
+<p><code>HTTParty.get("http://learnwhytocode.danwin.com")</code></p>
+
+<ul>
+<li><code>HTTParty</code> is the <strong>object</strong></li>
+<li><code>get</code> is a <strong>method</strong> of <code>HTTParty</code></li>
+<li>and the string <code>"http://learnwhytocode.danwin.com"</code> is an <strong>argument</strong> that we pass to the <code>get</code> <strong>method</strong></li>
+</ul>
+
+
+<p>Why is the object named <code>HTTParty</code> and its method <code>get</code>? Because the author wanted it that way. What is the code behind <code>get</code>? You can examine it later on your own, as the author <a href="https://github.com/jnunemaker/httparty">has generously made it open source</a>, but let&#8217;s be content for now that it works as the author claims in the documentation.</p>
+
+<h3>Variables, revisited</h3>
+
+<p>Let&#8217;s go back to the original code that contained the variable assignment:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The variable named <code>response</code> contains the return value of the <code>get</code> method.</p>
+
+<p>What does <code>response</code> contain? Let&#8217;s try it out:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://learnwhytocode.danwin.com&#39;</span><span class="p">)</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="c1">#&lt;HTTParty::Response:0x103877b30 parsed_response=&quot;\n...&quot;&gt;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="no">HTTParty</span><span class="o">::</span><span class="no">Response</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Note: you only have to do the <code>require</code> statements once each time you startup irb. If you exit and re-launch irb, you&#8217;ll have to call <code>require</code> again to bring in the libraries</em></p>
+
+<p>If you look through the <a href="https://github.com/jnunemaker/httparty">HTTParty documentation</a>, you&#8217;ll find that the <code>body</code> method of this <code>HTTParty::Response</code> class contains the contents of the webpage:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">006</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">length</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">7551</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&#8217;s all there is to downloading a file. If you look through the <a href="https://github.com/jnunemaker/httparty">HTTParty documentation</a>, you&#8217;ll see that it&#8217;s actually a complicated affair. But thanks to the nature of programming and how it abstracts complexity to a single word, we just need to know how to invoke <code>HTTParty.get</code></p>
+
+<p>We&#8217;ll find out what to do with the result of <code>HTTParty.get</code> in the next chapter.</p>
+
+<h5>Exercises</h5>
+
+<p>Use the <code>HTTParty</code> library to download this URL: <code>TK</code></p>
 </div>
 
 
@@ -140,7 +287,7 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/adding-strings-together/" title="Previous Post: Adding strings together">&laquo; Previous: Adding strings together</a>
+        <a class="basic-alignment left pagin" href="/lessons/methods-and-the-dot-operator/" title="Previous Post: Methods and the dot operator">&laquo; Previous: Methods and the dot operator</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/how-to-save-a-file/" title="Next Post: How to save a file">Next: How to save a file &raquo;</a>
