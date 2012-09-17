@@ -5,7 +5,9 @@ load './my-first-constants.rb'
 
 def download_from_url(the_url)
 	resp = HTTParty.get(the_url)
-	return resp.body
+	# note: when resp is converted to a string, it contains only the 
+	# content from the_url, not the methods and attributes from HTTParty
+	return resp
 end
 
 def url_to_local_filename(url)

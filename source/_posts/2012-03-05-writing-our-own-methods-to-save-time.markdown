@@ -221,7 +221,7 @@ Here's one way to do it:
 ``` lang:ruby
 def download_from_url(the_url)
 	resp = HTTParty.get(the_url)
-	return resp.body
+	return resp
 end
 ```
 
