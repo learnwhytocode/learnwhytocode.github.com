@@ -75,6 +75,8 @@ def get_twitter_name_from_line(line)
 end
 ```
 
+What if we don't know beforehand that the TKcolname is in the TKth column of a file? We need a way to dynamically 
+
 
 What if in a new datafile, the position of the column for Twitter names changes? Rewrite this method to get the Twitter account name *without* using a hard-coded variable for the column position. This means it will take in two arguments: 
 

@@ -121,4 +121,29 @@ row[4]	# refers to the fifth element
 
 In the next chapter, we'll get more into detail with Arrays. But now we know how to read from a list.
 
+##### Exercise
+
+Given the following string:
+
+``` ruby
+str = "1,6,8,12,40,a,b,c,d,e,42,Adams"
+```
+
+Find:
+
+1. The number of comma-delimited values
+2. The 7th value
+
+
+##### Answer
+```
+str = "1,6,8,12,40,a,b,c,d,e,42,Adams"
+arr = str.split(",")
+
+puts arr.length 	#=> 12
+puts arr[8]			#=> d
+```
+
+
+
 
