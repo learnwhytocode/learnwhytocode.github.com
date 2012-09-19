@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Automate the downloads Next: Transforming collections &raquo; Handle JSON Files The problem: How do we deal with JSON data files? &hellip;">
+  <meta name="description" content="&laquo; Previous: How to download a file Next: Labeling the data &raquo; Handle JSON Files The problem: How do we deal with JSON data files? The &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/automate-the-downloads/" title="Previous Post: Automate the downloads">&laquo; Previous: Automate the downloads</a>
+        <a class="basic-alignment left pagin" href="/lessons/how-to-download-a-file/" title="Previous Post: How to download a file">&laquo; Previous: How to download a file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/map-collections/" title="Next Post: Transforming collections">Next: Transforming collections &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/labeling-the-data/" title="Next Post: Labeling the data">Next: Labeling the data &raquo;</a>
       
     </p>
 	
@@ -109,7 +109,7 @@
     
 		<div class="lesson-matter">
 			<div class="q"><strong>The problem:</strong> How do we deal with JSON data files?</div>
-			<div class="q"><strong>The solution:</strong> Use Arrays and Hashes to process JSON as easily as a spreadsheet</div>	
+			<div class="q"><strong>The solution:</strong> Use Ruby's JSON library</div>	
 		</div>
     
 
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T05:25:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -142,26 +142,22 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<h5>Exercises</h5>
+	<p>In the last chapter, we learned how to download a file using HTTParty and save its contents to a variable:</p>
 
-<p>Write a method named <code>get_all_tweets_for</code> that:</p>
-
-<p>1) Takes one argument, a Twitter account name
-2) Reads every JSON tweets file for that account name
-3) Parses the JSON and returns a single array containing all the tweets for the given user</p>
-
-<p>Sample usage:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets</span> <span class="o">=</span> <span class="n">get_all_tweets_for</span><span class="p">(</span><span class="s1">&#39;TKNAME&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;The user &quot;</span> <span class="o">+</span> <span class="sb">`TKNAME`</span> <span class="o">+</span> <span class="s2">&quot; has this many tweets: &quot;</span> <span class="o">+</span> <span class="n">tweets</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">to_s</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
+</span><span class='line'>require 'HTTParty'
+</span><span class='line'>
+</span><span class='line'>url = "http://nottwitter.danwin.com/users/NancyPelosi/show.json"
+</span><span class='line'>downloaded_file = HTTParty.get(url)
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note: You&#8217;ll have to build off the other methods we&#8217;ve used to access local tweet files.</p>
-
-<h5>Answers</h5>
+<p>But when we examine the results (you can visit the <a href="http://nottwitter.danwin.com/users/NancyPelosi/show.json">show.json file in your browser</a>), you&#8217;ll find a strange arrangement of text:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -189,34 +185,105 @@
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
 <span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># TK save to file</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">do</span> <span class="n">we</span> <span class="n">need</span> <span class="n">this</span> <span class="n">from</span> <span class="n">previous</span> <span class="n">chapter</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_local_filenames_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
-</span><span class='line'>  <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;data-hold/TK&quot;</span><span class="p">)</span> <span class="c1"># should we do CONSTANT for path here?</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">arr</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">get_all_tweets_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">arr_of_fnames</span> <span class="o">=</span> <span class="n">get_tweets_local_filenames_for</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="n">arr_of_tweets</span> <span class="o">=</span> <span class="o">[]</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="n">arr_of_fnames</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">fname</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">jsonstr</span> <span class="o">=</span> <span class="n">my_file_reader</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-</span><span class='line'>      <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">jsonstr</span><span class="p">)</span>
-</span><span class='line'>      <span class="c1"># TK</span>
-</span><span class='line'>      <span class="n">arr_of_tweets</span> <span class="o">&lt;&lt;</span> <span class="no">TK</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">return</span> <span class="n">arr_of_tweets</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "id": 15764644,
+</span><span class='line'>  "id_str": "15764644",
+</span><span class='line'>  "name": "Nancy Pelosi",
+</span><span class='line'>  "screen_name": "NancyPelosi",
+</span><span class='line'>  "location": "San Francisco & DC",
+</span><span class='line'>  "url": "http://www.democraticleader.gov/",
+</span><span class='line'>  "description": "Democratic Leader, focused on strengthening America's middle class and creating jobs; mother, grandmother, dark chocolate connoisseur.",
+</span><span class='line'>  "protected": false,
+</span><span class='line'>  "followers_count": 226259,
+</span><span class='line'>  "friends_count": 225,
+</span><span class='line'>  "listed_count": 6288,
+</span><span class='line'>  "created_at": "Thu Aug 07 15:35:02 +0000 2008",
+</span><span class='line'>  "favourites_count": 0,
+</span><span class='line'>  "utc_offset": -28800,
+</span><span class='line'>  "time_zone": "Pacific Time (US & Canada)",
+</span><span class='line'>  "geo_enabled": false,
+</span><span class='line'>  "verified": true,
+</span><span class='line'>  "statuses_count": 1029,
+</span><span class='line'>  "lang": "en",
+</span><span class='line'>  "contributors_enabled": false,
+</span><span class='line'>  "is_translator": false,
+</span><span class='line'>  "profile_background_color": "FFFFFF",
+</span><span class='line'>  "profile_background_image_url": "http://a0.twimg.com/profile_background_images/188759788/newtwitterbg.jpg",
+</span><span class='line'>  "profile_background_image_url_https": "https://si0.twimg.com/profile_background_images/188759788/newtwitterbg.jpg",
+</span><span class='line'>  "profile_background_tile": false,
+</span><span class='line'>  "profile_image_url": "http://a0.twimg.com/profile_images/1681806248/npmic4twitter_normal.jpg",
+</span><span class='line'>  "profile_image_url_https": "https://si0.twimg.com/profile_images/1681806248/npmic4twitter_normal.jpg",
+</span><span class='line'>  "profile_link_color": "1B5363",
+</span><span class='line'>  "profile_sidebar_border_color": "E8E8E8",
+</span><span class='line'>  "profile_sidebar_fill_color": "FCFCFC",
+</span><span class='line'>  "profile_text_color": "333333",
+</span><span class='line'>  "profile_use_background_image": true,
+</span><span class='line'>  "show_all_inline_media": false,
+</span><span class='line'>  "default_profile": false,
+</span><span class='line'>  "default_profile_image": false,
+</span><span class='line'>  "following": null,
+</span><span class='line'>  "follow_request_sent": null,
+</span><span class='line'>  "notifications": null
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
+
+<p>At second glance, it&#8217;s not too hard to figure out what&#8217;s going on here. This <strong>json</strong> file contains some kind of listing of attributes for Rep. Nancy Pelosi&#8217;s Twitter account. For example:</p>
+
+<p><code>"followers_count": 226259</code></p>
+
+<p>We can guess that this line indicates that Rep. Pelosi has 226,259 followers.</p>
+
+<h2>What is JSON?</h2>
+
+<p>JSON stands for &#8221;<a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a>&#8221;. It is simply a lightweight data format and is a common way for web services to pass around data.</p>
+
+<p>The actual details of JSON&#8217;s structure aren&#8217;t important to learn right now. We just want to know: how can we turn this text file to usable data?</p>
+
+<p>If you&#8217;re following the steps from the beginning of this chapter, you have a <code>downloaded_file</code> variable that contains downloaded JSON. Exactly what is contained in <code>downloaded_file</code>?</p>
+
+<p>(remember that <code>downloaded_file</code> is actually an object with a class of HTTParty::Response, so use its <code>body</code> method)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :006 &gt; downloaded_file.body.class
+</span><span class='line'> =&gt; String </span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Data is organized text</h2>
+
+<p>As you get more experienced in collecting digital data, one <em>fundamental concept</em> to understand is that data is all just text (actually <code>1</code>s and <code>0s</code> but no need to go that deep).</p>
+
+<p>The JSON file we just downloaded is just a large string.</p>
+
+<p>Getting useful data out of this text &ndash; whether it&#8217;s comma-delimited files, Excel spreadsheets, JSON, or SQL &ndash; is just a matter of finding a pattern in the file and breaking it apart.</p>
+
+<p>We&#8217;ll figure out this pattern later. For now, let&#8217;s see if someone has already written the code to interpret JSON files for us.</p>
+
+<h2>The json gem</h2>
+
+<p>(TK parse exercise)</p>
+
+<h2>Write our own methods</h2>
+
+<h5>Exercise</h5>
+
+<p>Write a <code>download_and_parse_json</code> method that, given a url to a json file, returns the result of <code>JSON.parse</code>.</p>
+
+<h5>Answer</h5>
 </div>
 
 
@@ -224,10 +291,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/automate-the-downloads/" title="Previous Post: Automate the downloads">&laquo; Previous: Automate the downloads</a>
+        <a class="basic-alignment left pagin" href="/lessons/how-to-download-a-file/" title="Previous Post: How to download a file">&laquo; Previous: How to download a file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/map-collections/" title="Next Post: Transforming collections">Next: Transforming collections &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/labeling-the-data/" title="Next Post: Labeling the data">Next: Labeling the data &raquo;</a>
       
     </p>
 
@@ -250,7 +317,7 @@
   
 
 
-<time datetime="2012-09-12T05:25:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 

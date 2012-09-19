@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Handle data files faster with Hashes - Learn Why to Code</title>
+  <title>Pick out the text from many tweets - Learn Why to Code</title>
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Read the columns of a spreadsheet Next: Automate the downloads &raquo; Handle Data Files Faster With Hashes The problem: Arrays &hellip;">
+  <meta name="description" content="&laquo; Previous: Pick out the text of a tweet Next: Loop and repeat &raquo; Pick Out the Text From Many Tweets The problem: TK The solution: TK &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/handle-datafiles-faster-with-hashes/">
+  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/read-the-columns-of-a-spreadsheet/" title="Previous Post: Read the columns of a spreadsheet">&laquo; Previous: Read the columns of a spreadsheet</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/automate-the-downloads/" title="Next Post: Automate the downloads">Next: Automate the downloads &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
       
     </p>
 	
@@ -103,13 +103,13 @@
   
   <header>
     
-      <h1 class="entry-title">Handle Data Files Faster With Hashes</h1>
+      <h1 class="entry-title">Pick Out the Text From Many Tweets</h1>
     
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> Arrays are cumbersome when trying to get the actual column of a given line.</div>
-			<div class="q"><strong>The solution:</strong> Use the FasterCSV library and Hash objects to simplify reading the datafile.</div>	
+			<div class="q"><strong>The problem:</strong> TK</div>
+			<div class="q"><strong>The solution:</strong> TK Arrays object</div>	
 		</div>
     
 
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T04:25:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -142,32 +142,16 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>We finished the last chapter with this annoyance:</p>
+	<p>Open the JSON file for tweets</p>
 
-<p>Given a tab-delimited file where the first line is the name of columns, how do we get the <code>tktwittername</code> value for any given line?</p>
+<p>Addressing each tweet</p>
 
-<p>We basically have to find the numerical index where <code>tktwittername</code> exists in the array of column names.</p>
+<p>Combine with hash notation</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#TK irb example in which we load file, guess index
-</span></code></pre></td></tr></table></div></figure>
+<h5>Exercise</h5>
 
-
-<p>The fundamental problem here is that the numerical index of TK9 is perfectly understandable by the Ruby interpreter. But <code>TK9</code> does not inherently mean <em>anything</em> to a human, in this case, the <em>programmer</em>.</p>
-
-<p>If only we could give human-readable indicies for the values of each line.</p>
-
-<h2>The FasterCSV library</h2>
-
-<h2>The Hash</h2>
-
-<h5>Exercises</h5>
-
-<p>Using the <code>FasterCSV</code> library, open the <code>TKdatafileCONSTANT</code> and loop through each line and print out the URLs needed to access every Congressmember&#8217;s Twitter account info.</p>
-
-<p>&#8220;` ruby</p>
-
-<p>&#8220;`</p>
+<p>get date of the 48th tweet
+get text of the 48th tweet</p>
 </div>
 
 
@@ -175,10 +159,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/read-the-columns-of-a-spreadsheet/" title="Previous Post: Read the columns of a spreadsheet">&laquo; Previous: Read the columns of a spreadsheet</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/automate-the-downloads/" title="Next Post: Automate the downloads">Next: Automate the downloads &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
       
     </p>
 
@@ -201,7 +185,7 @@
   
 
 
-<time datetime="2012-09-12T04:25:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 
@@ -209,7 +193,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/handle-datafiles-faster-with-hashes/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/handle-datafiles-faster-with-hashes/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -277,8 +261,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/handle-datafiles-faster-with-hashes/';
-        var disqus_url = 'http://learnwhytocode.github.com/lessons/handle-datafiles-faster-with-hashes/';
+        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/';
+        var disqus_url = 'http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/';
         var disqus_script = 'embed.js';
       
     (function () {
