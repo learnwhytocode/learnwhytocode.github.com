@@ -99,22 +99,45 @@ Getting useful data out of this text &ndash; whether it's comma-delimited files,
 We'll figure out this pattern later. For now, let's see if someone has already written the code to interpret JSON files for us.
 
 
-## The json gem
+## The json library
+
+Ruby's standard library contains the JSON module, which has exactly what we need. Include it in your code environment as you would a gem:
+
+```
+require 'json'
+```
+
+Given a **string** of text in JSON format, the `JSON.parse` method will convert it to one of these Ruby collection classes: the `Hash` and the `Array`.
+
+The next two chapters will cover the basic parts of handling hashes and arrays.
 
 
-(TK parse exercise)
+## Exercise
 
-## Write our own methods
+Write a routine that downloads a JSON file at a given URL and parses it with the `JSON` module. Check the `class` of what's returned by the parsing.
 
+### Answer
 
-##### Exercise
+``` ruby
+require 'rubygems'
+require 'json'
+require 'httparty'
 
-Write a `download_and_parse_json` method that, given a url to a json file, returns the result of `JSON.parse`.
+url = "TK"
+json_str = HTTParty.get(url).body
+obj = JSON.parse(json_str)
 
+puts json.class
+```
 
-##### Answer
+We're beginning to add complex methods atop of complex methods now, so it's worth reviewing what happens at each step:
 
+1. We start with a `url`, which is just a `String`
+2. Passing `url` into `HTTParty.get` gets us a `HTTParty::Response` object, 
+3. The `body` method of the `HTTParty::Response` method returns a `String`
+4. The `JSON.parse` method accepts a `String` which it converts to a Ruby object (either a `Hash` or an `Array`)
 
+Note that `JSON.parse`is expecting a specially-formatted string. Try passing in a normal string to that method, such as `"Hello world"`
 
 
 

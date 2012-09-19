@@ -13,3 +13,4 @@ vendor
 node_modules
 *.tmproj
 source/downloads/code/_working_dir/test
+_beta.rb

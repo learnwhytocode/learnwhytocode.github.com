@@ -87,64 +87,74 @@ You can learn about method scope when you really delve into programming. Right n
 
 ## Exercise
 
-Revisiting the exercise from the last chapter, write methods to calculate the "age" of a Twitter account and to find its ratio of tweeting.
+Let's revisit the exercise from the last chapter and write methods to clean it up.
 
-
-
-
-Using the methods you just wrote, write a new method that lets you present the ratio as "tweets per day".
-
-
-
+1. Write a method that calculates the "age" of a Twitter account
+2. Write a method that calculates the tweeting rate of an account
+3. Write a method that expresses the tweeting-rate as tweets per **day**.
+ 
+Here's the code from the last chapter:
 
 {% include_code Finding the tweetiest user lang:ruby find-tweetiest-user.rb %}
 
 
 
+### Answer
 
+ 1. Calculating Twitter user age (in seconds)
 ``` ruby
 
 def calc_twitter_user_age_seconds(user_hash)
 	# pre: user_hash is a Hash containing Twitter account info, including a 'created_at' attribute
 	# returns: number of seconds since account created, as a decimal
-	a = Time.now - Time.parse(cmember['created_at'])
+	
+	a = Time.now - Time.parse(user_hash['created_at'])
 	return a.to_f
 end
+```
 
-def calc_twitter_user_age_days(user_hash)
-	
-end
+
+ 2. Calculating a Twitter user's rate of tweeting (per second)
+``` ruby
 
 def calc_twitter_user_tweet_rate(user_hash)
-	user_hash['statuses_count'] / calc_twitter_user_age_days(user_hash) 
-end
-```
-
-
-
-## Exercise
-
-```
-cmembers.each do |cmember|
-	seconds_from_creation = Time.now - Time.parse(cmember['created_at'])
-	cmember['tweet_rate'] = cmember['statuses_count'].to_f / seconds_from_creation	
-end
-
-
-most_tweety_member = cmembers[0]
-
-cmembers.each do |member|
-
-	if member['tweet_rate'] > most_tweety_member['tweet_rate'] 
-		most_tweety_member = member
-	end
+	# pre: user_hash is a Hash containing Twitter account info
+	# returns: returns the number of tweets per second
 	
+	return user_hash['statuses_count'].to_f / calc_twitter_user_age_seconds(user_hash) 
 end
-
 ```
-turns to:
 
+
+ 3. Calculating Twitter user age (in days)
+ 
+``` ruby
+def calc_twitter_user_age_days(user_hash)
+	# pre: user_hash is a Hash containing Twitter account info
+	# returns: returns the number of days since the account was created 
+	
+	return calc_twitter_user_age_seconds(user_hash) / (60 * 60 * 24)
+end
 ```
+
+You'll notice that the rate-calculating method returns an extremely small value. If you switch out `calc_twitter_user_age_seconds` with `calc_twitter_user_age_days`, you'll get a more useful result:
+
+``` ruby
+def calc_twitter_user_tweet_rate(user_hash)
+	# pre: user_hash is a Hash containing Twitter account info
+	# returns: returns the number of tweets per days
+	
+	return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash) 
+end
+```
+
+
+## Another exercise
+
+Rewrite the last chapter's exercises using the methods above.
+
+
+### Answer
 
 most_tweety_member = cmembers[0]
 
@@ -154,8 +164,9 @@ cmembers.each do |cmember|
 	end
 end
 
+puts most_tweety_member['name']
 ```
 
 
-(we're not going to write a find least/find biggest)
+**Note:** IF you want to, you can really abstract out the code and write a `find_most_tweety_member` method which takes in an array of Twitter account data and returns the one with the highest tweet rate. There's a better way to do that though, as we'll see in later chapters.
 

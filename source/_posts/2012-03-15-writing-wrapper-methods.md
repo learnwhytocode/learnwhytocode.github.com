@@ -8,6 +8,17 @@ problem: "Typing out the code for common tasks is getting repetitive"
 solution: "Let's write our own method to wrap these steps in a single call."
 ---
 
+Let's build off of the **my_code.rb** file we made in the last chapter:
+
+{% include_code organizing-the-code/my_code.rb %}
+
+
+It's been kind of annoying to re-formulate the URL for getting tweets and user info. So let's use those constants to write methods to conveniently generate the needed URLs.
+
+(this is just practice with no new concepts)
+
+
+
 # getting a file
 
 # parsing a twitter account info json

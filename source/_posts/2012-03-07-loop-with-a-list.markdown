@@ -12,7 +12,7 @@ As fun as it's been to collect tweets from Rep. Nancy Pelosi, you probably have 
 
 Good for you; the big picture should always be considered. The problem is, the big picture takes more work.
 
-And this is where programming begins to pay off.
+And this is where programming with its ability to zip through repetitive steps really pays off.
 
 ## Reading a simple list
 
@@ -96,7 +96,7 @@ Once you've gathered the names in the list, loop through the list and print the 
 
 
 
-
+## Answer
 
 
 ``` ruby

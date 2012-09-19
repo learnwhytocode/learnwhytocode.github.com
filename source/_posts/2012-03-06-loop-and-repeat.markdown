@@ -8,93 +8,138 @@ problem: "How to read from hundreds of tweets without writing hundreds of comman
 solution: "Use a loop to repeat commands as many times as we need."
 ---
 
-## Find a simple step
+We've run through a fair number of concepts and code but really haven't done anything we couldn't do (and do faster) with a web browser, such as look up a Twitter user's number of followers, or how many people retweeted his/her most recent tweet.
+
+If you're a pretty fast copy-and-paster, you might be able to outpace a mouse-clicker by copying-and-pasting the tweet-data-fetching routines over and over, which is not a bad accomplishment. 
+
+But we can do *much* better than that.
+
+## Make a simple goal
+
+In programming, you'll get more return out of every line of code when you break things down into simple tasks.
+
+In the last chapter, what was one of our goals? *To print out the text of a tweet*.
 
 ## Repeat that step across a collection
 
+The code for printing out one tweet's text is the same as it is for any other given tweet. The only difference is the *reference* to each tweet, i.e. its address in an array. 
+
+## each
+
+Ruby collections have many useful methods, but the one we'll use the most is `each`. In a nutshell, `each` lets us loop through a collection and perform a method on each member of that collection.
+
+On a simple array:
+
+``` ruby
+
+['a', 'b', 'c'].each do |some_item|
+	puts some_item.upcase
+end
+
+#=>
+A
+B
+C
+```
+
+Without getting into the nitty-gritty, think of what is between the `do` and the `end` as the routine done on each `some_item`.
+
+What is `some_item`? In this syntax, the value in the straight pipe-characters is the variable name used to reference a member of the collection.
+
+If you think of `each` as looping through the collection and doing something on *each* member of the collection, then `some_item` (which we could name anything we want, as if it were a variable) points to the member of the current iteration.
+
+There are other variations of the `each` method. For a `Hash` object, you could use `each_pair`:
+
+``` ruby
+my_hash = {'a'=>'alpha', 'b'=>'beta', 'c'=>'charlie'}
+my_hash.each_pair do |k,v|
+	puts k.to_s + " is the key for: " + v.to_s
+end  
+
+#=>
+a is the key for: alpha
+b is the key for: beta
+c is the key for: charlie
+```
+
 ## Exercise
 
-Print out every tweet
+1. Using the `each` method, loop through the array of tweets from the last lesson and print out the contents of the text.
 
+2. Using the `each` method again, loop through the tweets and print the *length* of their text.
 
+3. Same procedure above, but use it to calculate the *average* length of a tweet.
 
+4. Using the `each` method again, loop through and print out every attribute of each tweet.
 
+### Answer
 
-
-
-
-
-
-
-
----- 
-old 
-Now that we have a nice routine for downloading and saving a file, let's use it to retrieve the first three pages of tweets from the user named `joebiden`.
-
-Here again is the URL pattern for tweet pages in our tutorial:
-`http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json`
-
-Now to download them using our pre-written methods:
+To get the tweets in an array:
 
 ``` ruby
+require 'rubygems'
+require 'json'
+require 'httparty'
 
-load './my-first-methods.rb'
+url = "TK"
+json_str = HTTParty.get(url).body
+tweets_obj = JSON.parse(json_str)
+``` 
 
-url_pattern = "http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json"
-screen_name = "joebiden"
-
-url_1 = url_pattern.sub("_USER_NAME_", screen_name).sub("_PAGENUM_", '1')
-download_and_save(url_1)
-
-url_2 = url_pattern.sub("_USER_NAME_", screen_name).sub("_PAGENUM_", '2')
-download_and_save(url_2)
-
-url_3 = url_pattern.sub("_USER_NAME_", screen_name).sub("_PAGENUM_", '3')
-download_and_save(url_3)
-
-```
-
-That's not a terrible amount of work to download three pages. But in our continuing quest to remove repetition, let's find a way to exploit the obvious pattern above.
-
-
-## Loop with each
-
-**Note:** Ruby, like its peer languages, has the `for` construct. We're going to skip that and use the more Ruby idiomatic `each` just for the sake of brevity.
-
-Let's simplify the issue here: how do we count from `1` to `3`? In a programmatic way?
+1. Printing out text:
 
 ``` ruby
-(1..3).each do |num|
-	puts num
+tweets_obj.each do |tweet|
+	puts tweet['text']
 end
 ```
 
-The object `1..3` is a special data class in Ruby called a `Range`. Ranges are one of several types of **collections**. After we learn about the other kinds of collections, we won't be using ranges too often. But they make for an easy introduction to loops. 
+2. Printing out the length of each tweet
 
-Collections have a method called `each`, which, as we saw above, iterates through each member of a collection. The `do` and `end` keywords denote the block of code performed in each iteration. And think of the `|num|` as the **argument** passed into that block of code.
-
-Let's practice. Using a `Range` and the `each` method, print out the URLs needed to retrieve the three `joebiden` tweet pages:
-
-```
-biden_pattern = "http://TK_DATA_ROOT_PATH/statuses/joe_biden/_PAGENUM_/user_timeline.json"
-
-(1..3).each do |page_num|
-	url = biden_pattern.sub("_PAGENUM_", page_num.to_s)
-	puts url
+``` ruby
+tweets_obj.each do |tweet|
+	puts tweet['text'].length
 end
 ```
 
-
-Up until now, we've basically been *entering* code equivalent to the amount of work that we actually want to do. With loops, you can see how actions can be repeated dozens, thousands, millions of times with a simple change to a collection.
-
-
-##### Exercise
-
-Revisit the problem we attempted at the beginning of the chapter &ndash; downloading 3 pages of `joebiden` tweets &ndash; but use a `Range` and the `each` method.
+3. Printing out the average length the tweets
 
 
-##### Answer
+``` ruby
+total_length = 0
+tweets_obj.each do |tweet|
+	total_length = total_length + tweet['text'].length
+end
 
-{% include_code loop-and-repeat/answer.rb %}
+puts total_length / tweets_obj.length
+```
+
+4. Printing out the attributes of each tweet
+
+``` ruby
+tweets_obj.each do |tweet|
+	tweet.each_pair do |key, val|
+		puts key.to_s + " --> " + val.to_s
+	end
+end
+```
+
+**Note:** if you are using **irb**, the result of each `each` invocation will spit out the entire contents of the collection. This is **irb**'s normal behavior, to return the value of each method call after you hit **Enter**. It's slightly annoying and means you'll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword `end`, like so:
+
+
+``` ruby
+total_length = 0
+tweets_obj.each do |tweet|
+	total_length = total_length + tweet['text'].length
+end; puts "done with each"
+
+puts total_length / tweets_obj.length
+``` 
+
+
+
+
+
+
 
 
