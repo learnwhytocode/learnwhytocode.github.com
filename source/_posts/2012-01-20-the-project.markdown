@@ -11,6 +11,20 @@ solution: "Use programming to avoid tedious, mind-numbing data-entry"
 
 This tutorial involves the mashing together of Twitter data with Congressional data [gathered by the Sunlight Foundation](http://services.sunlightlabs.com/). We'll use programming to collect, analyze, and publish it.
 
+Instead of using the Twitter API, I've prepared a small set of sample data to practice on. The data format will be the same (JSON), but the actual pattern of URLs will be different (though vaguely similar) to what you would use when fetching tweets from Twitter's service.
+
+Once you've learned the use of programming, you'll see that details such as the format of the URLs, the actual source of the data, or the size of the dataset are irrelevant, because being able to write code lets you easily adapt your programs to any situation.
+
+
+### Adaptability
+
+Think of it like being able to take a traditional news story and adapting it for the early edition, for the website, for the wire service, and for a Tumblr post. If you know the story well, and know how to write well, this is an annoying, but relatively quick process.
+
+In programming, though, adapting programs to new situations and demands is far, far easier. And far more powerful. We'll see that the main challenge with mass-processing tweets is parsing Twitter's JSON format. But once you've got the gist of it down, it won't matter if Twitter suddenly changes their data format to XML, Excel spreadsheets, PDF, or printed pieces of paper.
+
+
+## Tweet stories
+
 It's election season and just about everyone in the information business has at least a psasing interest in what politicians are saying. And in 2012, members of Congress (or their staff) are getting comfortable (a [little too comfortable, sometimes](http://slatest.slate.com/posts/2011/06/06/anthony_weiner_photos_andrew_breitbart_publishes_photo_he_says_i_0.html)) with using Twitter as a podium.
 
 Maybe you're a political reporter and you want to be the first to report a gaffe. If you're a social media expert, maybe you want to analyze social media usage by government. If you're a policy wonk, then you realize that Twitter provides a nicely structured stream of links to a politician's public statements, appearances, and interests.

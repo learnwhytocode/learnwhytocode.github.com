@@ -8,3 +8,15 @@ problem: "TK"
 solution: "TK Hash object"
 ---
  
+
+Let's re-run the code to get Twitter account information:
+
+
+
+What is the class of the parsed JSON?
+
+
+## The Hash object
+
+
+

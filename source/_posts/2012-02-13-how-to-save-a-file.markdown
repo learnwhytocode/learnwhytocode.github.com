@@ -8,6 +8,8 @@ problem: "How do we save downloaded files to our hard drive?"
 solution: "Use the methods belonging to Ruby's File class."
 ---
 
+TK(move this to a later lesson)
+
 We know how to *get* files. But we don't yet know how to *save* them, in the way that we can from a web browser.
 
 Let's look up Ruby's methods to open and save files in the [`File` class documentation](http://www.ruby-doc.org/core-1.9.3/File.html "Class: File (Ruby 1.9.3)")
