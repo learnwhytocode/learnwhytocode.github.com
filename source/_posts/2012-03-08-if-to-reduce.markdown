@@ -182,7 +182,7 @@ Note how we had to convert the `'followers_count'` value to a number. Try compar
 
 ## Exercise
 
-Find the Congressmember with the highest rate of tweets:
+Find the Congressmember with the highest **rate of tweets**.
 
 For this, you'll want to require the `'time'` library. Check out the [documentation](http://www.ruby-doc.org/core-1.9.3/Time.html):
 
@@ -206,23 +206,8 @@ Check out the Twitter user account info to find the attributes relating to numbe
 
 ### Answer
 
-``` ruby
-require 'time'
+{% include_code Finding the tweetiest user lang:ruby find-tweetiest-user.rb %}
 
-cmembers.each do |cmember|
-	seconds_from_creation = Time.now - Time.parse(cmember['created_at'])
-	cmember['tweet_rate'] = cmember['statuses_count'].to_f / seconds_from_creation	
-end
-
-most_tweety_member = cmembers[0]
-
-cmembers.each do |member|
-
-	if member['tweet_rate'] > most_tweety_member['tweet_rate'] 
-		most_tweety_member = member
-	end
-	
-end
 
 
 A few points: 

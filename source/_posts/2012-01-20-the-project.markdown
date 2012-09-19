@@ -13,14 +13,10 @@ This tutorial involves the mashing together of Twitter data with Congressional d
 
 Instead of using the Twitter API, I've prepared a small set of sample data to practice on. The data format will be the same (JSON), but the actual pattern of URLs will be different (though vaguely similar) to what you would use when fetching tweets from Twitter's service.
 
+
+ = remove:
 Once you've learned the use of programming, you'll see that details such as the format of the URLs, the actual source of the data, or the size of the dataset are irrelevant, because being able to write code lets you easily adapt your programs to any situation.
 
-
-### Adaptability
-
-Think of it like being able to take a traditional news story and adapting it for the early edition, for the website, for the wire service, and for a Tumblr post. If you know the story well, and know how to write well, this is an annoying, but relatively quick process.
-
-In programming, though, adapting programs to new situations and demands is far, far easier. And far more powerful. We'll see that the main challenge with mass-processing tweets is parsing Twitter's JSON format. But once you've got the gist of it down, it won't matter if Twitter suddenly changes their data format to XML, Excel spreadsheets, PDF, or printed pieces of paper.
 
 
 ## Tweet stories

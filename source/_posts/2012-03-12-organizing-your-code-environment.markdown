@@ -8,4 +8,9 @@ problem: "We're writing too much boilerplate code over and over."
 solution: "Move the code into a separate text file and begin using our text-editor."
 ---
 
-# setting constants
+
+## Using the text editor
+
+
+## setting constants
+
