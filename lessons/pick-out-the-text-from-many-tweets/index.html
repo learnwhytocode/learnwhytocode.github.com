@@ -160,7 +160,7 @@
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/RoyBlunt/3/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/RoyBlunt/3/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>

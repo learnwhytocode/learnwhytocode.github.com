@@ -4,7 +4,7 @@
   <title><![CDATA[Learn Why to Code]]></title>
   <link href="http://learnwhytocode.github.com/atom.xml" rel="self"/>
   <link href="http://learnwhytocode.github.com/"/>
-  <updated>2012-09-20T10:23:21-04:00</updated>
+  <updated>2012-09-20T10:24:40-04:00</updated>
   <id>http://learnwhytocode.github.com/</id>
   <author>
     <name><![CDATA[Dan Nguyen]]></name>
@@ -279,7 +279,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <p>The <a href="http://services.sunlightlabs.com/">Sunlight Foundation</a> maintains a spreadsheet of Congressmember data, including social media usernames.</p>
 
-<p>Download our mirroed copy for this tutorial here: <a href="http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv">http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv</a></p>
+<p>Download our mirroed copy for this tutorial here: <a href="http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv">http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv</a></p>
 
 <p>It is also in your <strong>working-directory</strong></p>
 
@@ -2078,7 +2078,7 @@ NancyPelosi
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -2192,7 +2192,7 @@ NancyPelosi
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/RoyBlunt/3/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/RoyBlunt/3/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>
