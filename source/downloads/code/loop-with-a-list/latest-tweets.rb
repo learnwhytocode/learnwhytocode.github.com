@@ -12,10 +12,10 @@ tweets_json_url_pattern = "http://nottwitter.danwin.com/statuses/_SCREENNAME_/1/
 arr_of_names.each do |name|
 
 	tweets_json_url = tweets_json_url_pattern.sub("_SCREENNAME_", name)
-	tweets_json = HTTParty.get(tweet_json_url).body
+	tweets_json = HTTParty.get(tweets_json_url).body
 	tweets_arr = JSON.parse(tweets_json)
 	
 	# just need the first tweet
 	tweet = tweets_arr[0]
-	puts name + " tweeted on " + tweet['created_at'] + ": " + tweet['text]	
+	puts name + " tweeted on " + tweet['created_at'] + ":\n " + tweet["text"]	+ "\n\n"
 end

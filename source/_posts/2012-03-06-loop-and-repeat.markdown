@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "How to read from hundreds of tweets without writing hundreds of commands."
 solution: "Use a loop to repeat commands as many times as we need."
+status: checked
 ---
 
 We've run through a fair number of concepts and code but really haven't done anything we couldn't do (and do faster) with a web browser, such as look up a Twitter user's number of followers, or how many people retweeted his/her most recent tweet.
@@ -81,7 +82,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "TK"
+url = "http://nottwitter.danwin.com.s3.amazonaws.com/statuses/ChuckGrassley/1/user_timeline.json"
 json_str = HTTParty.get(url).body
 tweets_obj = JSON.parse(json_str)
 ``` 
@@ -93,6 +94,15 @@ tweets_obj.each do |tweet|
 	puts tweet['text']
 end
 ```
+
+**Note:** if you are using **irb**, the result of each `each` invocation will spit out the entire contents of the collection. This is **irb**'s normal behavior, to return the value of each method call after you hit **Enter**. It's slightly annoying and means you'll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword `end`, *on the same line with a semi-colon as separation*. Like so:
+
+
+``` ruby
+tweets_obj.each do |tweet|
+	puts tweet['text']
+end; puts "done with each"
+``` 
 
 2. Printing out the length of each tweet
 
@@ -124,17 +134,6 @@ tweets_obj.each do |tweet|
 end
 ```
 
-**Note:** if you are using **irb**, the result of each `each` invocation will spit out the entire contents of the collection. This is **irb**'s normal behavior, to return the value of each method call after you hit **Enter**. It's slightly annoying and means you'll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword `end`, like so:
-
-
-``` ruby
-total_length = 0
-tweets_obj.each do |tweet|
-	total_length = total_length + tweet['text'].length
-end; puts "done with each"
-
-puts total_length / tweets_obj.length
-``` 
 
 
 

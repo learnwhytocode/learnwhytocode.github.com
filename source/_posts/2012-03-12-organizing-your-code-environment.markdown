@@ -16,7 +16,7 @@ Sure it's just a copy-and-paste action. But like everything about programming, t
 
 Remember when we installed a text-editor specific for programming (e.g. TextWrangler for OSX, Notepad++ or SciTE for Windows)? Let's move out of **irb** for the moment and use the text-editor.
 
-Hopefully you followed the instructions in the early setup chapters (TK) about setting up a **working-directory**. If not, now's the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your **Downloads** folder).
+Hopefully you followed the instructions [in the early setup chapters](/lessons/terminals-and-text-editors) about setting up a **working-directory**. If not, now's the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your **Downloads** folder).
 
 Then, **in your text-editor**, create a new text file and save it in your **working-directory** as **my_code.rb**
 

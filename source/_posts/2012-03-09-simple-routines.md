@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "All these simple steps are adding up to many lines of intimidating code."
 solution: "Wrap up routines into a method call."
+status: checked
 ---
 
 ## Label our work
@@ -24,12 +25,36 @@ def hello_world
 end
 ```
 
-TK copy and paste
+## The return value
+The `return` keyword designates the value returned by the method In Ruby, if `return` isn't used, the method automatically returns what was in the last line.
+
+(If you invoke `return` before the last line of a method, the method will **exit** at that point.)
+
+In the `hello_world` method above, the return value is `"Hello world"`, a string
+
+
 
 
 ### Methods with arguments
 
+```
+def hello(some_target)
+	"Hello " + some_target.to_s
+end
 
+def generic_salutation(a, b)
+	a.to_s + " " + b.to_s
+end
+
+def loud_generic_salutation(x, y)
+	generic_salutation(x,y).upcase + '!!!' 
+end
+
+def hello(some_target)
+	generic_salutation("Hello", some_target)
+end
+
+```
 
 
 

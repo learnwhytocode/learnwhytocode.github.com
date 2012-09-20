@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "We want to get tweets from more than one Congressmember"
 solution: "Use another loop to read from a list of Congressmembers."
+checked: true
 ---
 
 As fun as it's been to collect tweets from Rep. Nancy Pelosi, you probably have bigger ideas, or at least want to compare Pelosi to her peers. 
@@ -22,7 +23,18 @@ But that's not scalable. And totally unnecessary if such a list already exists.
 
 Here's a [sample list of ten congressmembers](http://nottwitter.danwin.com/simple-congress-list.txt). It's just a straightforward textfile with one Twitter name per line:
 
-{% include_code data/simple-congress-list.txt %}
+<code>
+joebiden
+RoyBlunt
+senatorboxer
+ChuckGrassley
+DarrellIssa
+JoeLieberman
+RepRonPaul
+jaredpolis
+SenRandPaul
+NancyPelosi
+</code>
 
 Wouldn't it be nice if we could break this into an array?
 

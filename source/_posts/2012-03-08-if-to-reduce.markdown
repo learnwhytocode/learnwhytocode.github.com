@@ -14,9 +14,12 @@ Printing out a list of tweets or users is useful. But maybe we just want to find
 
 So how do we pick out that one standout item?
 
-Let's start off by grabbing all the account names from last chapter's sample list. Then loop through that list and retrieve the **user info** for each account name. Then parse the JSON and store the object into an array. 
+Let's start off by grabbing all the account names from last chapter's [sample list](http://nottwitter.danwin.com/simple-congress-list.txt). Then loop through that list and retrieve the **user info** for each account name. Then parse the JSON and store the object into an array. 
 
 We'll use this array (call it `cmembers`) for the rest of the chapter.
+
+
+
 
 
 ### Adding to an array
@@ -27,7 +30,7 @@ We've been building arrays using the `split` method of a string. If we want to c
 arr = []
 ```
 
-To add members to `arr`, you can "push" objects into the array with the `<<` (TK html entity) operator.
+To add members to `arr`, you can "push" objects into the array with the `<<`  operator.
 
 Or you can specify an address for each object using the bracket notation; both methods are shown below:
 
@@ -44,6 +47,8 @@ puts arr[5]
 # => road
 ```
 
+### Building cmembers array
+
 The code to create array `cmembers` containing the Hash object representation of each Twitter account is as follows:
 
 ``` ruby
@@ -52,7 +57,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-HOST_PATH = http://nottwitter.danwin.com/
+HOST_PATH = "http://nottwitter.danwin.com/"
 list_url = File.join(HOST_PATH, "simple-congress-list.txt")
 
 cmembers = []
@@ -198,7 +203,7 @@ Time.now.to_i
 Time.now - Time.parse("Sep. 1, 2012")
 # => 1581937.303837
 
-# TK (works in Ruby 1.8.7?)
+# (works in Ruby 1.8.7?)
 ```
 
 Check out the Twitter user account info to find the attributes relating to number of tweets and when a user account was created.
