@@ -4,7 +4,7 @@
   <title><![CDATA[Learn Why to Code]]></title>
   <link href="http://learnwhytocode.github.com/atom.xml" rel="self"/>
   <link href="http://learnwhytocode.github.com/"/>
-  <updated>2012-09-20T10:27:05-04:00</updated>
+  <updated>2012-09-20T11:32:47-04:00</updated>
   <id>http://learnwhytocode.github.com/</id>
   <author>
     <name><![CDATA[Dan Nguyen]]></name>
@@ -22,7 +22,7 @@
 
 <p>layout: post
 title: &#8220;Now learn how&#8221;
-date: 2012-09-12 12:30
+date: 2012-09-20 12:30
 comments: true
 categories:
 problem: &#8220;What now?&#8221;
@@ -33,7 +33,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Mash more mashup]]></title>
     <link href="http://learnwhytocode.github.com/lessons/mash-more-mashup/"/>
-    <updated>2012-09-12T06:30:00-04:00</updated>
+    <updated>2012-09-20T06:30:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/mash-more-mashup</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -42,7 +42,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Make a web mashup]]></title>
     <link href="http://learnwhytocode.github.com/lessons/make-a-mashup/"/>
-    <updated>2012-09-12T06:20:00-04:00</updated>
+    <updated>2012-09-20T06:20:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/make-a-mashup</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -51,7 +51,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Which websites do Congressmembers tweet about?]]></title>
     <link href="http://learnwhytocode.github.com/lessons/make-our-own-data/"/>
-    <updated>2012-09-12T06:17:00-04:00</updated>
+    <updated>2012-09-20T06:17:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/make-our-own-data</id>
     <content type="html"><![CDATA[<p>Perhaps the greatest power that programming gives is the ability to create your own data source.</p>
 
@@ -70,7 +70,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Judging tweets by their text]]></title>
     <link href="http://learnwhytocode.github.com/lessons/judging-tweets-by-their-text/"/>
-    <updated>2012-09-12T06:15:00-04:00</updated>
+    <updated>2012-09-20T06:15:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/judging-tweets-by-their-text</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -79,7 +79,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Flexible and fast data analysis]]></title>
     <link href="http://learnwhytocode.github.com/lessons/flexible-analysis/"/>
-    <updated>2012-09-12T06:10:00-04:00</updated>
+    <updated>2012-09-20T06:10:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/flexible-analysis</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -88,7 +88,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Making spreadsheets]]></title>
     <link href="http://learnwhytocode.github.com/lessons/making-spreadsheets/"/>
-    <updated>2012-09-12T04:05:00-04:00</updated>
+    <updated>2012-09-20T04:05:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/making-spreadsheets</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -97,7 +97,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Filter a collection]]></title>
     <link href="http://learnwhytocode.github.com/lessons/filtering-a-list/"/>
-    <updated>2012-09-12T04:02:00-04:00</updated>
+    <updated>2012-09-20T04:02:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/filtering-a-list</id>
     <content type="html"><![CDATA[<p>The <code>select</code> method accepts a block and filters a collection on whether each of its members passes the <code>true</code>/<code>false</code> condition:</p>
 
@@ -125,7 +125,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Plucking out values]]></title>
     <link href="http://learnwhytocode.github.com/lessons/plucking-out-values/"/>
-    <updated>2012-09-12T04:01:00-04:00</updated>
+    <updated>2012-09-20T04:01:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/plucking-out-values</id>
     <content type="html"><![CDATA[<p>Sometimes, we just want <em>one</em> value from a collection, just like when we wanted the Twitter account names from each line in the Congressmembers&#8217; datafile. To make an array of these values, we can use <code>each</code> to fill a new array:</p>
 
@@ -246,7 +246,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   <entry>
     <title type="html"><![CDATA[Reading from a spreadsheet-like file]]></title>
     <link href="http://learnwhytocode.github.com/lessons/reading-a-CSV/"/>
-    <updated>2012-09-12T03:20:00-04:00</updated>
+    <updated>2012-09-20T03:20:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/reading-a-CSV</id>
     <content type="html"><![CDATA[<h2>The CSV (or FasterCSV) library</h2>
 
@@ -319,37 +319,50 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <p>In our <strong>my_code.rb</strong></p>
 
-<p>def get_congress_data_from_file(fname)
-  # pre: fname is a CSV file where congressmember data is located
-  # returns: an array of Hash objects</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_congress_data_from_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: fname is a CSV file where congressmember data is located</span>
+</span><span class='line'>  <span class="c1"># returns: an array of Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">data</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">}</span> <span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="k">return</span> <span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>  data = get_data_file(fname)</p>
-
-<p>  if RUBY_VERSION > &#8220;1.9&#8221;</p>
-
-<pre><code>return CSV.new(data, {:headers=&gt;true} )
-</code></pre>
-
-<p>  else</p>
-
-<pre><code>return FasterCSV.new(data, {:headers=&gt;true})
-</code></pre>
-
-<p>  end
-end</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Switching data locations]]></title>
     <link href="http://learnwhytocode.github.com/lessons/moving-data-sources/"/>
-    <updated>2012-09-12T03:18:00-04:00</updated>
+    <updated>2012-09-20T03:18:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/moving-data-sources</id>
     <content type="html"><![CDATA[<p>As I said at the outset, we&#8217;re working with a very small sample of Twitter&#8217;s data, and we&#8217;re not using its official API.</p>
 
 <p>At some point, you&#8217;re going to want to remove the training wheels and get data straight from the source.</p>
 
 <p>We won&#8217;t get to that in this tutorial, but we&#8217;ll go through the motions. I&#8217;m going to change up the data source and show you how our <strong>my_code.rb</strong> can adapt to it.</p>
+
+<p><strong>A note</strong>
+What follows is a bit of tedium, which is the re-organizing of old code so that we can better re-use it. It&#8217;s good for practice and to ground some design concepts in, but is not necessary to get worked up about if time is short. After downloading the data-file as listed in the lesson, you can just download the <a href="http://learnwhytocode.github.com/downloads/local-data-env/my_code.rb">my_code.rb library here</a> and include it going forward.</p>
 
 <h2>More data, more problems</h2>
 
@@ -361,9 +374,13 @@ end</p>
 
 <h3>Download the data</h3>
 
-<p>The full dataset (which is not even quite complete, but more on that later) is more than 300MB. You can download it <a href="TK">here TK</a>. If you have a fast computer, sure, go for it.</p>
+<p>The full dataset (which is not even quite complete, but more on that later) is more than 600MB unzipped. If you have a fast computer, sure, go for it. However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So there is a &#8216;lite&#8217; version with fewer tweets included:</p>
 
-<p>However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So here&#8217;s a subset, about TK MB: <a href="TK">TK</a>. It contains the same number of Twitter accounts to process, just fewer tweets.</p>
+<ul>
+<li><a href="http://nottwitter.danwin.com/pkg-full.zip">Large dataset</a> (600+ MB unzipped)</li>
+<li><a href="http://nottwitter.danwin.com/pkg-lite.zip">Lite dataset</a> (80+ MB unzipped)</li>
+</ul>
+
 
 <p>The best place to store this data is as a <strong>sub-directory</strong> in your <strong>working directory</strong>.</p>
 
@@ -695,7 +712,7 @@ end</p>
   <entry>
     <title type="html"><![CDATA[File existence and other considerations]]></title>
     <link href="http://learnwhytocode.github.com/lessons/file-existence-and-other-tests/"/>
-    <updated>2012-09-12T03:18:00-04:00</updated>
+    <updated>2012-09-20T03:18:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/file-existence-and-other-tests</id>
     <content type="html"><![CDATA[<p>When we were retrieving data online, I carefully avoided the task of fetching more than one page of tweets per user.</p>
 
@@ -914,7 +931,7 @@ end</p>
   <entry>
     <title type="html"><![CDATA[Writing more wrappers]]></title>
     <link href="http://learnwhytocode.github.com/lessons/writing-wrapper-methods/"/>
-    <updated>2012-09-12T03:15:00-04:00</updated>
+    <updated>2012-09-20T03:15:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/writing-wrapper-methods</id>
     <content type="html"><![CDATA[<p>Let&#8217;s build off of the <strong>my_code.rb</strong> file we made in the last chapter:</p>
 
@@ -1156,7 +1173,7 @@ end</p>
   <entry>
     <title type="html"><![CDATA[Organizing your code environment]]></title>
     <link href="http://learnwhytocode.github.com/lessons/organizing-your-code-environment/"/>
-    <updated>2012-09-12T03:12:00-04:00</updated>
+    <updated>2012-09-20T03:12:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/organizing-your-code-environment</id>
     <content type="html"><![CDATA[<p>If you&#8217;ve taken a break from this tutorial and exited <strong>irb</strong>, you would&#8217;ve had to go through the annoying step of re-running the <code>require</code> statements to bring in the <code>HTTParty</code> and <code>JSON</code> library.</p>
 
@@ -1272,7 +1289,7 @@ end</p>
   <entry>
     <title type="html"><![CDATA[Making the complex, routine]]></title>
     <link href="http://learnwhytocode.github.com/lessons/simple-routines/"/>
-    <updated>2012-09-12T03:08:00-04:00</updated>
+    <updated>2012-09-20T03:08:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/simple-routines</id>
     <content type="html"><![CDATA[<h2>Label our work</h2>
 
@@ -1557,7 +1574,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
   <entry>
     <title type="html"><![CDATA[Finding the most, least, biggest, smallest]]></title>
     <link href="http://learnwhytocode.github.com/lessons/if-to-reduce/"/>
-    <updated>2012-09-12T03:08:00-04:00</updated>
+    <updated>2012-09-20T03:08:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/if-to-reduce</id>
     <content type="html"><![CDATA[<h2>Do something on if</h2>
 
@@ -1848,7 +1865,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
   <entry>
     <title type="html"><![CDATA[Loop with a list]]></title>
     <link href="http://learnwhytocode.github.com/lessons/loop-with-a-list/"/>
-    <updated>2012-09-12T03:07:00-04:00</updated>
+    <updated>2012-09-20T03:07:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/loop-with-a-list</id>
     <content type="html"><![CDATA[<p>As fun as it&#8217;s been to collect tweets from Rep. Nancy Pelosi, you probably have bigger ideas, or at least want to compare Pelosi to her peers.</p>
 
@@ -1981,7 +1998,7 @@ NancyPelosi
   <entry>
     <title type="html"><![CDATA[Loop and repeat]]></title>
     <link href="http://learnwhytocode.github.com/lessons/loop-and-repeat/"/>
-    <updated>2012-09-12T03:06:00-04:00</updated>
+    <updated>2012-09-20T03:06:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/loop-and-repeat</id>
     <content type="html"><![CDATA[<p>We&#8217;ve run through a fair number of concepts and code but really haven&#8217;t done anything we couldn&#8217;t do (and do faster) with a web browser, such as look up a Twitter user&#8217;s number of followers, or how many people retweeted his/her most recent tweet.</p>
 
@@ -2041,7 +2058,9 @@ NancyPelosi
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
+<span class='line-number'>10</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">my_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;charlie&#39;</span><span class="p">}</span>
+</span><span class='line'>
 </span><span class='line'><span class="n">my_hash</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span>
 </span><span class='line'>  <span class="nb">puts</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; is the key for: &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">to_s</span>
 </span><span class='line'><span class="k">end</span>
@@ -2074,11 +2093,27 @@ NancyPelosi
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">screenname</span> <span class="o">=</span> <span class="s2">&quot;ChuckGrassley&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;statuses&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">screenname</span><span class="p">,</span>
+</span><span class='line'>  <span class="mi">1</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;user_timeline.json&quot;</span> <span class="p">)</span> 
+</span><span class='line'>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -2172,7 +2207,7 @@ NancyPelosi
   <entry>
     <title type="html"><![CDATA[Pick out the text from many tweets]]></title>
     <link href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/"/>
-    <updated>2012-09-12T03:05:00-04:00</updated>
+    <updated>2012-09-20T03:05:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets</id>
     <content type="html"><![CDATA[<p>In the last chapter, we dealt with the Twitter user data object, which when parsed, is a Ruby <code>Hash</code>.</p>
 
@@ -2284,7 +2319,7 @@ NancyPelosi
   <entry>
     <title type="html"><![CDATA[Pick out the text of a tweet]]></title>
     <link href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/"/>
-    <updated>2012-09-12T03:03:00-04:00</updated>
+    <updated>2012-09-20T03:03:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet</id>
     <content type="html"><![CDATA[<p>In the last chapter we parsed a JSON file containing Twitter account information.</p>
 

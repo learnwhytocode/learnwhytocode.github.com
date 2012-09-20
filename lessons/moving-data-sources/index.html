@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:18:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:18:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
         
       </p>
     
@@ -148,6 +148,9 @@
 
 <p>We won&#8217;t get to that in this tutorial, but we&#8217;ll go through the motions. I&#8217;m going to change up the data source and show you how our <strong>my_code.rb</strong> can adapt to it.</p>
 
+<p><strong>A note</strong>
+What follows is a bit of tedium, which is the re-organizing of old code so that we can better re-use it. It&#8217;s good for practice and to ground some design concepts in, but is not necessary to get worked up about if time is short. After downloading the data-file as listed in the lesson, you can just download the <a href="/downloads/local-data-env/my_code.rb">my_code.rb library here</a> and include it going forward.</p>
+
 <h2>More data, more problems</h2>
 
 <p>Good news. Instead of just looking at the same 10 congressmembers over and over, I have a data file of roughly 500 U.S. politicians.</p>
@@ -158,9 +161,13 @@
 
 <h3>Download the data</h3>
 
-<p>The full dataset (which is not even quite complete, but more on that later) is more than 300MB. You can download it <a href="TK">here TK</a>. If you have a fast computer, sure, go for it.</p>
+<p>The full dataset (which is not even quite complete, but more on that later) is more than 600MB unzipped. If you have a fast computer, sure, go for it. However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So there is a &#8216;lite&#8217; version with fewer tweets included:</p>
 
-<p>However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So here&#8217;s a subset, about TK MB: <a href="TK">TK</a>. It contains the same number of Twitter accounts to process, just fewer tweets.</p>
+<ul>
+<li><a href="http://nottwitter.danwin.com/pkg-full.zip">Large dataset</a> (600+ MB unzipped)</li>
+<li><a href="http://nottwitter.danwin.com/pkg-lite.zip">Lite dataset</a> (80+ MB unzipped)</li>
+</ul>
+
 
 <p>The best place to store this data is as a <strong>sub-directory</strong> in your <strong>working directory</strong>.</p>
 
@@ -519,7 +526,7 @@
   
 
 
-<time datetime="2012-09-12T03:18:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:18:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
       
 
 

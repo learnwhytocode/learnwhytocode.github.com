@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:06:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:06:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
         
       </p>
     
@@ -200,7 +200,9 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
+<span class='line-number'>10</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">my_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;charlie&#39;</span><span class="p">}</span>
+</span><span class='line'>
 </span><span class='line'><span class="n">my_hash</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span>
 </span><span class='line'>  <span class="nb">puts</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; is the key for: &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">to_s</span>
 </span><span class='line'><span class="k">end</span>
@@ -233,11 +235,27 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
+</span><span class='line'><span class="n">screenname</span> <span class="o">=</span> <span class="s2">&quot;ChuckGrassley&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;statuses&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">screenname</span><span class="p">,</span>
+</span><span class='line'>  <span class="mi">1</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;user_timeline.json&quot;</span> <span class="p">)</span> 
+</span><span class='line'>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -358,7 +376,7 @@
   
 
 
-<time datetime="2012-09-12T03:06:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:06:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
       
 
 

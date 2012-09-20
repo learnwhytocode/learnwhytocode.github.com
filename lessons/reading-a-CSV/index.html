@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:20:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:20:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
         
       </p>
     
@@ -213,24 +213,34 @@
 
 <p>In our <strong>my_code.rb</strong></p>
 
-<p>def get_congress_data_from_file(fname)
-  # pre: fname is a CSV file where congressmember data is located
-  # returns: an array of Hash objects</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_congress_data_from_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: fname is a CSV file where congressmember data is located</span>
+</span><span class='line'>  <span class="c1"># returns: an array of Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">data</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">}</span> <span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="k">return</span> <span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>  data = get_data_file(fname)</p>
-
-<p>  if RUBY_VERSION > &#8220;1.9&#8221;</p>
-
-<pre><code>return CSV.new(data, {:headers=&gt;true} )
-</code></pre>
-
-<p>  else</p>
-
-<pre><code>return FasterCSV.new(data, {:headers=&gt;true})
-</code></pre>
-
-<p>  end
-end</p>
 </div>
 
 
@@ -264,7 +274,7 @@ end</p>
   
 
 
-<time datetime="2012-09-12T03:20:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-20T03:20:00-04:00" pubdate data-updated="true">Sep 20<span>th</span>, 2012</time>
       
 
 
