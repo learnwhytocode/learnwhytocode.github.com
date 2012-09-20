@@ -17,7 +17,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "TK"
+url = "http://nottwitter.danwin.com.s3.amazonaws.com/statuses/RoyBlunt/3/user_timeline.json"
 json_str = HTTParty.get(url).body
 tweets_obj = JSON.parse(json_str)
 
@@ -83,4 +83,6 @@ puts tweets_obj[7]['retweet_count']
 puts tweets_obj[14]['created_at']
 ```
 
+
+**Bonus:** What happens when you try to access an address outside of an Array's range? Use the `length` method to find the number of items in an array.
 

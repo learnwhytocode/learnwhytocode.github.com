@@ -21,7 +21,7 @@ So to download a file, all we need to do is find the name of the method that con
 Doing a few Google searches for "Ruby library" and "download a file" will net us a few options. The most fun-sounding one is John Nunemaker's [HTTParty](https://github.com/jnunemaker/httparty) gem, which claims to make "http fun again!"
 
 <div class="note">
-If you haven't installed Rubygems yet or the HTTParty gem, refer back to the <a href="TK">installation chapter</a>.	
+If you haven't installed Rubygems yet or the HTTParty gem, refer back to the <a href="/lessons/installing-ruby">installation chapter</a>.	
 </div>
 
 According to the [documentation](https://github.com/jnunemaker/httparty#readme), here's how to download from a URL:
@@ -42,28 +42,27 @@ Let's dissect this code snippet.
 
 The Ruby keyword `require` is a **method** that, when given a **string**, pulls in the library of code that that string refers to.
 
-The first `require` call tells the Ruby interpreter that we'll be using **rubygems**, Ruby's convenient framework of packaging these libraries.
-
-The second `require` call pulls in the code for the [HTTParty](https://github.com/jnunemaker/httparty) gem. By convention, the actual strings used to refer to the gem use lowercase letters, underscores, and sometimes hyphens (In the case of HTTParty, you *can* refer to it as `require "HTTParty"`).
+1. The first `require` call tells the Ruby interpreter that we'll be using **rubygems**, Ruby's convenient framework of packaging these libraries.
+2. The second `require` call pulls in the code for the [HTTParty](https://github.com/jnunemaker/httparty) gem. By convention, the actual strings used to refer to the gem use lowercase letters, underscores, and sometimes hyphens (In the case of **HTTParty**, you *can* refer to it as `require "HTTParty"`).
 
 
 In irb, you should see this:
 
 ```
-1.9.3p258 :002 > require 'rubygems'
- => false 
-1.9.3p258 :003 > require 'httparty'
- => true
+require 'rubygems'
+# => false 
+require 'httparty'
+# => true
 ```
 
-
+(`require 'rubygems'` will return false if your **irb** environment preloads it)
 
 
 ### The 'get' method
 
 This next line is where the interesting work is done:
 
-```
+``` ruby
 response = HTTParty.get('http://learnwhytocode.danwin.com')
 ```
 
@@ -74,8 +73,6 @@ HTTParty.get('http://learnwhytocode.danwin.com')
 ```
 
 Following the `get` is a **string**, wrapped in **parentheses**. These parentheses denote the **arguments** for the `get` method. I'll explain **arguments** later.
-
-*The parentheses are actually optional, but let's pretend that they need to be there for now.* 
 
 
 **To review:** 
@@ -106,14 +103,14 @@ What does `response` contain? Let's try it out:
 
 
 ``` ruby
-1.9.3-head :001 > require 'rubygems'
- => true 
-1.9.3-head :002 > require 'httparty'
- => true 
-1.9.3-head :003 > response = HTTParty.get('http://learnwhytocode.danwin.com')
- => #<HTTParty::Response:0x103877b30 parsed_response="\n...">
-1.9.3-head :004 > response.class
- => HTTParty::Response 
+require 'rubygems'
+# => true 
+require 'httparty'
+# => true 
+response = HTTParty.get('http://learnwhytocode.danwin.com')
+# => #<HTTParty::Response:0x103877b30 parsed_response="\n...">
+response.class
+# => HTTParty::Response 
 ```
 
 *Note: you only have to do the `require` statements once each time you startup irb. If you exit and re-launch irb, you'll have to call `require` again to bring in the libraries*
@@ -122,19 +119,19 @@ What does `response` contain? Let's try it out:
 If you look through the [HTTParty documentation](https://github.com/jnunemaker/httparty), you'll find that the `body` method of this `HTTParty::Response` class contains the contents of the webpage:
 
 ```
-1.9.3-head :005 > response.body.class
+response.body.class
  => String 
-1.9.3-head :006 > response.body.length
+response.body.length
  => 7551
 ```
 
-That's all there is to downloading a file. If you look through the [HTTParty documentation](https://github.com/jnunemaker/httparty), you'll see that it's actually a complicated affair. But thanks to the nature of programming and how it abstracts complexity to a single word, we just need to know how to invoke `HTTParty.get` 
+That's all there is to downloading a file. If you look through the [HTTParty documentation](https://github.com/jnunemaker/httparty), you'll see that there's a lot of underlying code. But we don't need to worry about that. Thanks to the nature of programming and how it abstracts complexity to a single word, we just need to know how to invoke `HTTParty.get` 
 
 We'll find out what to do with the result of `HTTParty.get` in the next chapter.
 
 
-##### Exercises
-Use the `HTTParty` library to download this URL: `TK`
+## Exercise
+Use the `HTTParty` library to download this URL: `http://nottwitter.danwin.com/users/joebiden/show.json`
 
 
 

@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "How do we deal with JSON data files?"
 solution: "Use Ruby's JSON library"
+status: checked
 ---
  
 In the last chapter, we learned how to download a file using HTTParty and save its contents to a variable:
@@ -123,11 +124,12 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "TK"
+url = "http://nottwitter.danwin.com.s3.amazonaws.com/users/joebiden/show.json"
 json_str = HTTParty.get(url).body
-obj = JSON.parse(json_str)
+an_object = JSON.parse(json_str)
 
-puts json.class
+puts an_object.class
+#=> Hash
 ```
 
 We're beginning to add complex methods atop of complex methods now, so it's worth reviewing what happens at each step:
@@ -139,5 +141,6 @@ We're beginning to add complex methods atop of complex methods now, so it's wort
 
 Note that `JSON.parse`is expecting a specially-formatted string. Try passing in a normal string to that method, such as `"Hello world"`
 
+Again, in this tutorial, our world is safe and narrow. You can expect all data-files to *be* what they say, in this case, properly formatted JSON. In the real world, this won't be the case, and the JSON parser may choke on what is ostensibly a JSON file.
 
 

@@ -19,7 +19,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "TK"
+url = "http://nottwitter.danwin.com/users/NancyPelosi/show.json"
 json_str = HTTParty.get(url).body
 twitter_user = JSON.parse(json_str)
 ```
@@ -43,7 +43,7 @@ The `Hash` is one of Ruby's **collection** classes and is ubiquitous in Ruby cod
 Here's how a simple `Hash` object is initialized:
 
 ```
-simple_hash = {'a'=>101} 
+simple_hash = {'a' => 101} 
 ```
 
 * The curly-braces denote the entire `Hash`. 
