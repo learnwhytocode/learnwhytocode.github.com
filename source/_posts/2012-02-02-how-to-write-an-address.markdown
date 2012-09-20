@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "How do we even put URLs into our programs?"
 solution: "Use the String class to represent text characters."
+status: checked
 ---
 
 
@@ -46,13 +47,14 @@ imac-09:~ dnguyen$ irb     # <-- this is the system's command line
 
 ```
 
+(**Note**: The info before the prompt, `1.9.3p194 ... >`, is system information and may be different for you. The only thing to worry about now is what's on the *right* of the `>`)
 
 As you can see, the Ruby interpreter accepts input at every press of **Enter**. All we're doing is giving it numbers so all it does in response is repeat those numbers.
 
 
 **Break out with Ctrl-C**:
 
-Your first efforts at typing in code may result in what seems like being thrown into limbo where the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
+Your first efforts at typing in code may result in being thrown in what seems like limbo: the <strong>irb</strong> prompt seemingly refuses to do anything. In these cases, hit <strong>Ctrl-C</strong> a few times and hit <strong>Enter</strong> again, and that should break you out of the limbo loop.
 
 And if <strong>irb</strong> <em>really</em> seems to be going haywire, make sure you're actually in irb and <em>not</em> at your system's command prompt. They both look about the same.
 

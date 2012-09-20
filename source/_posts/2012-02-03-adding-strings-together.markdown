@@ -6,73 +6,69 @@ comments: true
 categories: 
 problem: "The URLs all share common patterns. How do we combine these together? "
 solution: "Strings can be added to other strings. But not all types of data can be combined together."
-
+status: checked
 ---
 
 
 Now that we know how to enter URLs as **strings**, let's review the URL format for retrieving a user's account information:
 
-`http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json`
+`http://nottwitter.danwin.com/users/NancyPelosi/show.json`
 
-That gets us the information the Twitter account, `TKPelosi`
+That gets us the information the Twitter account, `NancyPelosi`
 
-To get the information for `TKBohner`:
+Likewise, to get the information for `DarrellIssa`:
 
-`http://TK_DATA_ROOT_PATH/users/TKBohner/show.json`
-
-And for `TKrandpaul`:
-
-`http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json`
+`http://nottwitter.danwin.com.s3.amazonaws.com/users/DarrellIssa/show.json`
 
 In other words, the URL pattern for the account information for any given user is:
 
-`http://TK_DATA_ROOT_PATH/users/TWEET_USER_NAME/show.json`
+`http://nottwitter.danwin.com/users/_SCREENNAME_/show.json`
 
-&ndash; where `TWEET_USER_NAME` is the name of the account.
+&ndash; where `_SCREENNAME_` is the name of the account.
 
 ## Add strings to remove repetition
 
-We're not at this point yet, but conceivably, the program we write would exploit that pattern.
+Conceivably, the program we write would exploit that pattern.
 
-That is, it will use the same *root* string for that URL and append (i.e. *add*) the `TWEET_USER_NAME` part.
+That is, it will use the same *root* string for that URL (`http://nottwitter.danwin.com/users/`) and append (i.e. *add*) the `_SCREENNAME_` part and the `show.json`.
 
 But how do we add two strings together? Let's try the first thing that comes to mind:
 
 ```
-1.9.3p258 :019 > "http://TK_DATA_ROOT_PATH/users/"  + "TKPelosi/" + "show.json"
- => "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json" 
-1.9.3p258 :020 > "http://TK_DATA_ROOT_PATH/users/" + "TKBohner/" + "show.json"
- => "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json"
+"http://nottwitter.danwin.com/users/"  + "NancyPelosi/" + "show.json"
+ => "http://nottwitter.danwin.com/users/NancyPelosi/show.json" 
+"http://nottwitter.danwin.com/users/" + "DarrellIssa/" + "show.json"
+ => "http://nottwitter.danwin.com/users/DarrellIssa/show.json"
 ```
 
-That was easy. Let's examine the pattern for getting pages of tweets for user `TKissa`:
+That was easy. Let's examine the pattern for getting pages of tweets for user `DarrellIssa`:
 
-`http://TK_DATA_ROOT_PATH/statuses/TKissa/1/user_timeline.json`
-`http://TK_DATA_ROOT_PATH/statuses/TKissa/2/user_timeline.json`
-`http://TK_DATA_ROOT_PATH/statuses/TKissa/3/user_timeline.json`
+`http://nottwitter.danwin.com/statuses/DarrellIssa/1/user_timeline.json`
+`http://nottwitter.danwin.com/statuses/DarrellIssa/2/user_timeline.json`
+`http://nottwitter.danwin.com/statuses/DarrellIssa/3/user_timeline.json`
 
-Before we [first learned of strings](TK), we saw that the Ruby interpreter interprets numbers as they are:
+Before we [first learned of strings](/lessons/how-to-write-an-address), we saw that the Ruby interpreter interprets numbers as they are:
 
 ```
-1.9.3p258 :021 > 1
+1
  => 1 
-1.9.3p258 :022 > 2
+2
  => 2 
-1.9.3p258 :023 > 42
+42
  => 42
 ```
 
 And addition seems to work as expected:
 
 ```
-1.9.3p258 :024 > 21 + 21
+21 + 21
  => 42
 ```
 
 What happens when we try to add a string to a non-quoted number?
 
 ``` ruby
-1.9.3p258 :025 > "http://TK_DATA_ROOT_PATH/statuses/TKissa/" + 5 + "/user_timeline.json"
+"http://nottwitter.danwin.com/statuses/DarrellIssa/" + 5 + "/user_timeline.json"
 TypeError: can't convert Fixnum into String
 	from (irb):25:in `+'
 	from (irb):25
@@ -87,8 +83,8 @@ And strings and numbers apparently can't be added together.
 However, we learned *that anything enclosed by quotes is a* **string**. So what happens when we enclose a number with quotes?
 
 ```
-1.9.3p258 :026 > "http://TK_DATA_ROOT_PATH/statuses/TKissa/" + "5" + "/user_timeline.json"
- => "http://TK_DATA_ROOT_PATH/statuses/TKissa/5/user_timeline.json"
+"http://nottwitter.danwin.com/statuses/DarrellIssa/" + "5" + "/user_timeline.json"
+ => "http://nottwitter.danwin.com/statuses/DarrellIssa/5/user_timeline.json"
 ```
 
 This works because `"5"`, unlike `5`, is a **string**. And two strings can be added together.
@@ -106,9 +102,13 @@ Guess the result of the following addition operations:
 
 ``` ruby
 "http://" + "en.wikipedia.org" + "/wiki" + "/Ruby"
+
 12 + 300
+
 "11" + "11"
+
 "http://" + "www." + "w" + "3" + ".org"
+
 "2" + 2
 ```
 

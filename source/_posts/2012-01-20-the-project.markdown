@@ -35,16 +35,16 @@ The two kinds of files are:
 #### Account info
 This is the data corresponding to a user's profile and statistics. See [Twitter API doc](https://dev.twitter.com/docs/api/1/get/users/show)
 
-* Format: http://nottwitter.danwin.com.s3.amazonaws.com/users/_SCREENNAME_/show.json
-* Example: [http://nottwitter.danwin.com.s3.amazonaws.com/users/senatorboxer/show.json](http://nottwitter.danwin.com.s3.amazonaws.com/users/senatorboxer/show.json)
+* Format: /users/_SCREENNAME_/show.json
+* Example: [http://nottwitter.danwin.com/users/senatorboxer/show.json](http://nottwitter.danwin.com/users/senatorboxer/show.json)
 * Equivalent [Twitter 1.0 API](https://dev.twitter.com/docs/api/1/get/users/show) call: 
  [https://api.twitter.com/1/users/show.json?screen_name=senatorboxer](https://api.twitter.com/1/users/show.json?screen_name=senatorboxer)
 
 #### Tweet pages
 Each user has a set of pages, with a max number of tweets per page (and no more than 3,200 total). See [Twitter API doc](https://dev.twitter.com/docs/api/1/get/statuses/user_timeline)
 
-* Format: 
-* Example: [http://nottwitter.danwin.com.s3.amazonaws.com/statuses/senatorboxer/1/user_timeline.json](http://nottwitter.danwin.com.s3.amazonaws.com/statuses/senatorboxer/1/user_timeline.json)
+* Format: /statuses/_SCREENNAME_/_PAGE_NUM_/user_timeline.json
+* Example: [http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json](http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json)
 * Equivalent [Twitter 1.0 API](https://dev.twitter.com/docs/api/1/get/statuses/user_timeline) call: [https://api.twitter.com/1/statuses/user_timeline.json?screen_name=senatorboxer](https://api.twitter.com/1/statuses/user_timeline.json?screen_name=senatorboxer)
 
 
@@ -53,9 +53,9 @@ Each user has a set of pages, with a max number of tweets per page (and no more 
 
 We begin by accessing Twitter data for **10 users** listed in this text file:
 
-[http://nottwitter.danwin.com.s3.amazonaws.com/simple-congress-list.txt](http://nottwitter.danwin.com.s3.amazonaws.com/simple-congress-list.txt)
+[http://nottwitter.danwin.com/simple-congress-list.txt](http://nottwitter.danwin.com/simple-congress-list.txt)
 
-After we've gone through the ropes of basic programming routines, we move on to the full list of Congressmembers and their Twitter accounts. I used [this list](http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv) that was [compiled by the Sunlight Foundation](http://services.sunlightlabs.com/).
+After we've gone through the ropes of basic programming routines, we move on to the full list of Congressmembers and their Twitter accounts. I used [this list](http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv) that was [compiled by the Sunlight Foundation](http://services.sunlightlabs.com/).
 
 For your convenience, I've created bulk data that can be downloaded and unzipped to your hard drive. Your scripts have to be adapted then to point from the remote `http://nottwitter.danwin.com/` domain to `/yourcomputer/working-directory/`
 
