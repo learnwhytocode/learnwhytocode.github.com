@@ -18,7 +18,7 @@ That gets us the information the Twitter account, `NancyPelosi`
 
 Likewise, to get the information for `DarrellIssa`:
 
-`http://nottwitter.danwin.com.s3.amazonaws.com/users/DarrellIssa/show.json`
+`http://nottwitter.danwin.com/users/DarrellIssa/show.json`
 
 In other words, the URL pattern for the account information for any given user is:
 

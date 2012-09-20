@@ -17,7 +17,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "http://nottwitter.danwin.com.s3.amazonaws.com/statuses/RoyBlunt/3/user_timeline.json"
+url = "http://nottwitter.danwin.com/statuses/RoyBlunt/3/user_timeline.json"
 json_str = HTTParty.get(url).body
 tweets_obj = JSON.parse(json_str)
 

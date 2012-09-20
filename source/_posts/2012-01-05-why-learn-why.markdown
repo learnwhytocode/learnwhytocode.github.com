@@ -20,13 +20,8 @@ In 24 hours, I would be surprised if anyone at this workshop will remember enoug
 
 And if you're someone who wants to spend more time thinking and creating in our increasingly data-filled world, I'm betting you will take the next steps in learning programming. The questions that stall most beginners &ndash; How hard is it? What language should I use? Where do I start? &ndash; are far easier to answer when you know *why* programming is useful.
 
+**Focus on the ideas and concepts**, not the technique or code.
 
-### Adaptability
-
-TK
-Think of it like being able to take a traditional news story and adapting it for the early edition, for the website, for the wire service, and for a Tumblr post. If you know the story well, and know how to write well, this is an annoying, but relatively quick process.
-
-In programming, though, adapting programs to new situations and demands is far, far easier. And far more powerful. We'll see that the main challenge with mass-processing tweets is parsing Twitter's JSON format. But once you've got the gist of it down, it won't matter if Twitter suddenly changes their data format to XML, Excel spreadsheets, PDF, or printed pieces of paper.
 
 
 
@@ -35,10 +30,6 @@ In programming, though, adapting programs to new situations and demands is far, 
 If you follow the lessons here (*note: after I've finished editing and publishing them*), you will be doing something practical and concrete. Even if you copy-and-paste your way to the end. If I want to meet a six-hour cutoff, we have to accept that we won't understand everything at first.
 
 The content and structure of the lessons is a little non-traditional. Instead of starting with the programming concept, we think about the actual problem that we want to solve. And *then* we find the programming concept that will help us.
-
- ** **Memorize the ideas, not the technique** &ndash; Programming can seem overwhelming to learn because it's not only a new literal language to comprehend, but it requires learning entirely new concepts. The language and terminology part is frustrating at first, but ultimately the easiest thing to get down. The ideas are the hardest to grasp, and you may not get them until plowing through some real code.
-
- ** Think abstractly &ndash; You've probably heard the TKlanguage has x words for sn; x words. The point of those claims, inaccurate as they might be, is *not* for you to learn what
 
 
 

@@ -35,7 +35,7 @@ end
 
 The [Sunlight Foundation](http://services.sunlightlabs.com/) maintains a spreadsheet of Congressmember data, including social media usernames.
 
-Download our mirroed copy for this tutorial here: [http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv](http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv)
+Download our mirroed copy for this tutorial here: [http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv](http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv)
 
 It is also in your **working-directory**
 

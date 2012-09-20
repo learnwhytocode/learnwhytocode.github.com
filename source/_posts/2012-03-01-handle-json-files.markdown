@@ -125,7 +125,7 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "http://nottwitter.danwin.com.s3.amazonaws.com/users/joebiden/show.json"
+url = "http://nottwitter.danwin.com/users/joebiden/show.json"
 json_str = HTTParty.get(url).body
 an_object = JSON.parse(json_str)
 
