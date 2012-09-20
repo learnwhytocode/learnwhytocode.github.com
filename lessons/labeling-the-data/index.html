@@ -144,14 +144,14 @@
 	
 	<p>We&#8217;ve seen how the URLs for pulling in Twitter information have a pattern. For example, the user info URLs for 4 different users looks like this:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/users/TKBohner/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKRepPaulRyan/show.json</code></p>
+<p><code>http://nottwitter.danwin.com/users/JoeLieberman/show.json</code>
+<code>http://nottwitter.danwin.com/users/NancyPelosi/show.json</code>
+<code>http://nottwitter.danwin.com/users/SenRandPaul/show.json</code>
+<code>http://nottwitter.danwin.com/users/jaredpolis/show.json</code></p>
 
-<p>Everything about the URLs, except the account name, is the same. Using <strong>variables</strong>, we can store the repetitive parts of the strings for repeated references:</p>
+<p>Everything about the URLs is the same. Except the screen name. Using <strong>variables</strong>, we can store the repetitive parts of the strings for repeated references:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -159,16 +159,15 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/" 
-</span><span class='line'>1.9.3p258 :016 &gt; end_twit_url = "/show.json"
-</span><span class='line'> =&gt; "/show.json" 
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">base_twit_url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/users/&quot;</span>
+</span><span class='line'><span class="n">end_twit_url</span> <span class="o">=</span> <span class="s2">&quot;/show.json&quot;</span>
 </span><span class='line'>
-</span><span class='line'>1.9.3p258 :017 &gt; base_twit_url + "TKBohner" + end_twit_url
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json" 
-</span><span class='line'>1.9.3p258 :018 &gt; base_twit_url + "TKPelosi" + end_twit_url
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json"</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">base_twit_url</span> <span class="o">+</span> <span class="s2">&quot;JoeLieberman&quot;</span> <span class="o">+</span> <span class="n">end_twit_url</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;http://nottwitter.danwin.com/users/JoeLieberman/show.json&quot; </span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_twit_url</span><span class="p">,</span> <span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">end_twit_url</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;http://nottwitter.danwin.com/users/NancyPelosi/show.json&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Labels for data</h2>
@@ -177,12 +176,13 @@
 
 <p>In the above example, the <code>base_twit_url</code> is neither a string (because it&#8217;s not set off by quotes) nor a reference to a Ruby command. Instead, it is a Ruby <strong>variable</strong>; it is also called a <strong>pointer</strong>, because it <em>points</em> to something.</p>
 
-<p>What does <code>base_twit_url</code> <em>point</em> to? The string, <code>"http://TK_DATA_ROOT_PATH/users/"</code></p>
+<p>What does <code>base_twit_url</code> <em>point</em> to? The string, <code>"http://nottwitter.danwin.com/users/"</code></p>
 
 <p>How does the the Ruby interpreter know that <code>base_twit_url</code> refers to that string? Because we used the <strong>assignment operator</strong> &ndash; the equals sign,  <code>=</code></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">base_twit_url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/users/&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>After that <strong>assignment</strong>, Ruby knows that we are using <code>base_twit_url</code> as a stand-in for the longer string.</p>
@@ -205,7 +205,7 @@
 </ul>
 
 
-<p>Here are proper variables:</p>
+<p>Here are properly-named variables:</p>
 
 <ul>
 <li><code>hey_you</code></li>
@@ -217,22 +217,29 @@
 </ul>
 
 
-<p>In Ruby, and in other language, variables that begin with uppercase letters (or are <em>all</em> uppercase) have a special meaning. To keep things simple for now, just stick to using alphabetical and underscore characters (I would try to avoid using numbers, because they can be confusing).</p>
+<h4>About constants</h4>
+
+<p>In Ruby, and in other languages, variables that begin with uppercase letters (or are <em>all</em> uppercase) have a special meaning. To keep things simple for now, <strong>just stick to using alphabetical and underscore characters</strong> .</p>
+
+<p>(I would also advise not to use numbers, because they can lead to vaguely named variables).</p>
 
 <h3>Variable assignment</h3>
 
 <p>It&#8217;s still not clear how Ruby distinguishes between a word like <code>puts</code> and some variable we just made up, such as <code>puts_this_in_your_pipe</code>. Try entering both into <strong>irb</strong>:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :001 &gt; puts
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span>
 </span><span class='line'>
-</span><span class='line'> =&gt; nil 
-</span><span class='line'>1.9.3p258 :002 &gt; puts_this_in_your_pipe
-</span><span class='line'>NameError: undefined local variable or method `puts_this_in_your_pipe' for main:Object</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="c1"># =&gt; nil </span>
+</span><span class='line'>
+</span><span class='line'><span class="n">puts_this_in_your_pipe</span>
+</span><span class='line'><span class="no">NameError</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`puts_this_in_your_pipe&#39; for main:Object</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>What happened here? The Ruby interpreter didn&#8217;t choke on <code>puts</code> because <em>somewhere</em>, somehow, <code>puts</code> was defined.</p>
@@ -241,21 +248,81 @@
 
 <p>The most common way to tell Ruby that &#8221;<em>this here word I&#8217;ve made up is meant to be a variable</em>&#8221; is to <em>assign</em> it a value using the <em>assignment operator</em>:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :003 &gt; puts_this_in_your_pipe = 'water'
-</span><span class='line'> =&gt; "water" 
-</span><span class='line'>1.9.3p258 :004 &gt; puts_this_in_your_pipe
-</span><span class='line'> =&gt; "water" </span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">puts_this_in_your_pipe</span> <span class="o">=</span> <span class="s1">&#39;water&#39;</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;water&quot; </span>
+</span><span class='line'><span class="n">puts_this_in_your_pipe</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;water&quot; </span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>The Ruby interpreter doesn&#8217;t throw an error here because we&#8217;ve defined the <code>puts_this_in_your_pipe</code> variable.</p>
 
-<h5>Exercises</h5>
+<h2>Exercise</h2>
 
-<p>(todo) What do we name our variables?</p>
+<p>Recall the format for the URLs in this tutorial:</p>
+
+<ul>
+<li>User info: <a href="http://nottwitter.danwin.com/users/SenRandPaul/show.json">http://nottwitter.danwin.com/users/SenRandPaul/show.json</a></li>
+<li>First page of tweets: <a href="http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json">http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json</a></li>
+</ul>
+
+
+<p>Express these strings by abstracting out the unchanging segments and assigning them to variables.</p>
+
+<h3>Answer</h3>
+
+<p>The first thing to note is that the data server, <code>http://nottwitter.danwin.com</code>, is going to be the same for each data URL. So our first variable can be:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">data_host</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From there, the two types of data calls diverge. But when doing multiple requests for <strong>user info</strong>, only the <strong>screen name</strong> part changes. So let&#8217;s put the rest into two other variables.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">user_info_path</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
+</span><span class='line'><span class="n">user_info_basefile</span> <span class="o">=</span> <span class="s1">&#39;show.json&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For requests of tweet pages:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_page_path</span> <span class="o">=</span> <span class="s1">&#39;statuses&#39;</span>
+</span><span class='line'><span class="n">tweets_page_basefile</span> <span class="o">=</span> <span class="s1">&#39;user_timeline.json&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now to rewrite the calls:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># for user info:</span>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host</span><span class="p">,</span> <span class="n">user_info_path</span><span class="p">,</span> <span class="s1">&#39;SenRandPaul&#39;</span><span class="p">,</span> <span class="n">user_info_basefile</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host</span><span class="p">,</span> <span class="n">tweets_page_path</span><span class="p">,</span> <span class="s1">&#39;senatorboxer&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">tweets_page_basefile</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Admittedly, that may not seem like we saved ourselves a lot of work.  Because the variable names seem so much longer than what they represent, it seems there&#8217;s a lot of code-to-actual-data, which doesn&#8217;t seem ideal.</p>
+
+<p>But as we write more complex programs, we&#8217;ll find that descriptive names are extremely useful in figuring out what&#8217;s going on</p>
+
+<p>Here&#8217;s one of the best words of advice I&#8217;ve ever picked up about programming:</p>
+
+<blockquote><p>Code is read far more times than it&#8217;s written</p><footer><strong>Steve McConnell, Code Complete: A Practical Handbook of Software Construction</strong> <cite><a href='http://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670'>www.amazon.com/dp/0735619670/&hellip;</a></cite></footer></blockquote>
+
+
+
 </div>
 
 
