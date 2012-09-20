@@ -18,7 +18,7 @@ So to download a file, all we need to do is find the name of the method that con
 
 ### It's a HTTParty
 
-Doing a few Google searches for "Ruby" and "download TK" will net us a few options. The most fun-sounding one is John Nunemaker's [HTTParty](https://github.com/jnunemaker/httparty) gem, which claims to make "http fun again!"
+Doing a few Google searches for "Ruby library" and "download a file" will net us a few options. The most fun-sounding one is John Nunemaker's [HTTParty](https://github.com/jnunemaker/httparty) gem, which claims to make "http fun again!"
 
 <div class="note">
 If you haven't installed Rubygems yet or the HTTParty gem, refer back to the <a href="TK">installation chapter</a>.	

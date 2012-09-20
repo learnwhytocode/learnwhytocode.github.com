@@ -6,28 +6,28 @@ comments: true
 categories: 
 problem: "A lot of the text we're using is repeated over and over."
 solution: "Use variables to store data for later reference in our programs."
+status: checked
 ---
 
 
 We've seen how the URLs for pulling in Twitter information have a pattern. For example, the user info URLs for 4 different users looks like this:
 
-`http://TK_DATA_ROOT_PATH/users/TKBohner/show.json`
-`http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json`
-`http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json`
-`http://TK_DATA_ROOT_PATH/users/TKRepPaulRyan/show.json`
+`http://nottwitter.danwin.com/users/JoeLieberman/show.json`
+`http://nottwitter.danwin.com/users/NancyPelosi/show.json`
+`http://nottwitter.danwin.com/users/SenRandPaul/show.json`
+`http://nottwitter.danwin.com/users/jaredpolis/show.json`
 
-Everything about the URLs, except the account name, is the same. Using **variables**, we can store the repetitive parts of the strings for repeated references:
+Everything about the URLs is the same. Except the screen name. Using **variables**, we can store the repetitive parts of the strings for repeated references:
 
-``` 
-1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
- => "http://TK_DATA_ROOT_PATH/users/" 
-1.9.3p258 :016 > end_twit_url = "/show.json"
- => "/show.json" 
+``` ruby
+base_twit_url = "http://nottwitter.danwin.com/users/"
+end_twit_url = "/show.json"
 
-1.9.3p258 :017 > base_twit_url + "TKBohner" + end_twit_url
- => "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json" 
-1.9.3p258 :018 > base_twit_url + "TKPelosi" + end_twit_url
- => "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json"
+base_twit_url + "JoeLieberman" + end_twit_url
+# => "http://nottwitter.danwin.com/users/JoeLieberman/show.json" 
+
+File.join(base_twit_url, 'NancyPelosi', end_twit_url)
+# => "http://nottwitter.danwin.com/users/NancyPelosi/show.json"
 ```
 
 
@@ -37,12 +37,12 @@ After learning about strings, your first thought may be: *Hey, why aren't those 
 
 In the above example, the `base_twit_url` is neither a string (because it's not set off by quotes) nor a reference to a Ruby command. Instead, it is a Ruby **variable**; it is also called a **pointer**, because it *points* to something.
 
-What does `base_twit_url` *point* to? The string, `"http://TK_DATA_ROOT_PATH/users/"`
+What does `base_twit_url` *point* to? The string, `"http://nottwitter.danwin.com/users/"`
 
 How does the the Ruby interpreter know that `base_twit_url` refers to that string? Because we used the **assignment operator** &ndash; the equals sign,  `=`
 
 ```
-1.9.3p258 :015 > base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
+base_twit_url = "http://nottwitter.danwin.com/users/"
 ```
 
 After that **assignment**, Ruby knows that we are using `base_twit_url` as a stand-in for the longer string.
@@ -64,7 +64,7 @@ So, these are *not* variable names:
 * `hello world` (spaces aren't allowed)
 * `100var` (you can't begin a variable with a number)
 
-Here are proper variables:
+Here are properly-named variables:
 
 * `hey_you`
 * `HEY` 
@@ -73,7 +73,10 @@ Here are proper variables:
 * `x`
 * `super_cali_fragilistic_expealidocious`
 
-In Ruby, and in other language, variables that begin with uppercase letters (or are *all* uppercase) have a special meaning. To keep things simple for now, just stick to using alphabetical and underscore characters (I would try to avoid using numbers, because they can be confusing).
+#### About constants
+In Ruby, and in other languages, variables that begin with uppercase letters (or are *all* uppercase) have a special meaning. To keep things simple for now, **just stick to using alphabetical and underscore characters** .
+
+(I would also advise not to use numbers, because they can lead to vaguely named variables).
 
 
 
@@ -82,10 +85,11 @@ In Ruby, and in other language, variables that begin with uppercase letters (or 
 It's still not clear how Ruby distinguishes between a word like `puts` and some variable we just made up, such as `puts_this_in_your_pipe`. Try entering both into **irb**:
 
 ```
-1.9.3p258 :001 > puts
+puts
 
- => nil 
-1.9.3p258 :002 > puts_this_in_your_pipe
+# => nil 
+
+puts_this_in_your_pipe
 NameError: undefined local variable or method `puts_this_in_your_pipe' for main:Object
 ```
 
@@ -96,20 +100,76 @@ However, the word `puts_this_in_your_pipe` apparently was *not* defined; hence, 
 The most common way to tell Ruby that "*this here word I've made up is meant to be a variable*" is to *assign* it a value using the *assignment operator*:
 
 ```
-1.9.3p258 :003 > puts_this_in_your_pipe = 'water'
- => "water" 
-1.9.3p258 :004 > puts_this_in_your_pipe
- => "water" 
+puts_this_in_your_pipe = 'water'
+# => "water" 
+puts_this_in_your_pipe
+# => "water" 
 ```
 
 The Ruby interpreter doesn't throw an error here because we've defined the `puts_this_in_your_pipe` variable.
 
 
-##### Exercises
-(todo) What do we name our variables?
+## Exercise
+
+Recall the format for the URLs in this tutorial:
+
+* User info: [http://nottwitter.danwin.com/users/SenRandPaul/show.json](http://nottwitter.danwin.com/users/SenRandPaul/show.json)
+* First page of tweets: [http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json](http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json)
+
+Express these strings by abstracting out the unchanging segments and assigning them to variables.
+
+### Answer
+
+The first thing to note is that the data server, `http://nottwitter.danwin.com`, is going to be the same for each data URL. So our first variable can be:
+
+``` ruby
+data_host_name = "http://nottwitter.danwin.com"
+```
+
+From there, the two types of data calls diverge. But when doing multiple requests for **user info**, only the **screen name** part changes. So let's put the rest into two other variables.
+
+``` ruby
+user_info_path = 'users'
+user_info_basefile = 'show.json'
+
+```
+
+For requests of tweet pages:
+
+``` ruby
+tweets_page_path = 'statuses'
+tweets_page_basefile = 'user_timeline.json'
+
+```
+
+Now to rewrite the calls:
+
+``` ruby
+# for user info:
+File.join(data_host_name, user_info_path, 'SenRandPaul', user_info_basefile)
+
+# for tweet pages
+File.join(data_host_name, tweets_page_path, 'senatorboxer', '1', tweets_page_basefile)
+```
+
+Note: in actual practice, we would consider these variables to be **constants**. The convention is to uppercase constants' names:
 
 
+``` ruby
+File.join(DATA_HOST_NAME, USER_INFO_PATH, 'SenRandPaul', USER_INFO_BASEFILE)
+
+File.join(DATA_HOST_NAME, TWEETS_PAGE_PATH, 'senatorboxer', '1', TWEETS_PAGE_BASEFILE)
+```
 
 
+Admittedly, that may not seem like we saved ourselves a lot of work.  Because the variable names seem so much longer than what they represent, it seems there's a lot of code-to-actual-data, which doesn't seem ideal.
+
+But as we write more complex programs, we'll find that descriptive names are extremely useful in figuring out what's going on
+
+Here's one of the best words of advice I've ever picked up about programming:
+
+{% blockquote Steve McConnell, Code Complete: A Practical Handbook of Software Construction http://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670 %}
+Code is read far more times than it's written
+{% endblockquote %}
 
 
