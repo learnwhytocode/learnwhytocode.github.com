@@ -142,19 +142,7 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>This tutorial involves the mashing together of Twitter data with Congressional data <a href="http://services.sunlightlabs.com/">gathered by the Sunlight Foundation</a>. We&#8217;ll use programming to collect, analyze, and publish it.</p>
-
-<p>Instead of using the Twitter API, I&#8217;ve prepared a small set of sample data to practice on. The data format will be the same (JSON), but the actual pattern of URLs will be different (though vaguely similar) to what you would use when fetching tweets from Twitter&#8217;s service.</p>
-
-<p>Once you&#8217;ve learned the use of programming, you&#8217;ll see that details such as the format of the URLs, the actual source of the data, or the size of the dataset are irrelevant, because being able to write code lets you easily adapt your programs to any situation.</p>
-
-<h3>Adaptability</h3>
-
-<p>Think of it like being able to take a traditional news story and adapting it for the early edition, for the website, for the wire service, and for a Tumblr post. If you know the story well, and know how to write well, this is an annoying, but relatively quick process.</p>
-
-<p>In programming, though, adapting programs to new situations and demands is far, far easier. And far more powerful. We&#8217;ll see that the main challenge with mass-processing tweets is parsing Twitter&#8217;s JSON format. But once you&#8217;ve got the gist of it down, it won&#8217;t matter if Twitter suddenly changes their data format to XML, Excel spreadsheets, PDF, or printed pieces of paper.</p>
-
-<h2>Tweet stories</h2>
+	<h2>Tweet stories</h2>
 
 <p>It&#8217;s election season and just about everyone in the information business has at least a psasing interest in what politicians are saying. And in 2012, members of Congress (or their staff) are getting comfortable (a <a href="http://slatest.slate.com/posts/2011/06/06/anthony_weiner_photos_andrew_breitbart_publishes_photo_he_says_i_0.html">little too comfortable, sometimes</a>) with using Twitter as a podium.</p>
 
@@ -165,6 +153,61 @@
 <p>All of these goals and aspirations have a common hurdle: the time sunk into the mind-numbing work of collecting and organizing data.</p>
 
 <p>The goal of this tutorial is to show how programming can vastly reduce the least interesting parts of data work so that you can focus on what you actually want to do.</p>
+
+<h2>Technical details</h2>
+
+<p>This tutorial involves the mashing together of Twitter data with Congressional data <a href="http://services.sunlightlabs.com/">gathered by the Sunlight Foundation</a>. We&#8217;ll use programming to collect, analyze, and publish it.</p>
+
+<h3>The data format</h3>
+
+<p>Instead of using the Twitter API, I&#8217;ve prepared a small set of sample data to practice on. The data format will be the same (JSON), but the actual pattern of URLs will be different (though vaguely similar) to what you would use when fetching tweets from Twitter&#8217;s service.</p>
+
+<p>The two kinds of files are:</p>
+
+<h4>Account info</h4>
+
+<p>This is the data corresponding to a user&#8217;s profile and statistics. See <a href="https://dev.twitter.com/docs/api/1/get/users/show">Twitter API doc</a></p>
+
+<ul>
+<li>Format: /users/<em>SCREENNAME</em>/show.json</li>
+<li>Example: <a href="http://nottwitter.danwin.com/users/senatorboxer/show.json">http://nottwitter.danwin.com/users/senatorboxer/show.json</a></li>
+<li>Equivalent <a href="https://dev.twitter.com/docs/api/1/get/users/show">Twitter 1.0 API</a> call:
+<a href="https://api.twitter.com/1/users/show.json?screen_name=senatorboxer">https://api.twitter.com/1/users/show.json?screen_name=senatorboxer</a></li>
+</ul>
+
+
+<h4>Tweet pages</h4>
+
+<p>Each user has a set of pages, with a max number of tweets per page (and no more than 3,200 total). See <a href="https://dev.twitter.com/docs/api/1/get/statuses/user_timeline">Twitter API doc</a></p>
+
+<ul>
+<li>Format: /statuses/<em>SCREENNAME</em>/<em>PAGE_NUM</em>/user_timeline.json</li>
+<li>Example: <a href="http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json">http://nottwitter.danwin.com/statuses/senatorboxer/1/user_timeline.json</a></li>
+<li>Equivalent <a href="https://dev.twitter.com/docs/api/1/get/statuses/user_timeline">Twitter 1.0 API</a> call: <a href="https://api.twitter.com/1/statuses/user_timeline.json?screen_name=senatorboxer">https://api.twitter.com/1/statuses/user_timeline.json?screen_name=senatorboxer</a></li>
+</ul>
+
+
+<h3>The dataset scope</h3>
+
+<p>We begin by accessing Twitter data for <strong>10 users</strong> listed in this text file:</p>
+
+<p><a href="http://nottwitter.danwin.com/simple-congress-list.txt">http://nottwitter.danwin.com/simple-congress-list.txt</a></p>
+
+<p>After we&#8217;ve gone through the ropes of basic programming routines, we move on to the full list of Congressmembers and their Twitter accounts. I used <a href="http://nottwitter.danwin.com/sunlight-foundation-congress-master.csv">this list</a> that was <a href="http://services.sunlightlabs.com/">compiled by the Sunlight Foundation</a>.</p>
+
+<p>For your convenience, I&#8217;ve created bulk data that can be downloaded and unzipped to your hard drive. Your scripts have to be adapted then to point from the remote <code>http://nottwitter.danwin.com/</code> domain to <code>/yourcomputer/working-directory/</code></p>
+
+<ul>
+<li><a href="TK">Large datasetTK</a> (600+ MB unzipped)</li>
+<li><a href="TK">Lite datasetTK</a> (80+ MB unzipped)</li>
+</ul>
+
+
+<p>The main difference is that the lite version has far fewer tweets per user. When testing scripts, you may find it easier to do a run through the lite version of the data to save time.</p>
+
+<p>Both sets contain flaws that came from the data-collection process. For example, some Congressmembers have changed their Twitter names from what the Sunlight Foundation list last recorded. And in some cases, my data-collection script failed to successfully get data from Twitter&#8217;s API.</p>
+
+<p>I may fix these errors in the future or just leave them in there as an exercise for the user. But keep in mind that this is not meant to be an up-to-date newsworthy dataset.</p>
 
 <h2>Test your system</h2>
 

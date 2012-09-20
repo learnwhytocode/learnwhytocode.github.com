@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Finding the most, least, biggest, smallest Next: Plucking out values &raquo; Organizing Your Code Environment The problem: We're &hellip;">
+  <meta name="description" content="&laquo; Previous: Making the complex, routine Next: Plucking out values &raquo; Organizing Your Code Environment The problem: We're writing too much &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,7 +90,7 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/if-to-reduce/" title="Previous Post: Finding the most, least, biggest, smallest">&laquo; Previous: Finding the most, least, biggest, smallest</a>
+        <a class="basic-alignment left pagin" href="/lessons/simple-routines/" title="Previous Post: Making the complex, routine">&laquo; Previous: Making the complex, routine</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/plucking-out-values/" title="Next Post: Plucking out values">Next: Plucking out values &raquo;</a>
@@ -142,7 +142,114 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<h1>setting constants</h1>
+	<p>If you&#8217;ve taken a break from this tutorial and exited <strong>irb</strong>, you would&#8217;ve had to go through the annoying step of re-running the <code>require</code> statements to bring in the <code>HTTParty</code> and <code>JSON</code> library.</p>
+
+<p>Sure it&#8217;s just a copy-and-paste action. But like everything about programming, this tedious step can be abstracted out for our convenience.</p>
+
+<h2>Using the text editor</h2>
+
+<p>Remember when we installed a text-editor specific for programming (e.g. TextWrangler for OSX, Notepad++ or SciTE for Windows)? Let&#8217;s move out of <strong>irb</strong> for the moment and use the text-editor.</p>
+
+<p>Hopefully you followed the instructions in the early setup chapters (TK) about setting up a <strong>working-directory</strong>. If not, now&#8217;s the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your <strong>Downloads</strong> folder).</p>
+
+<p>Then, <strong>in your text-editor</strong>, create a new text file and save it in your <strong>working-directory</strong> as <strong>my_code.rb</strong></p>
+
+<h3>A place for all your requirements</h3>
+
+<p>Inside the <strong>my_code.rb</strong> file, let&#8217;s put in the boilerplate <code>require</code> statements:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Require your own file</h3>
+
+<p>Now quit out of your current <strong>irb</strong> window by typing <code>exit</code>.</p>
+
+<p>This kicks you back to the command prompt.</p>
+
+<p>At the <strong>command prompt</strong>, try to navigate to wherever your <strong>working directory</strong> was.</p>
+
+<p>If you placed it in <code>Downloads/my-working-dir</code>, you should be able to do something like <code>cd ~/Downloads/my-working-dir</code> (in OS X) or <code>cd C:\Downloads\my-working-dir</code> (for Windows PC).</p>
+
+<p>When you&#8217;re there, run <strong>irb</strong> and execute the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s2">&quot;./my_code.rb&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And this should print out:</p>
+
+<p><code>#=&gt; Done loading my code!</code></p>
+
+<p>We&#8217;ve simply wrapped up the common libraries we use in a single file.</p>
+
+<p>The keyword <code>load</code> is similar to <code>require</code>. Except that if we modify <strong>my_code.rb</strong>, <code>load</code> will actually re-run the code, whereas <code>require</code> will only do so once during an <strong>irb</strong> session.</p>
+
+<h2>Setting constants</h2>
+
+<p>Remember back in the variables chapter, how I mentioned that variables that have all-uppercase names have a special meaning?</p>
+
+<p>These upppercase variables, called <strong>constants</strong>, are where we put values that we expect to access <em>throughout</em> our programming project (this is an exception to the <strong>scope</strong> concept we learned while writing simple methods).</p>
+
+<p>What are the values that we might use in multiple parts of our program? How about where we actually get the Twitter data from?</p>
+
+<p>Add this after the <code>require</code> statements in your <strong>my_code.rb_</strong>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now these constants will be available for use in making the data-retrieval calls. This is not actually best practices for a large programming project. But it serves our purposes for now.</p>
+
+<p>Your entire <strong>my_code.rb</strong> file should look like this:</p>
+
+<figure class='code'><figcaption><span> (my_code.rb)</span> <a href='/downloads/code/organizing-the-code/my_code.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -150,7 +257,7 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/if-to-reduce/" title="Previous Post: Finding the most, least, biggest, smallest">&laquo; Previous: Finding the most, least, biggest, smallest</a>
+        <a class="basic-alignment left pagin" href="/lessons/simple-routines/" title="Previous Post: Making the complex, routine">&laquo; Previous: Making the complex, routine</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/plucking-out-values/" title="Next Post: Plucking out values">Next: Plucking out values &raquo;</a>

@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Loop with a list Next: Organizing your code environment &raquo; Finding the Most, Least, Biggest, Smallest The problem: We want to &hellip;">
+  <meta name="description" content="&laquo; Previous: Loop with a list Next: Making the complex, routine &raquo; Finding the Most, Least, Biggest, Smallest The problem: We want to find &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,7 @@
         <a class="basic-alignment left pagin" href="/lessons/loop-with-a-list/" title="Previous Post: Loop with a list">&laquo; Previous: Loop with a list</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/organizing-your-code-environment/" title="Next Post: Organizing your code environment">Next: Organizing your code environment &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/simple-routines/" title="Next Post: Making the complex, routine">Next: Making the complex, routine &raquo;</a>
       
     </p>
 	
@@ -375,7 +375,7 @@
 
 <h2>Exercise</h2>
 
-<p>Find the Congressmember with the highest rate of tweets:</p>
+<p>Find the Congressmember with the highest <strong>rate of tweets</strong>.</p>
 
 <p>For this, you&#8217;ll want to require the <code>'time'</code> library. Check out the <a href="http://www.ruby-doc.org/core-1.9.3/Time.html">documentation</a>:</p>
 
@@ -410,58 +410,19 @@
 
 <h3>Answer</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;time&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">cmembers</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">cmember</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">seconds_from_creation</span> <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="no">Time</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;statuses_count&#39;</span><span class="o">].</span><span class="n">to_f</span> <span class="o">/</span> <span class="n">seconds_from_creation</span>    
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">most_tweety_member</span> <span class="o">=</span> <span class="n">cmembers</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">cmembers</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">member</span><span class="o">|</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="n">member</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">most_tweety_member</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span>
-</span><span class='line'>      <span class="n">most_tweety_member</span> <span class="o">=</span> <span class="n">member</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">A</span> <span class="n">few</span> <span class="n">points</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span> <span class="no">Like</span> <span class="no">Arrays</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">assign</span> <span class="n">values</span> <span class="n">to</span> <span class="n">a</span> <span class="no">Hash</span> <span class="n">object</span> <span class="n">using</span> <span class="n">the</span> <span class="n">bracket</span> <span class="n">notation</span><span class="o">.</span>
-</span><span class='line'><span class="mi">2</span><span class="o">.</span> <span class="no">Given</span> <span class="n">that</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">seconds</span> <span class="n">that</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span> <span class="n">has</span> <span class="n">existed</span> <span class="n">will</span> <span class="n">likely</span> <span class="n">always</span> <span class="n">be</span> <span class="n">greater</span> <span class="n">than</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">tweets</span> <span class="n">they</span> <span class="n">have</span><span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">to</span> <span class="n">work</span> <span class="n">with</span> <span class="sb">`Float`</span> <span class="p">(</span><span class="n">decimal</span><span class="p">)</span> <span class="n">numbers</span> <span class="ow">and</span> <span class="n">the</span> <span class="sb">`to_f`</span> <span class="n">conversion</span>
-</span><span class='line'><span class="mi">3</span><span class="o">.</span> <span class="no">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">done</span> <span class="k">in</span> <span class="n">one</span> <span class="kp">loop</span><span class="o">.</span> <span class="n">I</span> <span class="n">was</span> <span class="n">just</span> <span class="n">breaking</span> <span class="n">out</span> <span class="n">the</span> <span class="n">steps</span><span class="o">.</span>
-</span><span class='line'><span class="mi">4</span><span class="o">.</span> <span class="no">There</span><span class="s1">&#39;s a much easier way to sort values, but we&#39;</span><span class="n">ll</span> <span class="n">get</span> <span class="n">to</span> <span class="n">that</span> <span class="n">later</span><span class="o">.</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/find-tweetiest-user.rb could not be found</p>
+
+<p>A few points:</p>
+
+<ol>
+<li>Like Arrays, you can assign values to a Hash object using the bracket notation.</li>
+<li>Given that the number of seconds that a user account has existed will likely always be greater than the number of tweets they have, you have to work with <code>Float</code> (decimal) numbers and the <code>to_f</code> conversion</li>
+<li>This can be done in one loop. I was just breaking out the steps.</li>
+<li>There&#8217;s a much easier way to sort values, but we&#8217;ll get to that later.</li>
+</ol>
 
 
-
+<p>&#8220;`</p>
 </div>
 
 
@@ -472,7 +433,7 @@
         <a class="basic-alignment left pagin" href="/lessons/loop-with-a-list/" title="Previous Post: Loop with a list">&laquo; Previous: Loop with a list</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/organizing-your-code-environment/" title="Next Post: Organizing your code environment">Next: Organizing your code environment &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/simple-routines/" title="Next Post: Making the complex, routine">Next: Making the complex, routine &raquo;</a>
       
     </p>
 

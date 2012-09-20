@@ -90,7 +90,7 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/collect-text-from-many-tweets/" title="Previous Post: Pick out the text from many tweets">&laquo; Previous: Pick out the text from many tweets</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Previous Post: Pick out the text from many tweets">&laquo; Previous: Pick out the text from many tweets</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/loop-with-a-list/" title="Next Post: Loop with a list">Next: Loop with a list &raquo;</a>
@@ -142,23 +142,89 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<h2>Find a simple step</h2>
+	<p>We&#8217;ve run through a fair number of concepts and code but really haven&#8217;t done anything we couldn&#8217;t do (and do faster) with a web browser, such as look up a Twitter user&#8217;s number of followers, or how many people retweeted his/her most recent tweet.</p>
+
+<p>If you&#8217;re a pretty fast copy-and-paster, you might be able to outpace a mouse-clicker by copying-and-pasting the tweet-data-fetching routines over and over, which is not a bad accomplishment.</p>
+
+<p>But we can do <em>much</em> better than that.</p>
+
+<h2>Make a simple goal</h2>
+
+<p>In programming, you&#8217;ll get more return out of every line of code when you break things down into simple tasks.</p>
+
+<p>In the last chapter, what was one of our goals? <em>To print out the text of a tweet</em>.</p>
 
 <h2>Repeat that step across a collection</h2>
 
+<p>The code for printing out one tweet&#8217;s text is the same as it is for any other given tweet. The only difference is the <em>reference</em> to each tweet, i.e. its address in an array.</p>
+
+<h2>each</h2>
+
+<p>Ruby collections have many useful methods, but the one we&#8217;ll use the most is <code>each</code>. In a nutshell, <code>each</code> lets us loop through a collection and perform a method on each member of that collection.</p>
+
+<p>On a simple array:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">some_item</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">some_item</span><span class="o">.</span><span class="n">upcase</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt;</span>
+</span><span class='line'><span class="n">A</span>
+</span><span class='line'><span class="n">B</span>
+</span><span class='line'><span class="n">C</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without getting into the nitty-gritty, think of what is between the <code>do</code> and the <code>end</code> as the routine done on each <code>some_item</code>.</p>
+
+<p>What is <code>some_item</code>? In this syntax, the value in the straight pipe-characters is the variable name used to reference a member of the collection.</p>
+
+<p>If you think of <code>each</code> as looping through the collection and doing something on <em>each</em> member of the collection, then <code>some_item</code> (which we could name anything we want, as if it were a variable) points to the member of the current iteration.</p>
+
+<p>There are other variations of the <code>each</code> method. For a <code>Hash</code> object, you could use <code>each_pair</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">my_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;charlie&#39;</span><span class="p">}</span>
+</span><span class='line'><span class="n">my_hash</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; is the key for: &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt;</span>
+</span><span class='line'><span class="n">a</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">alpha</span>
+</span><span class='line'><span class="n">b</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">beta</span>
+</span><span class='line'><span class="n">c</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">charlie</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>Exercise</h2>
 
-<p>Print out every tweet</p>
+<ol>
+<li><p>Using the <code>each</code> method, loop through the array of tweets from the last lesson and print out the contents of the text.</p></li>
+<li><p>Using the <code>each</code> method again, loop through the tweets and print the <em>length</em> of their text.</p></li>
+<li><p>Same procedure above, but use it to calculate the <em>average</em> length of a tweet.</p></li>
+<li><p>Using the <code>each</code> method again, loop through and print out every attribute of each tweet.</p></li>
+</ol>
 
-<hr />
 
-<p>old
-Now that we have a nice routine for downloading and saving a file, let&#8217;s use it to retrieve the first three pages of tweets from the user named <code>joebiden</code>.</p>
+<h3>Answer</h3>
 
-<p>Here again is the URL pattern for tweet pages in our tutorial:
-<code>http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json</code></p>
-
-<p>Now to download them using our pre-written methods:</p>
+<p>To get the tweets in an array:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -167,50 +233,50 @@ Now that we have a nice routine for downloading and saving a file, let&#8217;s u
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json&quot;</span>
-</span><span class='line'><span class="n">screen_name</span> <span class="o">=</span> <span class="s2">&quot;joebiden&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url_1</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_1</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url_2</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_2</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url_3</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_3</span><span class="p">)</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>That&#8217;s not a terrible amount of work to download three pages. But in our continuing quest to remove repetition, let&#8217;s find a way to exploit the obvious pattern above.</p>
+<p></p>
 
-<h2>Loop with each</h2>
+<ol>
+<li>Printing out text:</li>
+</ol>
 
-<p><strong>Note:</strong> Ruby, like its peer languages, has the <code>for</code> construct. We&#8217;re going to skip that and use the more Ruby idiomatic <code>each</code> just for the sake of brevity.</p>
-
-<p>Let&#8217;s simplify the issue here: how do we count from <code>1</code> to <code>3</code>? In a programmatic way?</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">num</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The object <code>1..3</code> is a special data class in Ruby called a <code>Range</code>. Ranges are one of several types of <strong>collections</strong>. After we learn about the other kinds of collections, we won&#8217;t be using ranges too often. But they make for an easy introduction to loops.</p>
+<ol>
+<li>Printing out the length of each tweet</li>
+</ol>
 
-<p>Collections have a method called <code>each</code>, which, as we saw above, iterates through each member of a collection. The <code>do</code> and <code>end</code> keywords denote the block of code performed in each iteration. And think of the <code>|num|</code> as the <strong>argument</strong> passed into that block of code.</p>
 
-<p>Let&#8217;s practice. Using a <code>Range</code> and the <code>each</code> method, print out the URLs needed to retrieve the three <code>joebiden</code> tweet pages:</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Printing out the average length the tweets</li>
+</ol>
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -218,46 +284,51 @@ Now that we have a nice routine for downloading and saving a file, let&#8217;s u
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">biden_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/joe_biden/_PAGENUM_/user_timeline.json&quot;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">url</span> <span class="o">=</span> <span class="n">biden_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">url</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Printing out the attributes of each tweet</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">tweet</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">key</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; --&gt; &quot;</span> <span class="o">+</span> <span class="n">val</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Up until now, we&#8217;ve basically been <em>entering</em> code equivalent to the amount of work that we actually want to do. With loops, you can see how actions can be repeated dozens, thousands, millions of times with a simple change to a collection.</p>
+<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, like so:</p>
 
-<h5>Exercise</h5>
-
-<p>Revisit the problem we attempted at the beginning of the chapter &ndash; downloading 3 pages of <code>joebiden</code> tweets &ndash; but use a <code>Range</code> and the <code>each</code> method.</p>
-
-<h5>Answer</h5>
-
-<figure class='code'><figcaption><span> (answer.rb)</span> <a href='/downloads/code/loop-and-repeat/answer.rb'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json&quot;</span>
-</span><span class='line'><span class="n">screen_name</span> <span class="o">=</span> <span class="s2">&quot;joebiden&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">url</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">download_and_save</span><span class="p">(</span><span class="n">url_1</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p></p>
 </div>
 
 
@@ -265,7 +336,7 @@ Now that we have a nice routine for downloading and saving a file, let&#8217;s u
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/collect-text-from-many-tweets/" title="Previous Post: Pick out the text from many tweets">&laquo; Previous: Pick out the text from many tweets</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Previous Post: Pick out the text from many tweets">&laquo; Previous: Pick out the text from many tweets</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/loop-with-a-list/" title="Next Post: Loop with a list">Next: Loop with a list &raquo;</a>

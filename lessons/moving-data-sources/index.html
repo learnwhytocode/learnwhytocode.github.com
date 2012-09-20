@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Writing more wrappers - Learn Why to Code</title>
+  <title>Switching data locations - Learn Why to Code</title>
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Plucking out values Next: File existence and other considerations &raquo; Writing More Wrappers The problem: We're having trouble &hellip;">
+  <meta name="description" content="&laquo; Previous: File existence and other considerations Next: Reading from a spreadsheet-like file &raquo; Switching Data Locations The problem: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/writing-wrapper-methods/">
+  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/moving-data-sources/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/plucking-out-values/" title="Previous Post: Plucking out values">&laquo; Previous: Plucking out values</a>
+        <a class="basic-alignment left pagin" href="/lessons/file-existence-and-other-tests/" title="Previous Post: File existence and other considerations">&laquo; Previous: File existence and other considerations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/file-existence-and-other-tests/" title="Next Post: File existence and other considerations">Next: File existence and other considerations &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/reading-a-CSV/" title="Next Post: Reading from a spreadsheet-like file">Next: Reading from a spreadsheet-like file &raquo;</a>
       
     </p>
 	
@@ -103,13 +103,13 @@
   
   <header>
     
-      <h1 class="entry-title">Writing More Wrappers</h1>
+      <h1 class="entry-title">Switching Data Locations</h1>
     
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> We're having trouble understanding the code we're reusing.</div>
-			<div class="q"><strong>The solution:</strong> Wrap these routines in easy-to-read method calls.</div>	
+			<div class="q"><strong>The problem:</strong> The data source just up and changed its location!</div>
+			<div class="q"><strong>The solution:</strong> Thanks to how we abstracted and organized our code, we need modify just a few details to adapt.</div>	
 		</div>
     
 
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:15:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:18:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -142,77 +142,37 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>Let&#8217;s build off of the <strong>my_code.rb</strong> file we made in the last chapter:</p>
+	<p>As I said at the outset, we&#8217;re working with a very small sample of Twitter&#8217;s data, and we&#8217;re not using its official API.</p>
 
-<figure class='code'><figcaption><span>Our common code (my_code.rb)</span> <a href='/downloads/code/organizing-the-code/my_code.rb'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="c1">###############</span>
-</span><span class='line'><span class="c1"># Constants</span>
-</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
-</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>At some point, you&#8217;re going to want to remove the training wheels and get data straight from the source.</p>
 
+<p>We won&#8217;t get to that in this tutorial, but we&#8217;ll go through the motions. I&#8217;m going to change up the data source and show you how our <strong>my_code.rb</strong> can adapt to it.</p>
 
-<p>It&#8217;s been kind of annoying to re-formulate the URL for getting tweets and user info. So let&#8217;s use those constants to write methods to conveniently generate the needed URLs.</p>
+<h2>More data, more problems</h2>
 
-<p>(this is just practice with no new concepts)</p>
+<p>Good news. Instead of just looking at the same 10 congressmembers over and over, I have a data file of roughly 500 U.S. politicians.</p>
 
-<h2>Exercise</h2>
+<p>But rather than have you hit up my server repeatedly, I&#8217;m just going to give you the data in bulk. This will make things much faster for you, as you won&#8217;t have the latency of an Internet connection: you&#8217;ll be combing through the data as it sits on your hard drive.</p>
 
-<h4>Form the URL pattern for Twitter account info</h4>
+<p>The bad news is that you&#8217;re going to have to adapt.</p>
 
-<p>Use the two constants we have in <strong>my_code.rb</strong> to build out a URL. You may want to use the <code>File.join</code> method</p>
+<h3>Download the data</h3>
 
-<p>e.g. <code>http://nottwitter.danwin.com/users/NancyPelosi/show.json</code></p>
+<p>The full dataset (which is not even quite complete, but more on that later) is more than 300MB. You can download it <a href="TK">here TK</a>. If you have a fast computer, sure, go for it.</p>
 
-<p>Call it: &#8220;</p>
+<p>However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So here&#8217;s a subset, about TK MB: <a href="TK">TK</a>. It contains the same number of Twitter accounts to process, just fewer tweets.</p>
 
-<h4>Form the URL pattern for a page of a user&#8217;s tweets</h4>
+<p>The best place to store this data is as a <strong>sub-directory</strong> in your <strong>working directory</strong>.</p>
 
-<p>Same as above, except for a page of tweets</p>
+<p>I&#8217;m going to assume you&#8217;re naming it <strong>data-hold</strong>.</p>
 
-<p>e.g. <code>http://nottwitter.danwin.com/statuses/NancyPelosi/1/user_timeline.json</code></p>
+<p>So unzip the data-file into <strong>data-hold</strong>, and it should create some familiar sub-directories, including <strong>users</strong> and <strong>statuses</strong></p>
 
-<p>Call it: &#8220;</p>
+<h2>Making adjustments</h2>
 
-<h4>Downloading from a URL</h4>
+<p>Let&#8217;s look at the current state of our <strong>my_code.rb</strong> file:</p>
 
-<p>This method downloads from a URL (yes, this may very well be a one-liner)</p>
-
-<h4>Getting a Twitter user account data as a Hash</h4>
-
-<p>Given an account name, this returns account data as a Hash</p>
-
-<h4>Getting a Twitter user&#8217;s page of tweets as an Array</h4>
-
-<p>Given an account name and page number, this returns tweet hashes as an Array.</p>
-
-<h3>Answer</h3>
-
-<p>Your <strong>my_code.rb</strong> should look like this:</p>
-
-<figure class='code'><figcaption><span>Our common code redone (my_code.rb)</span> <a href='/downloads/code/wrapper-methods/my_code.rb'>download</a></figcaption>
+<figure class='code'><figcaption><span>Our common code (my_code.rb)</span> <a href='/downloads/code/wrapper-methods/my_code.rb'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -332,21 +292,54 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>The beauty of abstraction</h2>
-
-<p>What was the point of all that work? Was it needed?</p>
-
-<p>We&#8217;re doing more and more complicated tasks. The details remain the same but the pure repetition of text makes it all seem like a jumble. Sometimes it&#8217;s worth it to stop trying new things and wrapping up what we&#8217;ve done in a nice package.</p>
-
-<h3>Revisit and refactor</h3>
-
-<p>Remember this exercise from a few chapters back?</p>
-
-<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/latest-tweets.rb could not be found</p>
-
-<p>Write it out, but this time with our new methods:</p>
+<p>The most obvious adjustment is to change the value of the <code>TWITTER_DATA_HOST</code> to the <strong>data-hold</strong> sub-directory:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;data-hold&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(try out the <code>File.expand_path</code> method in <strong>irb</strong> to see what it does)</p>
+
+<h3>Well-laid plans</h3>
+
+<p>With that simple change, we are <em>almost</em> done with the needed adjustments.</p>
+
+<p>This is because we wisely created the <code>url_for</code> methods to rely on the <code>TWITTER_USER_DATA_PATH</code> and <code>TWITTER_TWEETS_DATA_PATH</code> constants.</p>
+
+<p>And what do those constants depend on? The value of <code>TWITTER_DATA_HOST</code>, since the user and tweets data paths are merely sub-directories of the base location.</p>
+
+<p>Pretty nifty.</p>
+
+<h2>A different get method</h2>
+
+<p>Unfortunately, there is one major change to make.</p>
+
+<p>Retrieving a file from the Internet is not exactly the same as getting it from your own hard drive. For starters, <code>HTTParty</code> won&#8217;t work.</p>
+
+<p>Instead, we use the <code>File.open</code> (part of Ruby&#8217;s core library), which acts a bit differently:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">some_filename</span> <span class="o">=</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fh</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">some_filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fbody</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span>
+</span><span class='line'><span class="n">fh</span><span class="o">.</span><span class="n">close</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># ...parse fbody</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exercise</h2>
+
+<p>Make the necessary changes to <strong>my_code.rb</strong> to adapt to the change in data source.</p>
+
+<figure class='code'><figcaption><span>Our common code for local data (my_code_alpha.rb)</span> <a href='/downloads/code/local-data-env/my_code_alpha.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -359,23 +352,140 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;simple-congress-list.txt&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="n">list_url</span><span class="p">)</span>
-</span><span class='line'><span class="n">arr_of_names</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">arr_of_names</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">tweets_arr</span> <span class="o">=</span> <span class="n">get_tweets_page</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>     
-</span><span class='line'>  
-</span><span class='line'>  <span class="c1"># just need the first tweet</span>
-</span><span class='line'>  <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets_arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="nb">name</span> <span class="o">+</span> <span class="s2">&quot; tweeted on &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="err">&#39;</span><span class="n">text</span><span class="o">]</span>    
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;data-hold&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name a Twitter account name as a string</span>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get user data</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_USER_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;show.json&#39;</span><span class="p">)</span>
 </span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get tweets</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_TWEETS_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="s2">&quot;user_timeline.json&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_data_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># note: modified for local data access</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># pre: fname is a filename string (not a URL anymore)</span>
+</span><span class='line'>  <span class="c1"># returns: opens the file at the given fname and returns the data read.</span>
+</span><span class='line'>  <span class="c1">#  it also closes the file after reading it</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># warning: this will crash if file does not exist</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">fstream</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fbody</span> <span class="o">=</span> <span class="n">fstream</span><span class="o">.</span><span class="n">read</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">close</span>  <span class="c1"># just something we have to do</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">fbody</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_twitter_user</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string</span>
+</span><span class='line'>  <span class="c1"># returns: user info as a Hash object</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: an array of tweet Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>With this modified <strong>my_code.rb</strong>, test it out on your local data store. Things should seem pretty much the same.</p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="sb">`./my_code.rb`</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">t_user</span> <span class="o">=</span> <span class="n">get_twitter_user</span><span class="p">(</span><span class="s1">&#39;DarellIssaTK&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">t_user</span><span class="o">[</span><span class="s1">&#39;followers_count&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I guess we could change the names of the <code>url_for</code> methods&#8230;since they don&#8217;t actually refer to web addresses. But that&#8217;s the beauty of abstraction: we don&#8217;t need to worry about such details as long as things work as expected.</p>
 </div>
 
 
@@ -383,10 +493,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/plucking-out-values/" title="Previous Post: Plucking out values">&laquo; Previous: Plucking out values</a>
+        <a class="basic-alignment left pagin" href="/lessons/file-existence-and-other-tests/" title="Previous Post: File existence and other considerations">&laquo; Previous: File existence and other considerations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/file-existence-and-other-tests/" title="Next Post: File existence and other considerations">Next: File existence and other considerations &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/reading-a-CSV/" title="Next Post: Reading from a spreadsheet-like file">Next: Reading from a spreadsheet-like file &raquo;</a>
       
     </p>
 
@@ -409,7 +519,7 @@
   
 
 
-<time datetime="2012-09-12T03:15:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:18:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 
@@ -417,7 +527,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/writing-wrapper-methods/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/writing-wrapper-methods/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/moving-data-sources/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/moving-data-sources/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -485,8 +595,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/writing-wrapper-methods/';
-        var disqus_url = 'http://learnwhytocode.github.com/lessons/writing-wrapper-methods/';
+        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/moving-data-sources/';
+        var disqus_url = 'http://learnwhytocode.github.com/lessons/moving-data-sources/';
         var disqus_script = 'embed.js';
       
     (function () {

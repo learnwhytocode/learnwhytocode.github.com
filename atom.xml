@@ -4,7 +4,7 @@
   <title><![CDATA[Learn Why to Code]]></title>
   <link href="http://learnwhytocode.github.com/atom.xml" rel="self"/>
   <link href="http://learnwhytocode.github.com/"/>
-  <updated>2012-09-19T08:38:24-04:00</updated>
+  <updated>2012-09-20T08:16:36-04:00</updated>
   <id>http://learnwhytocode.github.com/</id>
   <author>
     <name><![CDATA[Dan Nguyen]]></name>
@@ -104,17 +104,824 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Organizing your code environment]]></title>
+    <title type="html"><![CDATA[Reading from a spreadsheet-like file]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/reading-a-CSV/"/>
+    <updated>2012-09-12T03:20:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/reading-a-CSV</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Switching data locations]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/moving-data-sources/"/>
+    <updated>2012-09-12T03:18:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/moving-data-sources</id>
+    <content type="html"><![CDATA[<p>As I said at the outset, we&#8217;re working with a very small sample of Twitter&#8217;s data, and we&#8217;re not using its official API.</p>
+
+<p>At some point, you&#8217;re going to want to remove the training wheels and get data straight from the source.</p>
+
+<p>We won&#8217;t get to that in this tutorial, but we&#8217;ll go through the motions. I&#8217;m going to change up the data source and show you how our <strong>my_code.rb</strong> can adapt to it.</p>
+
+<h2>More data, more problems</h2>
+
+<p>Good news. Instead of just looking at the same 10 congressmembers over and over, I have a data file of roughly 500 U.S. politicians.</p>
+
+<p>But rather than have you hit up my server repeatedly, I&#8217;m just going to give you the data in bulk. This will make things much faster for you, as you won&#8217;t have the latency of an Internet connection: you&#8217;ll be combing through the data as it sits on your hard drive.</p>
+
+<p>The bad news is that you&#8217;re going to have to adapt.</p>
+
+<h3>Download the data</h3>
+
+<p>The full dataset (which is not even quite complete, but more on that later) is more than 300MB. You can download it <a href="TK">here TK</a>. If you have a fast computer, sure, go for it.</p>
+
+<p>However, because we&#8217;re still just practicing, there&#8217;s not really a need to process tens of thousands of tweets. So here&#8217;s a subset, about TK MB: <a href="TK">TK</a>. It contains the same number of Twitter accounts to process, just fewer tweets.</p>
+
+<p>The best place to store this data is as a <strong>sub-directory</strong> in your <strong>working directory</strong>.</p>
+
+<p>I&#8217;m going to assume you&#8217;re naming it <strong>data-hold</strong>.</p>
+
+<p>So unzip the data-file into <strong>data-hold</strong>, and it should create some familiar sub-directories, including <strong>users</strong> and <strong>statuses</strong></p>
+
+<h2>Making adjustments</h2>
+
+<p>Let&#8217;s look at the current state of our <strong>my_code.rb</strong> file:</p>
+
+<figure class='code'><figcaption><span>Our common code (my_code.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/wrapper-methods/my_code.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name a Twitter account name as a string</span>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get user data</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_USER_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;show.json&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get tweets</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_TWEETS_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="s2">&quot;user_timeline.json&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_data_file</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: u is a URL string</span>
+</span><span class='line'>  <span class="c1"># post: downloads from u; has no protection against bad URLs</span>
+</span><span class='line'>  <span class="c1"># i.e. this will have to be modified later</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_twitter_user</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string</span>
+</span><span class='line'>  <span class="c1"># returns: user info as a Hash object</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: an array of tweet Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The most obvious adjustment is to change the value of the <code>TWITTER_DATA_HOST</code> to the <strong>data-hold</strong> sub-directory:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;data-hold&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(try out the <code>File.expand_path</code> method in <strong>irb</strong> to see what it does)</p>
+
+<h3>Well-laid plans</h3>
+
+<p>With that simple change, we are <em>almost</em> done with the needed adjustments.</p>
+
+<p>This is because we wisely created the <code>url_for</code> methods to rely on the <code>TWITTER_USER_DATA_PATH</code> and <code>TWITTER_TWEETS_DATA_PATH</code> constants.</p>
+
+<p>And what do those constants depend on? The value of <code>TWITTER_DATA_HOST</code>, since the user and tweets data paths are merely sub-directories of the base location.</p>
+
+<p>Pretty nifty.</p>
+
+<h2>A different get method</h2>
+
+<p>Unfortunately, there is one major change to make.</p>
+
+<p>Retrieving a file from the Internet is not exactly the same as getting it from your own hard drive. For starters, <code>HTTParty</code> won&#8217;t work.</p>
+
+<p>Instead, we use the <code>File.open</code> (part of Ruby&#8217;s core library), which acts a bit differently:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">some_filename</span> <span class="o">=</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fh</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">some_filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">fbody</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span>
+</span><span class='line'><span class="n">fh</span><span class="o">.</span><span class="n">close</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># ...parse fbody</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exercise</h2>
+
+<p>Make the necessary changes to <strong>my_code.rb</strong> to adapt to the change in data source.</p>
+
+<figure class='code'><figcaption><span>Our common code for local data (my_code_alpha.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/local-data-env/my_code_alpha.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;data-hold&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name a Twitter account name as a string</span>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get user data</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_USER_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;show.json&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get tweets</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_TWEETS_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="s2">&quot;user_timeline.json&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_data_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># note: modified for local data access</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># pre: fname is a filename string (not a URL anymore)</span>
+</span><span class='line'>  <span class="c1"># returns: opens the file at the given fname and returns the data read.</span>
+</span><span class='line'>  <span class="c1">#  it also closes the file after reading it</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># warning: this will crash if file does not exist</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">fstream</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fbody</span> <span class="o">=</span> <span class="n">fstream</span><span class="o">.</span><span class="n">read</span>
+</span><span class='line'>  <span class="n">fstream</span><span class="o">.</span><span class="n">close</span>  <span class="c1"># just something we have to do</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">fbody</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_twitter_user</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string</span>
+</span><span class='line'>  <span class="c1"># returns: user info as a Hash object</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: an array of tweet Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this modified <strong>my_code.rb</strong>, test it out on your local data store. Things should seem pretty much the same.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="sb">`./my_code.rb`</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">t_user</span> <span class="o">=</span> <span class="n">get_twitter_user</span><span class="p">(</span><span class="s1">&#39;DarellIssaTK&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">t_user</span><span class="o">[</span><span class="s1">&#39;followers_count&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I guess we could change the names of the <code>url_for</code> methods&#8230;since they don&#8217;t actually refer to web addresses. But that&#8217;s the beauty of abstraction: we don&#8217;t need to worry about such details as long as things work as expected.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[File existence and other considerations]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/file-existence-and-other-tests/"/>
+    <updated>2012-09-12T03:18:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/file-existence-and-other-tests</id>
+    <content type="html"><![CDATA[<p>When we were retrieving data online, I carefully avoided the task of fetching more than one page of tweets per user.</p>
+
+<p>This is because, for the sake of brevity, I didn&#8217;t want to explain the many different ways a web server could respond to a request for an invalid file.</p>
+
+<p>But now that the files are all on our hard drive, this is an easier problem to deal in the abstract.</p>
+
+<p>This chapter will be a refresher on the <code>if</code> statement</p>
+
+<h2>File.exists?</h2>
+
+<p>The <code>File</code> class (again, part of Ruby&#8217;s core) has a handy <code>exists?</code> method, which returns <code>true</code> or <code>false</code> if a file actually exists at a given filename:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="s2">&quot;somenameimadeup.txt&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">#=&gt; false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p><strong>Note:</strong> You may be wondering, <em>how does a method name have a question mark? I thought only alphanumeric characters could be used?</em> Yes, generally&#8230;this is a Ruby-specific convention. You have the option of using the <code>?</code> to indicate to users that this method returns <code>true</code> or <code>false</code>, though it&#8217;s just a convention&#8230;you could be a jerk and return whatever you want. Also, the <code>!</code> is allowed in method names. I won&#8217;t explain that right now.</p>
+
+<h2>How to loop through numbers?</h2>
+
+<p>The pattern for tweet pages is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="s2">&quot;data-hold/statuses/NancyPelosi/1/user_timeline.json&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="s2">&quot;data-hold/statuses/NancyPelosi/2/user_timeline.json&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="s2">&quot;data-hold/statuses/NancyPelosi/2/user_timeline.json&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So we just need to change the argument corresponding to the page number. So how to do a loop from <code>1</code> to <code>5</code>? You could think of it as looping through an <code>Array</code> of numbers:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Ugh, but who wants to enter each number into the array? Luckily, Ruby has another collection object called <code>Range</code>. Here&#8217;s one way it can be used:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pg_num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The else</h2>
+
+<p>So it&#8217;s easy to set a <code>Range</code> from <code>1</code> to whatever number we need. But what if there are fewer tweet pages than the endpoint of our range?</p>
+
+<p>Sounds like a use case for <code>File.exists?</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pg_num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">fname</span> <span class="o">=</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span> <span class="o">!</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;The page &quot;</span> <span class="o">+</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span> <span class="s2">&quot; does not exist&quot;</span>
+</span><span class='line'>  <span class="k">end</span>  
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>FYI, that exclamation mark <code>!</code> serves to <strong>negate</strong> the expression. So in the above case, if <code>File.exists?</code> returns <code>false</code> &ndash; because the file doesn&#8217;t exist &ndash; the <code>!</code> makes it <code>true</code>, causing the <code>if</code> branch to execute.</p>
+
+<p>That&#8217;s admittedly confusing. So instead, we can use the <code>else</code> statement which allows us to define what happens when the <code>if</code> condition fails:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pg_num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">fname</span> <span class="o">=</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;The page &quot;</span> <span class="o">+</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span> <span class="s2">&quot; exists&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;The page &quot;</span> <span class="o">+</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span> <span class="s2">&quot; does not exist&quot;</span>
+</span><span class='line'>  <span class="k">end</span>  
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Break a loop</h2>
+
+<p>It seems wasteful to continue a loop if we know the condition is going to be false after the first non-existent file is found.</p>
+
+<p>The <code>break</code> keyword allows us to break out of the current loop:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pg_num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">fname</span> <span class="o">=</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="s1">&#39;NancyPelosi&#39;</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;The page &quot;</span> <span class="o">+</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span> <span class="s2">&quot; exists&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;The page &quot;</span> <span class="o">+</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span> <span class="s2">&quot; does not exist&quot;</span>
+</span><span class='line'>      <span class="k">break</span>
+</span><span class='line'>  <span class="k">end</span>  
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>A more careful data-getting method</h2>
+
+<p>We could test for file existence in a lot of places in a program. One place where it seems logical is in our <code>get_data_file</code> method, which currently will crash the program if an invalid file name is passed in.</p>
+
+<p>Try to modify it so that it returns <code>false</code> if the given filename does not exist:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">get_data_file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">fstream</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">fbody</span> <span class="o">=</span> <span class="n">fstream</span><span class="o">.</span><span class="n">read</span>
+</span><span class='line'>      <span class="n">fstream</span><span class="o">.</span><span class="n">close</span>  <span class="c1"># just something we have to do</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">fbody</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>This is actually problematic because <code>get_twitter_user</code> and <code>get_tweets_page</code> depends on <code>get_data_file</code>. And they need to be modified to deal with a returned <code>false</code> value.</p>
+
+<p>Sound like a dilemma? Welcome to the joy of professional programming.</p>
+
+<p>For now, I vote to <em>not</em> modify <code>get_data_file</code> to have this logic. This will affect the answer to the exercise below.</p>
+
+<h2>Exercise</h2>
+
+<p>We now know enough to collect all the tweet pages (on our hard drive) for a given user. Use the existing <code>get_tweets_page</code> method, write a new method called <code>get_all_user_tweets</code>.</p>
+
+<ol>
+<li>It should only take in one argument</li>
+<li>It should not loop wastefully once the last page has been reached</li>
+<li>It should return an array containing all the tweets collected across the pages.</li>
+</ol>
+
+
+<p>FYI, this is how you add two arrays together:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr_a</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+</span><span class='line'><span class="n">arr_b</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">arr_a</span> <span class="o">+</span> <span class="n">arr_b</span>
+</span><span class='line'><span class="c1">#=&gt; [1, 2, 3, 4, 1, 2, 3, 4]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Writing more wrappers]]></title>
     <link href="http://learnwhytocode.github.com/lessons/writing-wrapper-methods/"/>
     <updated>2012-09-12T03:15:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/writing-wrapper-methods</id>
-    <content type="html"><![CDATA[<h1>getting a file</h1>
+    <content type="html"><![CDATA[<p>Let&#8217;s build off of the <strong>my_code.rb</strong> file we made in the last chapter:</p>
 
-<h1>parsing a twitter account info json</h1>
+<figure class='code'><figcaption><span>Our common code (my_code.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/organizing-the-code/my_code.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>parsing an array of tweets</h1>
 
-<h1>moving code to another file</h1>
+<p>It&#8217;s been kind of annoying to re-formulate the URL for getting tweets and user info. So let&#8217;s use those constants to write methods to conveniently generate the needed URLs.</p>
+
+<p>(this is just practice with no new concepts)</p>
+
+<h2>Exercise</h2>
+
+<h4>Form the URL pattern for Twitter account info</h4>
+
+<p>Use the two constants we have in <strong>my_code.rb</strong> to build out a URL. You may want to use the <code>File.join</code> method</p>
+
+<p>e.g. <code>http://nottwitter.danwin.com/users/NancyPelosi/show.json</code></p>
+
+<p>Call it: &#8220;</p>
+
+<h4>Form the URL pattern for a page of a user&#8217;s tweets</h4>
+
+<p>Same as above, except for a page of tweets</p>
+
+<p>e.g. <code>http://nottwitter.danwin.com/statuses/NancyPelosi/1/user_timeline.json</code></p>
+
+<p>Call it: &#8220;</p>
+
+<h4>Downloading from a URL</h4>
+
+<p>This method downloads from a URL (yes, this may very well be a one-liner)</p>
+
+<h4>Getting a Twitter user account data as a Hash</h4>
+
+<p>Given an account name, this returns account data as a Hash</p>
+
+<h4>Getting a Twitter user&#8217;s page of tweets as an Array</h4>
+
+<p>Given an account name and page number, this returns tweet hashes as an Array.</p>
+
+<h3>Answer</h3>
+
+<p>Your <strong>my_code.rb</strong> should look like this:</p>
+
+<figure class='code'><figcaption><span>Our common code redone (my_code.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/wrapper-methods/my_code.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name a Twitter account name as a string</span>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get user data</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_USER_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="s1">&#39;show.json&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: url (string) to get tweets</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_TWEETS_DATA_PATH</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="s2">&quot;user_timeline.json&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_data_file</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: u is a URL string</span>
+</span><span class='line'>  <span class="c1"># post: downloads from u; has no protection against bad URLs</span>
+</span><span class='line'>  <span class="c1"># i.e. this will have to be modified later</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_twitter_user</span><span class="p">(</span><span class="n">screen_name</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string</span>
+</span><span class='line'>  <span class="c1"># returns: user info as a Hash object</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_twitter_user_info</span><span class="p">(</span><span class="n">screen_name</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># pre: screen_name is a Twitter account name, as a string; pg_num</span>
+</span><span class='line'>  <span class="c1">#      the page number, as tweets are separated into numbered pages</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># returns: an array of tweet Hash objects</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span> <span class="n">url_for_tweets_page</span><span class="p">(</span><span class="n">screen_name</span><span class="p">,</span> <span class="n">pg_num</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The beauty of abstraction</h2>
+
+<p>What was the point of all that work? Was it needed?</p>
+
+<p>We&#8217;re doing more and more complicated tasks. The details remain the same but the pure repetition of text makes it all seem like a jumble. Sometimes it&#8217;s worth it to stop trying new things and wrapping up what we&#8217;ve done in a nice package.</p>
+
+<h3>Revisit and refactor</h3>
+
+<p>Remember this exercise from a few chapters back?</p>
+
+<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/latest-tweets.rb could not be found</p>
+
+<p>Write it out, but this time with our new methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;simple-congress-list.txt&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="n">list_url</span><span class="p">)</span>
+</span><span class='line'><span class="n">arr_of_names</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">arr_of_names</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">tweets_arr</span> <span class="o">=</span> <span class="n">get_tweets_page</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>     
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1"># just need the first tweet</span>
+</span><span class='line'>  <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets_arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="nb">name</span> <span class="o">+</span> <span class="s2">&quot; tweeted on &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="err">&#39;</span><span class="n">text</span><span class="o">]</span>    
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   
@@ -140,7 +947,360 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
     <link href="http://learnwhytocode.github.com/lessons/organizing-your-code-environment/"/>
     <updated>2012-09-12T03:12:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/organizing-your-code-environment</id>
-    <content type="html"><![CDATA[<h1>setting constants</h1>
+    <content type="html"><![CDATA[<p>If you&#8217;ve taken a break from this tutorial and exited <strong>irb</strong>, you would&#8217;ve had to go through the annoying step of re-running the <code>require</code> statements to bring in the <code>HTTParty</code> and <code>JSON</code> library.</p>
+
+<p>Sure it&#8217;s just a copy-and-paste action. But like everything about programming, this tedious step can be abstracted out for our convenience.</p>
+
+<h2>Using the text editor</h2>
+
+<p>Remember when we installed a text-editor specific for programming (e.g. TextWrangler for OSX, Notepad++ or SciTE for Windows)? Let&#8217;s move out of <strong>irb</strong> for the moment and use the text-editor.</p>
+
+<p>Hopefully you followed the instructions in the early setup chapters (TK) about setting up a <strong>working-directory</strong>. If not, now&#8217;s the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your <strong>Downloads</strong> folder).</p>
+
+<p>Then, <strong>in your text-editor</strong>, create a new text file and save it in your <strong>working-directory</strong> as <strong>my_code.rb</strong></p>
+
+<h3>A place for all your requirements</h3>
+
+<p>Inside the <strong>my_code.rb</strong> file, let&#8217;s put in the boilerplate <code>require</code> statements:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Require your own file</h3>
+
+<p>Now quit out of your current <strong>irb</strong> window by typing <code>exit</code>.</p>
+
+<p>This kicks you back to the command prompt.</p>
+
+<p>At the <strong>command prompt</strong>, try to navigate to wherever your <strong>working directory</strong> was.</p>
+
+<p>If you placed it in <code>Downloads/my-working-dir</code>, you should be able to do something like <code>cd ~/Downloads/my-working-dir</code> (in OS X) or <code>cd C:\Downloads\my-working-dir</code> (for Windows PC).</p>
+
+<p>When you&#8217;re there, run <strong>irb</strong> and execute the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s2">&quot;./my_code.rb&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And this should print out:</p>
+
+<p><code>#=&gt; Done loading my code!</code></p>
+
+<p>We&#8217;ve simply wrapped up the common libraries we use in a single file.</p>
+
+<p>The keyword <code>load</code> is similar to <code>require</code>. Except that if we modify <strong>my_code.rb</strong>, <code>load</code> will actually re-run the code, whereas <code>require</code> will only do so once during an <strong>irb</strong> session.</p>
+
+<h2>Setting constants</h2>
+
+<p>Remember back in the variables chapter, how I mentioned that variables that have all-uppercase names have a special meaning?</p>
+
+<p>These upppercase variables, called <strong>constants</strong>, are where we put values that we expect to access <em>throughout</em> our programming project (this is an exception to the <strong>scope</strong> concept we learned while writing simple methods).</p>
+
+<p>What are the values that we might use in multiple parts of our program? How about where we actually get the Twitter data from?</p>
+
+<p>Add this after the <code>require</code> statements in your <strong>my_code.rb_</strong>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now these constants will be available for use in making the data-retrieval calls. This is not actually best practices for a large programming project. But it serves our purposes for now.</p>
+
+<p>Your entire <strong>my_code.rb</strong> file should look like this:</p>
+
+<figure class='code'><figcaption><span> (my_code.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/organizing-the-code/my_code.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">###############</span>
+</span><span class='line'><span class="c1"># Constants</span>
+</span><span class='line'><span class="no">TWITTER_DATA_HOST</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</span><span class='line'><span class="no">TWITTER_USER_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;users&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="no">TWITTER_TWEETS_DATA_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">TWITTER_DATA_HOST</span><span class="p">,</span> <span class="s2">&quot;statuses&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Done loading my code!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Making the complex, routine]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/simple-routines/"/>
+    <updated>2012-09-12T03:08:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/simple-routines</id>
+    <content type="html"><![CDATA[<h2>Label our work</h2>
+
+<p>Things are getting complicated and ugly. The code we wrote in the last chapter to find the user with the highest rate of tweets was simple in conception, but pretty ugly visually. You may remember all the steps if you just wrote them five minutes ago, but you&#8217;re going to struggle when you review the code tomorrow.</p>
+
+<p>We&#8217;ve been using <strong>variables</strong> to &#8220;label our data&#8221;. We&#8217;re going to do the same thing with our routines: wrapping them up in a <strong>method</strong> call that can be invoked with a human-readable name.</p>
+
+<h2>How methods are made</h2>
+
+<p>Here&#8217;s a very simple method:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def hello_world
+</span><span class='line'>  return "Hello world"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>TK copy and paste</p>
+
+<h3>Methods with arguments</h3>
+
+<h2>Naming methods</h2>
+
+<p>Like variables, you want your method names to act as a quick definition of what they contain. So a method named <code>do_work</code> is virtually worth it. But <code>saves_report_to_disk</code> is pretty good, as it tells you what you need to know about the method&#8217;s effect.</p>
+
+<p>So it&#8217;s OK to keep method names on the long side. How long is too long? It&#8217;s really not about length, but about <em>design</em>. For example:</p>
+
+<p><code>calculates_new_totals_and_saves_report_to_disk</code></p>
+
+<p>The problem with that method is not the length of its name, per se, but that the method is <em>doing too much</em>: its long descriptive name is only a symptom of the problem.</p>
+
+<p>A better design pattern is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">calculate_new_totals</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># ... </span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">save_report_to_disk</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1"># ...</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">update_report_totals_</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">calculate_new_totals</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">save_report_to_disk</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>    
+</span><span class='line'>
+</span><span class='line'><span class="no">Method</span> <span class="n">design</span> <span class="n">is</span> <span class="n">a</span> <span class="n">deep</span> <span class="n">topic</span> <span class="n">to</span> <span class="n">master</span><span class="o">.</span> <span class="no">But</span> <span class="n">a</span> <span class="n">general</span> <span class="n">rule</span> <span class="n">of</span> <span class="n">thumb</span> <span class="k">for</span> <span class="n">any</span> <span class="n">given</span> <span class="nb">method</span> <span class="n">is</span><span class="p">:</span> <span class="k">do</span> <span class="n">one</span> <span class="n">thing</span> <span class="ow">and</span> <span class="k">do</span> <span class="n">it</span> <span class="n">well</span><span class="o">.</span> <span class="no">The</span> <span class="n">guideline</span> <span class="n">of</span> <span class="n">keeping</span> <span class="n">method_names</span> <span class="n">short</span> <span class="n">reinforces</span> <span class="n">that</span> <span class="n">design</span> <span class="n">goal</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## Scope</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">For</span> <span class="n">reasons</span> <span class="n">too</span> <span class="n">complicated</span> <span class="n">to</span> <span class="n">fully</span> <span class="n">explain</span> <span class="n">here</span><span class="p">,</span> <span class="n">the</span> <span class="n">variable</span> <span class="n">names</span> <span class="n">that</span> <span class="n">you</span> <span class="n">use</span> <span class="k">for</span> <span class="n">arguments</span><span class="p">,</span> <span class="ow">or</span> <span class="n">that</span> <span class="n">you</span> <span class="n">create</span> <span class="o">**</span><span class="n">inside</span><span class="o">**</span> <span class="n">the</span> <span class="nb">method</span> <span class="n">definition</span><span class="p">,</span> <span class="n">are</span> <span class="o">*</span><span class="ow">not</span> <span class="n">accessible</span> <span class="ow">or</span> <span class="n">knowable</span><span class="o">*</span> <span class="n">by</span> <span class="n">the</span> <span class="n">code</span> <span class="o">**</span><span class="n">outside</span><span class="o">**</span> <span class="n">of</span> <span class="n">the</span> <span class="n">definition</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="n">the</span> <span class="n">last</span> <span class="n">line</span> <span class="k">in</span> <span class="n">this</span> <span class="n">segment</span> <span class="n">will</span> <span class="n">cause</span> <span class="n">a</span> <span class="s2">&quot;variable not defined&quot;</span> <span class="n">error</span><span class="p">:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> ruby
+def hello_world</p>
+
+<pre><code>a_word = "Bonjour"
+b_word = "Earth"
+return a_word + " " + b_word 
+</code></pre>
+
+<p>end</p>
+
+<p>puts a_word</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">You</span> <span class="n">can</span> <span class="n">learn</span> <span class="n">about</span> <span class="nb">method</span> <span class="n">scope</span> <span class="k">when</span> <span class="n">you</span> <span class="n">really</span> <span class="n">delve</span> <span class="n">into</span> <span class="n">programming</span><span class="o">.</span> <span class="no">Right</span> <span class="n">now</span><span class="p">,</span> <span class="n">just</span> <span class="n">keep</span> <span class="n">your</span> <span class="nb">methods</span> <span class="n">simple</span><span class="o">.</span> <span class="no">And</span> <span class="n">a</span> <span class="n">simple</span> <span class="nb">method</span> <span class="n">doesn</span><span class="s1">&#39;t talk to or know about anything outside its narrow little world.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="s1">## Exercise</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">Let&#39;</span><span class="n">s</span> <span class="n">revisit</span> <span class="n">the</span> <span class="n">exercise</span> <span class="n">from</span> <span class="n">the</span> <span class="n">last</span> <span class="n">chapter</span> <span class="ow">and</span> <span class="n">write</span> <span class="nb">methods</span> <span class="n">to</span> <span class="n">clean</span> <span class="n">it</span> <span class="n">up</span><span class="o">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span> <span class="no">Write</span> <span class="n">a</span> <span class="nb">method</span> <span class="n">that</span> <span class="n">calculates</span> <span class="n">the</span> <span class="s2">&quot;age&quot;</span> <span class="n">of</span> <span class="n">a</span> <span class="no">Twitter</span> <span class="n">account</span>
+</span><span class='line'><span class="mi">2</span><span class="o">.</span> <span class="no">Write</span> <span class="n">a</span> <span class="nb">method</span> <span class="n">that</span> <span class="n">calculates</span> <span class="n">the</span> <span class="n">tweeting</span> <span class="n">rate</span> <span class="n">of</span> <span class="n">an</span> <span class="n">account</span>
+</span><span class='line'><span class="mi">3</span><span class="o">.</span> <span class="no">Write</span> <span class="n">a</span> <span class="nb">method</span> <span class="n">that</span> <span class="n">expresses</span> <span class="n">the</span> <span class="n">tweeting</span><span class="o">-</span><span class="n">rate</span> <span class="n">as</span> <span class="n">tweets</span> <span class="n">per</span> <span class="o">**</span><span class="n">day</span><span class="o">**.</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Here</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">the</span> <span class="n">code</span> <span class="n">from</span> <span class="n">the</span> <span class="n">last</span> <span class="n">chapter</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">include_code</span> <span class="no">Finding</span> <span class="n">the</span> <span class="n">tweetiest</span> <span class="n">user</span> <span class="n">lang</span><span class="ss">:ruby</span> <span class="n">find</span><span class="o">-</span><span class="n">tweetiest</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">rb</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">### Answer</span>
+</span><span class='line'>
+</span><span class='line'> <span class="mi">1</span><span class="o">.</span> <span class="no">Calculating</span> <span class="no">Twitter</span> <span class="n">user</span> <span class="n">age</span> <span class="p">(</span><span class="k">in</span> <span class="n">seconds</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> ruby</p>
+
+<p>def calc_twitter_user_age_seconds(user_hash)</p>
+
+<pre><code># pre: user_hash is a Hash containing Twitter account info, including a 'created_at' attribute
+# returns: number of seconds since account created, as a decimal
+
+a = Time.now - Time.parse(user_hash['created_at'])
+return a.to_f
+</code></pre>
+
+<p>end</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="mi">2</span><span class="o">.</span> <span class="no">Calculating</span> <span class="n">a</span> <span class="no">Twitter</span> <span class="n">user</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">rate</span> <span class="n">of</span> <span class="n">tweeting</span> <span class="p">(</span><span class="n">per</span> <span class="n">second</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> ruby</p>
+
+<p>def calc_twitter_user_tweet_rate(user_hash)</p>
+
+<pre><code># pre: user_hash is a Hash containing Twitter account info
+# returns: returns the number of tweets per second
+
+return user_hash['statuses_count'].to_f / calc_twitter_user_age_seconds(user_hash) 
+</code></pre>
+
+<p>end</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="mi">3</span><span class="o">.</span> <span class="no">Calculating</span> <span class="no">Twitter</span> <span class="n">user</span> <span class="n">age</span> <span class="p">(</span><span class="k">in</span> <span class="n">days</span><span class="p">)</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> ruby
+def calc_twitter_user_age_days(user_hash)</p>
+
+<pre><code># pre: user_hash is a Hash containing Twitter account info
+# returns: returns the number of days since the account was created 
+
+return calc_twitter_user_age_seconds(user_hash) / (60 * 60 * 24)
+</code></pre>
+
+<p>end</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">You</span><span class="s1">&#39;ll notice that the rate-calculating method returns an extremely small value. If you switch out `calc_twitter_user_age_seconds` with `calc_twitter_user_age_days`, you&#39;</span><span class="n">ll</span> <span class="n">get</span> <span class="n">a</span> <span class="n">more</span> <span class="n">useful</span> <span class="n">result</span><span class="p">:</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> ruby
+def calc_twitter_user_tweet_rate(user_hash)</p>
+
+<pre><code># pre: user_hash is a Hash containing Twitter account info
+# returns: returns the number of tweets per days
+
+return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash) 
+</code></pre>
+
+<p>end</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">## Another exercise</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Rewrite</span> <span class="n">the</span> <span class="n">last</span> <span class="n">chapter</span><span class="s1">&#39;s exercises using the methods above.</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="s1">### Answer</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">most_tweety_member = cmembers[0]</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">cmembers.each do |cmember|</span>
+</span><span class='line'><span class="s1"> if calc_twitter_user_tweet_rate(cmember) &gt; calc_twitter_user_tweet_rate(most_tweety_member)</span>
+</span><span class='line'><span class="s1">     most_tweety_member = cmember</span>
+</span><span class='line'><span class="s1"> end</span>
+</span><span class='line'><span class="s1">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">puts most_tweety_member[&#39;</span><span class="nb">name</span><span class="err">&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Note:</strong> IF you want to, you can really abstract out the code and write a <code>find_most_tweety_member</code> method which takes in an array of Twitter account data and returns the one with the highest tweet rate. There&#8217;s a better way to do that though, as we&#8217;ll see in later chapters.</p>
 ]]></content>
   </entry>
   
@@ -382,7 +1542,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <h2>Exercise</h2>
 
-<p>Find the Congressmember with the highest rate of tweets:</p>
+<p>Find the Congressmember with the highest <strong>rate of tweets</strong>.</p>
 
 <p>For this, you&#8217;ll want to require the <code>'time'</code> library. Check out the <a href="http://www.ruby-doc.org/core-1.9.3/Time.html">documentation</a>:</p>
 
@@ -417,58 +1577,19 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <h3>Answer</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;time&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">cmembers</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">cmember</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">seconds_from_creation</span> <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="no">Time</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="n">cmember</span><span class="o">[</span><span class="s1">&#39;statuses_count&#39;</span><span class="o">].</span><span class="n">to_f</span> <span class="o">/</span> <span class="n">seconds_from_creation</span>    
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">most_tweety_member</span> <span class="o">=</span> <span class="n">cmembers</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">cmembers</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">member</span><span class="o">|</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="n">member</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">most_tweety_member</span><span class="o">[</span><span class="s1">&#39;tweet_rate&#39;</span><span class="o">]</span>
-</span><span class='line'>      <span class="n">most_tweety_member</span> <span class="o">=</span> <span class="n">member</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">A</span> <span class="n">few</span> <span class="n">points</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span> <span class="no">Like</span> <span class="no">Arrays</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">assign</span> <span class="n">values</span> <span class="n">to</span> <span class="n">a</span> <span class="no">Hash</span> <span class="n">object</span> <span class="n">using</span> <span class="n">the</span> <span class="n">bracket</span> <span class="n">notation</span><span class="o">.</span>
-</span><span class='line'><span class="mi">2</span><span class="o">.</span> <span class="no">Given</span> <span class="n">that</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">seconds</span> <span class="n">that</span> <span class="n">a</span> <span class="n">user</span> <span class="n">account</span> <span class="n">has</span> <span class="n">existed</span> <span class="n">will</span> <span class="n">likely</span> <span class="n">always</span> <span class="n">be</span> <span class="n">greater</span> <span class="n">than</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">tweets</span> <span class="n">they</span> <span class="n">have</span><span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">to</span> <span class="n">work</span> <span class="n">with</span> <span class="sb">`Float`</span> <span class="p">(</span><span class="n">decimal</span><span class="p">)</span> <span class="n">numbers</span> <span class="ow">and</span> <span class="n">the</span> <span class="sb">`to_f`</span> <span class="n">conversion</span>
-</span><span class='line'><span class="mi">3</span><span class="o">.</span> <span class="no">This</span> <span class="n">can</span> <span class="n">be</span> <span class="n">done</span> <span class="k">in</span> <span class="n">one</span> <span class="kp">loop</span><span class="o">.</span> <span class="n">I</span> <span class="n">was</span> <span class="n">just</span> <span class="n">breaking</span> <span class="n">out</span> <span class="n">the</span> <span class="n">steps</span><span class="o">.</span>
-</span><span class='line'><span class="mi">4</span><span class="o">.</span> <span class="no">There</span><span class="s1">&#39;s a much easier way to sort values, but we&#39;</span><span class="n">ll</span> <span class="n">get</span> <span class="n">to</span> <span class="n">that</span> <span class="n">later</span><span class="o">.</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/find-tweetiest-user.rb could not be found</p>
+
+<p>A few points:</p>
+
+<ol>
+<li>Like Arrays, you can assign values to a Hash object using the bracket notation.</li>
+<li>Given that the number of seconds that a user account has existed will likely always be greater than the number of tweets they have, you have to work with <code>Float</code> (decimal) numbers and the <code>to_f</code> conversion</li>
+<li>This can be done in one loop. I was just breaking out the steps.</li>
+<li>There&#8217;s a much easier way to sort values, but we&#8217;ll get to that later.</li>
+</ol>
 
 
-
+<p>&#8220;`</p>
 ]]></content>
   </entry>
   
@@ -481,7 +1602,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <p>Good for you; the big picture should always be considered. The problem is, the big picture takes more work.</p>
 
-<p>And this is where programming begins to pay off.</p>
+<p>And this is where programming with its ability to zip through repetitive steps really pays off.</p>
 
 <h2>Reading a simple list</h2>
 
@@ -588,58 +1709,9 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <p>(Twitter spits out the tweets in reverse chronological order. So for our purposes, this would be the <em>first</em> tweet in an array).</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/simple-congress-list.txt&quot;</span>
-</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">list_url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'><span class="n">arr_of_names</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">tweets_json_url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/_SCREENNAME_/1/user_timeline.json&quot;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">arr_of_names</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">tweets_json_url</span> <span class="o">=</span> <span class="n">tweets_json_url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_SCREENNAME_&quot;</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">tweets_json</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tweet_json_url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'>  <span class="n">tweets_arr</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tweets_json</span><span class="p">)</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="c1"># just need the first tweet</span>
-</span><span class='line'>  <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets_arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="nb">name</span> <span class="o">+</span> <span class="s2">&quot; tweeted on &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="err">&#39;</span><span class="n">text</span><span class="o">]</span>
-</span><span class='line'>  
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>Answer</h2>
 
-
-
+<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/latest-tweets.rb could not be found</p>
 ]]></content>
   </entry>
   
@@ -648,23 +1720,204 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
     <link href="http://learnwhytocode.github.com/lessons/loop-and-repeat/"/>
     <updated>2012-09-12T03:06:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/loop-and-repeat</id>
-    <content type="html"><![CDATA[<h2>Find a simple step</h2>
+    <content type="html"><![CDATA[<p>We&#8217;ve run through a fair number of concepts and code but really haven&#8217;t done anything we couldn&#8217;t do (and do faster) with a web browser, such as look up a Twitter user&#8217;s number of followers, or how many people retweeted his/her most recent tweet.</p>
+
+<p>If you&#8217;re a pretty fast copy-and-paster, you might be able to outpace a mouse-clicker by copying-and-pasting the tweet-data-fetching routines over and over, which is not a bad accomplishment.</p>
+
+<p>But we can do <em>much</em> better than that.</p>
+
+<h2>Make a simple goal</h2>
+
+<p>In programming, you&#8217;ll get more return out of every line of code when you break things down into simple tasks.</p>
+
+<p>In the last chapter, what was one of our goals? <em>To print out the text of a tweet</em>.</p>
 
 <h2>Repeat that step across a collection</h2>
 
+<p>The code for printing out one tweet&#8217;s text is the same as it is for any other given tweet. The only difference is the <em>reference</em> to each tweet, i.e. its address in an array.</p>
+
+<h2>each</h2>
+
+<p>Ruby collections have many useful methods, but the one we&#8217;ll use the most is <code>each</code>. In a nutshell, <code>each</code> lets us loop through a collection and perform a method on each member of that collection.</p>
+
+<p>On a simple array:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">some_item</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">some_item</span><span class="o">.</span><span class="n">upcase</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt;</span>
+</span><span class='line'><span class="n">A</span>
+</span><span class='line'><span class="n">B</span>
+</span><span class='line'><span class="n">C</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without getting into the nitty-gritty, think of what is between the <code>do</code> and the <code>end</code> as the routine done on each <code>some_item</code>.</p>
+
+<p>What is <code>some_item</code>? In this syntax, the value in the straight pipe-characters is the variable name used to reference a member of the collection.</p>
+
+<p>If you think of <code>each</code> as looping through the collection and doing something on <em>each</em> member of the collection, then <code>some_item</code> (which we could name anything we want, as if it were a variable) points to the member of the current iteration.</p>
+
+<p>There are other variations of the <code>each</code> method. For a <code>Hash</code> object, you could use <code>each_pair</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">my_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;charlie&#39;</span><span class="p">}</span>
+</span><span class='line'><span class="n">my_hash</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; is the key for: &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt;</span>
+</span><span class='line'><span class="n">a</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">alpha</span>
+</span><span class='line'><span class="n">b</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">beta</span>
+</span><span class='line'><span class="n">c</span> <span class="n">is</span> <span class="n">the</span> <span class="n">key</span> <span class="k">for</span><span class="p">:</span> <span class="n">charlie</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>Exercise</h2>
 
-<p>Print out every tweet</p>
+<ol>
+<li><p>Using the <code>each</code> method, loop through the array of tweets from the last lesson and print out the contents of the text.</p></li>
+<li><p>Using the <code>each</code> method again, loop through the tweets and print the <em>length</em> of their text.</p></li>
+<li><p>Same procedure above, but use it to calculate the <em>average</em> length of a tweet.</p></li>
+<li><p>Using the <code>each</code> method again, loop through and print out every attribute of each tweet.</p></li>
+</ol>
 
-<hr />
 
-<p>old
-Now that we have a nice routine for downloading and saving a file, let&#8217;s use it to retrieve the first three pages of tweets from the user named <code>joebiden</code>.</p>
+<h3>Answer</h3>
 
-<p>Here again is the URL pattern for tweet pages in our tutorial:
-<code>http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json</code></p>
+<p>To get the tweets in an array:</p>
 
-<p>Now to download them using our pre-written methods:</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<ol>
+<li>Printing out text:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Printing out the length of each tweet</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Printing out the average length the tweets</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Printing out the attributes of each tweet</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">tweet</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">key</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; --&gt; &quot;</span> <span class="o">+</span> <span class="n">val</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
+</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Pick out the text from many tweets]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/"/>
+    <updated>2012-09-12T03:05:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets</id>
+    <content type="html"><![CDATA[<p>In the last chapter, we dealt with the Twitter user data object, which when parsed, is a Ruby <code>Hash</code>.</p>
+
+<p>But the data object for a page of tweets is different:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -676,47 +1929,26 @@ Now that we have a nice routine for downloading and saving a file, let&#8217;s u
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json&quot;</span>
-</span><span class='line'><span class="n">screen_name</span> <span class="o">=</span> <span class="s2">&quot;joebiden&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url_1</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_1</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url_2</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_2</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url_3</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">download_and_save</span><span class="p">(</span><span class="n">url_3</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; Array</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>That&#8217;s not a terrible amount of work to download three pages. But in our continuing quest to remove repetition, let&#8217;s find a way to exploit the obvious pattern above.</p>
+<p>If you look at the contents of the JSON in <code>tweets_obj</code>, you should see something that looks like a collection of <code>Hash</code> objects. But what exactly is this <code>Array</code> that holds them?</p>
 
-<h2>Loop with each</h2>
+<h2>The Array object</h2>
 
-<p><strong>Note:</strong> Ruby, like its peer languages, has the <code>for</code> construct. We&#8217;re going to skip that and use the more Ruby idiomatic <code>each</code> just for the sake of brevity.</p>
+<p>In Python, arrays are known as <strong>lists</strong>, which may be the easier way to think of this type of <strong>collection</strong>. Like the <code>Hash</code>, the <code>Array</code> is a collection of objects. However, instead of using <strong>keys</strong>, the objects in <code>Array</code> can be accessed (using the same kind of square-bracket notation) in a numerically sequential order.</p>
 
-<p>Let&#8217;s simplify the issue here: how do we count from <code>1</code> to <code>3</code>? In a programmatic way?</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">num</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The object <code>1..3</code> is a special data class in Ruby called a <code>Range</code>. Ranges are one of several types of <strong>collections</strong>. After we learn about the other kinds of collections, we won&#8217;t be using ranges too often. But they make for an easy introduction to loops.</p>
-
-<p>Collections have a method called <code>each</code>, which, as we saw above, iterates through each member of a collection. The <code>do</code> and <code>end</code> keywords denote the block of code performed in each iteration. And think of the <code>|num|</code> as the <strong>argument</strong> passed into that block of code.</p>
-
-<p>Let&#8217;s practice. Using a <code>Range</code> and the <code>each</code> method, print out the URLs needed to retrieve the three <code>joebiden</code> tweet pages:</p>
+<p>Here&#8217;s a sample <code>Array</code>:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -724,64 +1956,69 @@ Now that we have a nice routine for downloading and saving a file, let&#8217;s u
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">biden_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/joe_biden/_PAGENUM_/user_timeline.json&quot;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; a</span>
 </span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">url</span> <span class="o">=</span> <span class="n">biden_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">url</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">arr</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; cow</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Up until now, we&#8217;ve basically been <em>entering</em> code equivalent to the amount of work that we actually want to do. With loops, you can see how actions can be repeated dozens, thousands, millions of times with a simple change to a collection.</p>
+<p>We&#8217;ll examine arrays in greater detail later. For now, note:</p>
 
-<h5>Exercise</h5>
+<ol>
+<li><p>Array items are accessed with integers. They don&#8217;t use strings or other types of data-objects (as a <code>Hash</code> can)</p></li>
+<li><p>A Ruby array is zero-indexed. That means the first element is found at the address of <code>0</code>. The second element is at <code>1</code>, and so forth.</p></li>
+</ol>
 
-<p>Revisit the problem we attempted at the beginning of the chapter &ndash; downloading 3 pages of <code>joebiden</code> tweets &ndash; but use a <code>Range</code> and the <code>each</code> method.</p>
 
-<h5>Answer</h5>
+<h2>Collections inside collections</h2>
 
-<figure class='code'><figcaption><span> (answer.rb)</span> <a href='http://learnwhytocode.github.com/downloads/code/loop-and-repeat/answer.rb'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>The string and number datatypes are primitive compared to the collection datatypes. As an example, the <code>tweets_obj</code> array contains a bunch of objects, and if you inspect each object, you&#8217;ll see that each is itself a <code>Hash</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my-first-methods.rb&#39;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">x</span> <span class="o">=</span>  <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">x</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/_USER_NAME/_PAGENUM_/user_timeline.json&quot;</span>
-</span><span class='line'><span class="n">screen_name</span> <span class="o">=</span> <span class="s2">&quot;joebiden&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">page_num</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">url</span> <span class="o">=</span> <span class="n">url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_USER_NAME_&quot;</span><span class="p">,</span> <span class="n">screen_name</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_PAGENUM_&quot;</span><span class="p">,</span> <span class="n">page_num</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">download_and_save</span><span class="p">(</span><span class="n">url_1</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="n">y</span> <span class="o">=</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">y</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In other words, each individual Tweet is represented as a <code>Hash</code></p>
+
+<h2>Exercise</h2>
+
+<p>Look over the downloaded JSON to see the structure of the Tweet hash object. Print out the following:</p>
+
+<ol>
+<li>The text of the first tweet</li>
+<li>The number of retweets of the eighth tweet</li>
+<li>The date of the 14th tweet</li>
+</ol>
+
+
+<h3>Answer</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">7</span><span class="o">][</span><span class="s1">&#39;retweet_count&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">14</span><span class="o">][</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pick out the text from many tweets]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/"/>
-    <updated>2012-09-12T03:05:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets</id>
-    <content type="html"><![CDATA[<p>Open the JSON file for tweets</p>
-
-<p>Addressing each tweet</p>
-
-<p>Combine with hash notation</p>
-
-<h5>Exercise</h5>
-
-<p>get date of the 48th tweet
-get text of the 48th tweet</p>
 ]]></content>
   </entry>
   
@@ -790,592 +2027,130 @@ get text of the 48th tweet</p>
     <link href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/"/>
     <updated>2012-09-12T03:03:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet</id>
-    <content type="html"><![CDATA[<p>Let&#8217;s re-run the code to get Twitter account information:</p>
+    <content type="html"><![CDATA[<p>In the last chapter we parsed a JSON file containing Twitter account information.</p>
 
-<p>What is the class of the parsed JSON?</p>
+<p>But what does that mean, exactly?</p>
 
-<h2>The Hash object</h2>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Labeling the data]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/labeling-the-data/"/>
-    <updated>2012-09-12T03:01:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/labeling-the-data</id>
-    <content type="html"><![CDATA[<p>We&#8217;ve seen how the URLs for pulling in Twitter information have a pattern. For example, the user info URLs for 4 different users looks like this:</p>
+<p>Run the routine again to fetch the info for a Twitter account:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/users/TKBohner/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json</code>
-<code>http://TK_DATA_ROOT_PATH/users/TKRepPaulRyan/show.json</code></p>
-
-<p>Everything about the URLs, except the account name, is the same. Using <strong>variables</strong>, we can store the repetitive parts of the strings for repeated references:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/" 
-</span><span class='line'>1.9.3p258 :016 &gt; end_twit_url = "/show.json"
-</span><span class='line'> =&gt; "/show.json" 
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'>1.9.3p258 :017 &gt; base_twit_url + "TKBohner" + end_twit_url
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json" 
-</span><span class='line'>1.9.3p258 :018 &gt; base_twit_url + "TKPelosi" + end_twit_url
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json"</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">twitter_user</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>Labels for data</h2>
+<p><strong>Note:</strong> The rest of this lesson assumes that <code>twitter_user</code> contains the value that it does at the end of this routine. If you exit and relaunch <strong>irb</strong>, just re-run this routine to follow along again.</p>
 
-<p>After learning about strings, your first thought may be: <em>Hey, why aren&#8217;t those non-quoted strings causing errors? Does the Ruby language reserve a word called <code>base_twit_url</code>?</em></p>
+<p>What is the <code>class</code> of the parsed JSON?</p>
 
-<p>In the above example, the <code>base_twit_url</code> is neither a string (because it&#8217;s not set off by quotes) nor a reference to a Ruby command. Instead, it is a Ruby <strong>variable</strong>; it is also called a <strong>pointer</strong>, because it <em>points</em> to something.</p>
-
-<p>What does <code>base_twit_url</code> <em>point</em> to? The string, <code>"http://TK_DATA_ROOT_PATH/users/"</code></p>
-
-<p>How does the the Ruby interpreter know that <code>base_twit_url</code> refers to that string? Because we used the <strong>assignment operator</strong> &ndash; the equals sign,  <code>=</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :015 &gt; base_twit_url = "http://TK_DATA_ROOT_PATH/users/"</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>After that <strong>assignment</strong>, Ruby knows that we are using <code>base_twit_url</code> as a stand-in for the longer string.</p>
+<h2>The Hash Object</h2>
 
-<p>Think of variables as a way of <em>labeling</em> objects, as if to say, <em>I&#8217;m giving this here data object the nickname of <code>my_string</code></em></p>
+<p>The <code>Hash</code> is one of Ruby&#8217;s <strong>collection</strong> classes and is ubiquitous in Ruby coding (in Python, it&#8217;s called a <strong>dictionary</strong>).</p>
 
-<h3>Variable naming</h3>
+<p><strong>Collection</strong> classes are data objects that are collections of other data objects (so yes, this means a <code>Hash</code> can contain many other <code>Hash</code> objects).</p>
 
-<p>How did Ruby know that <code>base_twit_url</code> was going to be a proper variable, rather than erroneous input (as is the case if you type in a URL at the irb prompt)?</p>
+<p>Here&#8217;s how a simple <code>Hash</code> object is initialized:</p>
 
-<p>The Ruby interpreter recognizes sequences of <strong>alphanumeric characters and underscores</strong>, as variables.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="mi">101</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>So, these are <em>not</em> variable names:</p>
 
 <ul>
-<li><code>hey-you</code> (hyphens are not alphanumeric, though the underscore character is allowed)</li>
-<li><code>hey!</code> (exclamation marks are not alphanumeric)</li>
-<li><code>hello world</code> (spaces aren&#8217;t allowed)</li>
-<li><code>100var</code> (you can&#8217;t begin a variable with a number)</li>
+<li>The curly-braces denote the entire <code>Hash</code>.</li>
+<li>Hashes are composed of <strong>key-value</strong> pairs</li>
+<li>This <code>simple_hash</code> has only one item, i.e. one <strong>key-value</strong> pair</li>
+<li>The <strong>key</strong> in that single pair is on the <em>left</em> side: <code>'a'</code>. The <strong>value</strong> is on the <em>right</em>, i.e. 101</li>
 </ul>
 
 
-<p>Here are proper variables:</p>
+<h3>Accessing members of a Hash</h3>
 
-<ul>
-<li><code>hey_you</code></li>
-<li><code>HEY</code></li>
-<li><code>helloWorld</code></li>
-<li><code>var100</code></li>
-<li><code>x</code></li>
-<li><code>super_cali_fragilistic_expealidocious</code></li>
-</ul>
+<p>To access an item in a <code>Hash</code>, we use <strong>square-bracket notation</strong> to specify the <strong>key</strong> of the <strong>value</strong> that we want.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">}</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">simple_hash</span><span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="c1"># =&gt; 101</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>In Ruby, and in other language, variables that begin with uppercase letters (or are <em>all</em> uppercase) have a special meaning. To keep things simple for now, just stick to using alphabetical and underscore characters (I would try to avoid using numbers, because they can be confusing).</p>
+<p>Try it yourself. In the <code>Hash</code> below:
+1. Print out the value at key <code>42</code>
+2. Access the pair with the value of <code>"dog"</code> and store the value (i.e. <code>"dog"</code>) in a variable</p>
 
-<h3>Variable assignment</h3>
-
-<p>It&#8217;s still not clear how Ruby distinguishes between a word like <code>puts</code> and some variable we just made up, such as <code>puts_this_in_your_pipe</code>. Try entering both into <strong>irb</strong>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :001 &gt; puts
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">multi_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">42</span> <span class="o">=&gt;</span> <span class="s1">&#39;life&#39;</span><span class="p">,</span> <span class="mi">999</span> <span class="o">=&gt;</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s2">&quot;Hello world&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;dog&quot;</span><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'> =&gt; nil 
-</span><span class='line'>1.9.3p258 :002 &gt; puts_this_in_your_pipe
-</span><span class='line'>NameError: undefined local variable or method `puts_this_in_your_pipe' for main:Object</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What happened here? The Ruby interpreter didn&#8217;t choke on <code>puts</code> because <em>somewhere</em>, somehow, <code>puts</code> was defined.</p>
-
-<p>However, the word <code>puts_this_in_your_pipe</code> apparently was <em>not</em> defined; hence, the complaint about a <code>undefined local variable or method</code>.</p>
-
-<p>The most common way to tell Ruby that &#8221;<em>this here word I&#8217;ve made up is meant to be a variable</em>&#8221; is to <em>assign</em> it a value using the <em>assignment operator</em>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :003 &gt; puts_this_in_your_pipe = 'water'
-</span><span class='line'> =&gt; "water" 
-</span><span class='line'>1.9.3p258 :004 &gt; puts_this_in_your_pipe
-</span><span class='line'> =&gt; "water" </span></code></pre></td></tr></table></div></figure>
-
-
-<p>The Ruby interpreter doesn&#8217;t throw an error here because we&#8217;ve defined the <code>puts_this_in_your_pipe</code> variable.</p>
-
-<h5>Exercises</h5>
-
-<p>(todo) What do we name our variables?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Handle JSON files]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/handle-json-files/"/>
-    <updated>2012-09-12T03:01:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/handle-json-files</id>
-    <content type="html"><![CDATA[<p>In the last chapter, we learned how to download a file using HTTParty and save its contents to a variable:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
-</span><span class='line'>require 'HTTParty'
-</span><span class='line'>
-</span><span class='line'>url = "http://nottwitter.danwin.com/users/NancyPelosi/show.json"
-</span><span class='line'>downloaded_file = HTTParty.get(url)
+</span><span class='line'><span class="nb">puts</span> <span class="n">multi_hash</span><span class="o">[</span><span class="mi">42</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; life</span>
+</span><span class='line'><span class="n">v</span> <span class="o">=</span> <span class="n">multi_hash</span><span class="o">[</span><span class="s1">&#39;Hello world&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">v</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;dog&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>But when we examine the results (you can visit the <a href="http://nottwitter.danwin.com/users/NancyPelosi/show.json">show.json file in your browser</a>), you&#8217;ll find a strange arrangement of text:</p>
+<h2>Exercise</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "id": 15764644,
-</span><span class='line'>  "id_str": "15764644",
-</span><span class='line'>  "name": "Nancy Pelosi",
-</span><span class='line'>  "screen_name": "NancyPelosi",
-</span><span class='line'>  "location": "San Francisco & DC",
-</span><span class='line'>  "url": "http://www.democraticleader.gov/",
-</span><span class='line'>  "description": "Democratic Leader, focused on strengthening America's middle class and creating jobs; mother, grandmother, dark chocolate connoisseur.",
-</span><span class='line'>  "protected": false,
-</span><span class='line'>  "followers_count": 226259,
-</span><span class='line'>  "friends_count": 225,
-</span><span class='line'>  "listed_count": 6288,
-</span><span class='line'>  "created_at": "Thu Aug 07 15:35:02 +0000 2008",
-</span><span class='line'>  "favourites_count": 0,
-</span><span class='line'>  "utc_offset": -28800,
-</span><span class='line'>  "time_zone": "Pacific Time (US & Canada)",
-</span><span class='line'>  "geo_enabled": false,
-</span><span class='line'>  "verified": true,
-</span><span class='line'>  "statuses_count": 1029,
-</span><span class='line'>  "lang": "en",
-</span><span class='line'>  "contributors_enabled": false,
-</span><span class='line'>  "is_translator": false,
-</span><span class='line'>  "profile_background_color": "FFFFFF",
-</span><span class='line'>  "profile_background_image_url": "http://a0.twimg.com/profile_background_images/188759788/newtwitterbg.jpg",
-</span><span class='line'>  "profile_background_image_url_https": "https://si0.twimg.com/profile_background_images/188759788/newtwitterbg.jpg",
-</span><span class='line'>  "profile_background_tile": false,
-</span><span class='line'>  "profile_image_url": "http://a0.twimg.com/profile_images/1681806248/npmic4twitter_normal.jpg",
-</span><span class='line'>  "profile_image_url_https": "https://si0.twimg.com/profile_images/1681806248/npmic4twitter_normal.jpg",
-</span><span class='line'>  "profile_link_color": "1B5363",
-</span><span class='line'>  "profile_sidebar_border_color": "E8E8E8",
-</span><span class='line'>  "profile_sidebar_fill_color": "FCFCFC",
-</span><span class='line'>  "profile_text_color": "333333",
-</span><span class='line'>  "profile_use_background_image": true,
-</span><span class='line'>  "show_all_inline_media": false,
-</span><span class='line'>  "default_profile": false,
-</span><span class='line'>  "default_profile_image": false,
-</span><span class='line'>  "following": null,
-</span><span class='line'>  "follow_request_sent": null,
-</span><span class='line'>  "notifications": null
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>At second glance, it&#8217;s not too hard to figure out what&#8217;s going on here. This <strong>json</strong> file contains some kind of listing of attributes for Rep. Nancy Pelosi&#8217;s Twitter account. For example:</p>
-
-<p><code>"followers_count": 226259</code></p>
-
-<p>We can guess that this line indicates that Rep. Pelosi has 226,259 followers.</p>
-
-<h2>What is JSON?</h2>
-
-<p>JSON stands for &#8221;<a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a>&#8221;. It is simply a lightweight data format and is a common way for web services to pass around data.</p>
-
-<p>The actual details of JSON&#8217;s structure aren&#8217;t important to learn right now. We just want to know: how can we turn this text file to usable data?</p>
-
-<p>If you&#8217;re following the steps from the beginning of this chapter, you have a <code>downloaded_file</code> variable that contains downloaded JSON. Exactly what is contained in <code>downloaded_file</code>?</p>
-
-<p>(remember that <code>downloaded_file</code> is actually an object with a class of HTTParty::Response, so use its <code>body</code> method)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :006 &gt; downloaded_file.body.class
-</span><span class='line'> =&gt; String </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Data is organized text</h2>
-
-<p>As you get more experienced in collecting digital data, one <em>fundamental concept</em> to understand is that data is all just text (actually <code>1</code>s and <code>0s</code> but no need to go that deep).</p>
-
-<p>The JSON file we just downloaded is just a large string.</p>
-
-<p>Getting useful data out of this text &ndash; whether it&#8217;s comma-delimited files, Excel spreadsheets, JSON, or SQL &ndash; is just a matter of finding a pattern in the file and breaking it apart.</p>
-
-<p>We&#8217;ll figure out this pattern later. For now, let&#8217;s see if someone has already written the code to interpret JSON files for us.</p>
-
-<h2>The json gem</h2>
-
-<p>(TK parse exercise)</p>
-
-<h2>Write our own methods</h2>
-
-<h5>Exercise</h5>
-
-<p>Write a <code>download_and_parse_json</code> method that, given a url to a json file, returns the result of <code>JSON.parse</code>.</p>
-
-<h5>Answer</h5>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to download a file]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/how-to-download-a-file/"/>
-    <updated>2012-09-12T02:10:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/how-to-download-a-file</id>
-    <content type="html"><![CDATA[<p>So we&#8217;ve learned how to input URLs in the Ruby interpreter. But how do we actually <em>download</em> something?</p>
-
-<p>In the last chapter, we learned about how variables can <em>point</em> to data objects, such as strings. But there are also pointers to blocks of code that actually <em>do</em> something, such as <strong>methods</strong>.</p>
-
-<p>In fact, <code>puts</code> is a method. And there are many other methods which can do much more than print to screen. Much of the power of programming is being able to hugely complex operations by invoking a single word &ndash; the name of a method.</p>
-
-<p>So to download a file, all we need to do is find the name of the method that contains the downloading functionality.</p>
-
-<h3>It&#8217;s a HTTParty</h3>
-
-<p>Doing a few Google searches for &#8220;Ruby&#8221; and &#8220;download TK&#8221; will net us a few options. The most fun-sounding one is John Nunemaker&#8217;s <a href="https://github.com/jnunemaker/httparty">HTTParty</a> gem, which claims to make &#8220;http fun again!&#8221;</p>
-
-<div class="note">
-If you haven&#8217;t installed Rubygems yet or the HTTParty gem, refer back to the <a href="TK">installation chapter</a>. 
-</div>
-
-
-<p>According to the <a href="https://github.com/jnunemaker/httparty#readme">documentation</a>, here&#8217;s how to download from a URL:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'rubygems'
-</span><span class='line'>require 'httparty'
-</span><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')
-</span><span class='line'>puts response
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Let&#8217;s dissect this code snippet.</p>
-
-<h4>The &#8216;require&#8217; statement</h4>
-
-<p>The Ruby keyword <code>require</code> is a <strong>method</strong> that, when given a <strong>string</strong>, pulls in the library of code that that string refers to.</p>
-
-<p>The first <code>require</code> call tells the Ruby interpreter that we&#8217;ll be using <strong>rubygems</strong>, Ruby&#8217;s convenient framework of packaging these libraries.</p>
-
-<p>The second <code>require</code> call pulls in the code for the <a href="https://github.com/jnunemaker/httparty">HTTParty</a> gem. By convention, the actual strings used to refer to the gem use lowercase letters, underscores, and sometimes hyphens (In the case of HTTParty, you <em>can</em> refer to it as <code>require "HTTParty"</code>).</p>
-
-<p>In irb, you should see this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :002 &gt; require 'rubygems'
-</span><span class='line'> =&gt; false 
-</span><span class='line'>1.9.3p258 :003 &gt; require 'httparty'
-</span><span class='line'> =&gt; true</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>The &#8216;get&#8217; method</h3>
-
-<p>This next line is where the interesting work is done:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
-
-
-<p>First, focus on what&#8217;s to the <em>right</em> of the <strong>equals sign</strong> (which we learned is the <strong>assignment operator</strong>).</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Following the <code>get</code> is a <strong>string</strong>, wrapped in <strong>parentheses</strong>. These parentheses denote the <strong>arguments</strong> for the <code>get</code> method. I&#8217;ll explain <strong>arguments</strong> later.</p>
-
-<p><em>The parentheses are actually optional, but let&#8217;s pretend that they need to be there for now.</em></p>
-
-<p><strong>To review:</strong></p>
-
-<p>To download a file from <code>"http://learnwhytocode.danwin.com"</code>, we call this method:</p>
-
-<p><code>HTTParty.get("http://learnwhytocode.danwin.com")</code></p>
-
-<ul>
-<li><code>HTTParty</code> is the <strong>object</strong></li>
-<li><code>get</code> is a <strong>method</strong> of <code>HTTParty</code></li>
-<li>and the string <code>"http://learnwhytocode.danwin.com"</code> is an <strong>argument</strong> that we pass to the <code>get</code> <strong>method</strong></li>
-</ul>
-
-
-<p>Why is the object named <code>HTTParty</code> and its method <code>get</code>? Because the author wanted it that way. What is the code behind <code>get</code>? You can examine it later on your own, as the author <a href="https://github.com/jnunemaker/httparty">has generously made it open source</a>, but let&#8217;s be content for now that it works as the author claims in the documentation.</p>
-
-<h3>Variables, revisited</h3>
-
-<p>Let&#8217;s go back to the original code that contained the variable assignment:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>response = HTTParty.get('http://learnwhytocode.danwin.com')</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The variable named <code>response</code> contains the return value of the <code>get</code> method.</p>
-
-<p>What does <code>response</code> contain? Let&#8217;s try it out:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">true</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="kp">true</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://learnwhytocode.danwin.com&#39;</span><span class="p">)</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="c1">#&lt;HTTParty::Response:0x103877b30 parsed_response=&quot;\n...&quot;&gt;</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="no">HTTParty</span><span class="o">::</span><span class="no">Response</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><em>Note: you only have to do the <code>require</code> statements once each time you startup irb. If you exit and re-launch irb, you&#8217;ll have to call <code>require</code> again to bring in the libraries</em></p>
-
-<p>If you look through the <a href="https://github.com/jnunemaker/httparty">HTTParty documentation</a>, you&#8217;ll find that the <code>body</code> method of this <code>HTTParty::Response</code> class contains the contents of the webpage:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">head</span> <span class="p">:</span><span class="mo">006</span> <span class="o">&gt;</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">7551</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That&#8217;s all there is to downloading a file. If you look through the <a href="https://github.com/jnunemaker/httparty">HTTParty documentation</a>, you&#8217;ll see that it&#8217;s actually a complicated affair. But thanks to the nature of programming and how it abstracts complexity to a single word, we just need to know how to invoke <code>HTTParty.get</code></p>
-
-<p>We&#8217;ll find out what to do with the result of <code>HTTParty.get</code> in the next chapter.</p>
-
-<h5>Exercises</h5>
-
-<p>Use the <code>HTTParty</code> library to download this URL: <code>TK</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Methods and the dot operator]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/methods-and-the-dot-operator/"/>
-    <updated>2012-09-12T02:05:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/methods-and-the-dot-operator</id>
-    <content type="html"><![CDATA[<p>This chapter &ndash; and this entire tutorial, actually &ndash; tip-toes around the topic of <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">object-oriented programming</a>.</p>
-
-<p>In Ruby, everything is considered an &#8220;object&#8221;. We&#8217;ve encountered at least two different objects: <code>String</code> and <code>Fixnum</code>.</p>
-
-<p>In the last chapter, we saw how they don&#8217;t add together so easily:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="s2">&quot;two&quot;</span> <span class="o">+</span> <span class="mi">2</span>
-</span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
-</span><span class='line'><span class="s1"> from (irb#1):1:in `+&#39;</span>
-</span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):1</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="s2">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span>
-</span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
-</span><span class='line'><span class="s1"> from (irb#1):2:in `+&#39;</span>
-</span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):2</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Just so we don&#8217;t run into this <code>TypeError</code> problem again, how <em>do</em> we tell objects apart?</p>
-
-<h2>The dot operator</h2>
-
-<p>Try these commands in <strong>irb</strong>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'><span class="s2">&quot;1&quot;</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'><span class="s2">&quot;one&quot;</span><span class="o">.</span><span class="n">class</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You should see something like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="no">Fixnum</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="s2">&quot;1&quot;</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="s2">&quot;one&quot;</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When we say that <code>1</code> is an <strong>object</strong>, we mean that it has <em>properties and methods</em>. In the example above, we accessed the <code>class</code> <strong>method</strong> of the <code>1</code> and <code>"1"</code> objects.</p>
-
-<p>Think of <code>class</code> as the <strong>type</strong> of an object.</p>
-
-<p>Take special note of the role of the period above. This is the <strong>dot operator</strong> (i.e. the period). That dot is a Ruby symbol used to invoke a method. In the above example, the <strong>dot operator</strong> is used to invoke the <code>class</code> <strong>method</strong> of the <strong>object</strong>, <code>1</code>.</p>
-
-<h2>Methods</h2>
-
-<p>There are many more methods than just <code>class</code>. And methods are how we will accomplish some very useful tasks despite not doing much programming ourselves.</p>
-
-<p>Every <code>class</code> of object has its own methods.</p>
-
-<p>For example, the <code>length</code> method returns the number of characters in the invoking string:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">20</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But the <code>length</code> method does not exist for numbers:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">006</span> <span class="o">&gt;</span> <span class="mi">42</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'><span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`length&#39; for 42:Fixnum</span>
-</span><span class='line'><span class="sb"> from (irb#1):6</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Methods <strong>return</strong> a value. This means you can <strong>chain</strong> together methods. Let&#8217;s find out type of object string&#8217;s <code>length</code> method returns by invoking the <code>class</code> method like so:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">00</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="no">Fixnum</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If the result is a <code>Fixnum</code> (i.e. a number), then this is possible:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">010</span> <span class="o">&gt;</span> <span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">42</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Conversion methods</h3>
-
-<p>Here&#8217;s one method that will be particularly useful to us: the <code>to_s</code> method, which converts its invoking object to a <em>string</em>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">011</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span>
-</span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
-</span><span class='line'><span class="s1"> from (irb#1):11:in `+&#39;</span>
-</span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):11</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">012</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span><span class="o">.</span><span class="n">to_s</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;1020&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There&#8217;s also a <code>to_i</code> method (the <code>i</code> stands for <em>integer</em>):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">013</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span><span class="o">.</span><span class="n">to_i</span> <span class="o">+</span> <span class="s2">&quot;20&quot;</span><span class="o">.</span><span class="n">to_i</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">30</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We&#8217;ll be using many more methods in the chapters to come. The main takeaways are these:</p>
+<p>Go back to the <code>twitter_user</code> object, which we initialized at the beginning of this lesson. Print out:</p>
 
 <ol>
-<li>Every data type (i.e. <strong>class</strong>) has its own methods</li>
-<li>Methods <strong>return</strong> a value</li>
-<li>If you&#8217;re unsure of what a value&#8217;s datatype is, use its <code>class</code> method to find out.</li>
+<li>The user&#8217;s real name</li>
+<li>The user&#8217;s Twitter bio</li>
+<li>The user&#8217;s number of followers</li>
 </ol>
 
 
-<p>How do we know what methods exist? It&#8217;s a mix of looking up documentation and eventually memorizing the ones most helpful to you. Luckily, this is just a web search away for most methods.</p>
+<p><strong>Hint:</strong> Printing out the <code>twitter_user</code> object might be helpful here.</p>
 
-<h5>Exercises:</h5>
+<h3>Answer</h3>
 
-<p>What is the <code>class</code> of <code>42.2</code>?</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;name&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; Nancy Pelosi</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;description&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; Democratic Leader, focused on strengthening America&#39;s middle class and creating jobs; mother, grandmother, dark chocolate connoisseur.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;followers_count&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; 226259</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>What is the resulting <code>class</code> of: <code>100 + 42.2</code> ?</p>
 
-<p>Use addition and a conversion method to join these objects:  <code>"http://TK_DATA_ROOT_PATH/"</code>, <code>TKissa</code>, <code>"/"</code>, <code>2</code>, <code>"/"</code>, <code>"user_timeline.json"</code></p>
-
-<p>Check out Ruby&#8217;s <a href="http://www.ruby-doc.org/core-1.9.3/String.html" title="Class: String (Ruby 1.9.3)">documentation of the String class</a> for more <code>String</code> methods. See if you can find the method that replaces characters in a string with other characters.</p>
+<p><strong>Bonus:</strong> What happens when you try to access a non-existent key?</p>
 ]]></content>
   </entry>
   

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Pick out the text of a tweet - Learn Why to Code</title>
+  <title>Pick out the text from many tweets - Learn Why to Code</title>
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Labeling the data Next: Pick out the text from many tweets &raquo; Pick Out the Text of a Tweet The problem: How does Ruby &hellip;">
+  <meta name="description" content="&laquo; Previous: Pick out the text of a tweet Next: Loop and repeat &raquo; Pick Out the Text From Many Tweets The problem: How do we work with the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/">
+  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/labeling-the-data/" title="Previous Post: Labeling the data">&laquo; Previous: Labeling the data</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Next Post: Pick out the text from many tweets">Next: Pick out the text from many tweets &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
       
     </p>
 	
@@ -103,13 +103,13 @@
   
   <header>
     
-      <h1 class="entry-title">Pick Out the Text of a Tweet</h1>
+      <h1 class="entry-title">Pick Out the Text From Many Tweets</h1>
     
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> How does Ruby represent the data found for a Twitter account?</div>
-			<div class="q"><strong>The solution:</strong> The Hash is a data object that lets us access the attributes contained in the Twitter data.</div>	
+			<div class="q"><strong>The problem:</strong> How do we work with the JSON for a page of tweets?</div>
+			<div class="q"><strong>The solution:</strong> Because a page of tweets can contain many tweets, they are stored as arrays</div>	
 		</div>
     
 
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:03:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -142,109 +142,9 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>In the last chapter we parsed a JSON file containing Twitter account information.</p>
+	<p>In the last chapter, we dealt with the Twitter user data object, which when parsed, is a Ruby <code>Hash</code>.</p>
 
-<p>But what does that mean, exactly?</p>
-
-<p>Run the routine again to fetch the info for a Twitter account:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
-</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'><span class="n">twitter_user</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Note:</strong> The rest of this lesson assumes that <code>twitter_user</code> contains the value that it does at the end of this routine. If you exit and relaunch <strong>irb</strong>, just re-run this routine to follow along again.</p>
-
-<p>What is the <code>class</code> of the parsed JSON?</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'><span class="c1">#=&gt; Hash</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>The Hash Object</h2>
-
-<p>The <code>Hash</code> is one of Ruby&#8217;s <strong>collection</strong> classes and is ubiquitous in Ruby coding (in Python, it&#8217;s called a <strong>dictionary</strong>).</p>
-
-<p><strong>Collection</strong> classes are data objects that are collections of other data objects (so yes, this means a <code>Hash</code> can contain many other <code>Hash</code> objects).</p>
-
-<p>Here&#8217;s how a simple <code>Hash</code> object is initialized:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="mi">101</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>The curly-braces denote the entire <code>Hash</code>.</li>
-<li>Hashes are composed of <strong>key-value</strong> pairs</li>
-<li>This <code>simple_hash</code> has only one item, i.e. one <strong>key-value</strong> pair</li>
-<li>The <strong>key</strong> in that single pair is on the <em>left</em> side: <code>'a'</code>. The <strong>value</strong> is on the <em>right</em>, i.e. 101</li>
-</ul>
-
-
-<h3>Accessing members of a Hash</h3>
-
-<p>To access an item in a <code>Hash</code>, we use <strong>square-bracket notation</strong> to specify the <strong>key</strong> of the <strong>value</strong> that we want.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">}</span>
-</span><span class='line'><span class="nb">puts</span> <span class="n">simple_hash</span><span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="c1"># =&gt; 101</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Try it yourself. In the <code>Hash</code> below:
-1. Print out the value at key <code>42</code>
-2. Access the pair with the value of <code>"dog"</code> and store the value (i.e. <code>"dog"</code>) in a variable</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">multi_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">42</span> <span class="o">=&gt;</span> <span class="s1">&#39;life&#39;</span><span class="p">,</span> <span class="mi">999</span> <span class="o">=&gt;</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s2">&quot;Hello world&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;dog&quot;</span><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">multi_hash</span><span class="o">[</span><span class="mi">42</span><span class="o">]</span>
-</span><span class='line'><span class="c1">#=&gt; life</span>
-</span><span class='line'><span class="n">v</span> <span class="o">=</span> <span class="n">multi_hash</span><span class="o">[</span><span class="s1">&#39;Hello world&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="nb">puts</span> <span class="n">v</span>
-</span><span class='line'><span class="c1">#=&gt; &quot;dog&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Exercise</h2>
-
-<p>Go back to the <code>twitter_user</code> object, which we initialized at the beginning of this lesson. Print out:</p>
-
-<ol>
-<li>The user&#8217;s real name</li>
-<li>The user&#8217;s Twitter bio</li>
-<li>The user&#8217;s number of followers</li>
-</ol>
-
-
-<p><strong>Hint:</strong> Printing out the <code>twitter_user</code> object might be helpful here.</p>
-
-<h3>Answer</h3>
+<p>But the data object for a page of tweets is different:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -254,18 +154,98 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;name&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="c1">#=&gt; Nancy Pelosi</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;description&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="c1">#=&gt; Democratic Leader, focused on strengthening America&#39;s middle class and creating jobs; mother, grandmother, dark chocolate connoisseur.</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">twitter_user</span><span class="o">[</span><span class="s1">&#39;followers_count&#39;</span><span class="o">]</span>
-</span><span class='line'><span class="c1">#=&gt; 226259</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; Array</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Bonus:</strong> What happens when you try to access a non-existent key?</p>
+<p>If you look at the contents of the JSON in <code>tweets_obj</code>, you should see something that looks like a collection of <code>Hash</code> objects. But what exactly is this <code>Array</code> that holds them?</p>
+
+<h2>The Array object</h2>
+
+<p>In Python, arrays are known as <strong>lists</strong>, which may be the easier way to think of this type of <strong>collection</strong>. Like the <code>Hash</code>, the <code>Array</code> is a collection of objects. However, instead of using <strong>keys</strong>, the objects in <code>Array</code> can be accessed (using the same kind of square-bracket notation) in a numerically sequential order.</p>
+
+<p>Here&#8217;s a sample <code>Array</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; a</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">arr</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+</span><span class='line'><span class="c1">#=&gt; cow</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;ll examine arrays in greater detail later. For now, note:</p>
+
+<ol>
+<li><p>Array items are accessed with integers. They don&#8217;t use strings or other types of data-objects (as a <code>Hash</code> can)</p></li>
+<li><p>A Ruby array is zero-indexed. That means the first element is found at the address of <code>0</code>. The second element is at <code>1</code>, and so forth.</p></li>
+</ol>
+
+
+<h2>Collections inside collections</h2>
+
+<p>The string and number datatypes are primitive compared to the collection datatypes. As an example, the <code>tweets_obj</code> array contains a bunch of objects, and if you inspect each object, you&#8217;ll see that each is itself a <code>Hash</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">x</span> <span class="o">=</span>  <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">x</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">y</span> <span class="o">=</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">y</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In other words, each individual Tweet is represented as a <code>Hash</code></p>
+
+<h2>Exercise</h2>
+
+<p>Look over the downloaded JSON to see the structure of the Tweet hash object. Print out the following:</p>
+
+<ol>
+<li>The text of the first tweet</li>
+<li>The number of retweets of the eighth tweet</li>
+<li>The date of the 14th tweet</li>
+</ol>
+
+
+<h3>Answer</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">7</span><span class="o">][</span><span class="s1">&#39;retweet_count&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">tweets_obj</span><span class="o">[</span><span class="mi">14</span><span class="o">][</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -273,10 +253,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/labeling-the-data/" title="Previous Post: Labeling the data">&laquo; Previous: Labeling the data</a>
+        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Next Post: Pick out the text from many tweets">Next: Pick out the text from many tweets &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
       
     </p>
 
@@ -299,7 +279,7 @@
   
 
 
-<time datetime="2012-09-12T03:03:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 
@@ -307,7 +287,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -375,8 +355,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/';
-        var disqus_url = 'http://learnwhytocode.github.com/lessons/pick-out-the-text-from-a-tweet/';
+        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/';
+        var disqus_url = 'http://learnwhytocode.github.com/lessons/pick-out-the-text-from-many-tweets/';
         var disqus_script = 'embed.js';
       
     (function () {

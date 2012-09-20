@@ -146,7 +146,7 @@
 
 <p>Good for you; the big picture should always be considered. The problem is, the big picture takes more work.</p>
 
-<p>And this is where programming begins to pay off.</p>
+<p>And this is where programming with its ability to zip through repetitive steps really pays off.</p>
 
 <h2>Reading a simple list</h2>
 
@@ -253,58 +253,9 @@
 
 <p>(Twitter spits out the tweets in reverse chronological order. So for our purposes, this would be the <em>first</em> tweet in an array).</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/simple-congress-list.txt&quot;</span>
-</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">list_url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'><span class="n">arr_of_names</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">tweets_json_url_pattern</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/_SCREENNAME_/1/user_timeline.json&quot;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">arr_of_names</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">tweets_json_url</span> <span class="o">=</span> <span class="n">tweets_json_url_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_SCREENNAME_&quot;</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">tweets_json</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tweet_json_url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'>  <span class="n">tweets_arr</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tweets_json</span><span class="p">)</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="c1"># just need the first tweet</span>
-</span><span class='line'>  <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweets_arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="nb">name</span> <span class="o">+</span> <span class="s2">&quot; tweeted on &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;created_at&#39;</span><span class="o">]</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="err">&#39;</span><span class="n">text</span><span class="o">]</span>
-</span><span class='line'>  
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>Answer</h2>
 
-
-
+<p>File /Users/dairy/proj/octo-code6hrs/source/downloads/code/latest-tweets.rb could not be found</p>
 </div>
 
 

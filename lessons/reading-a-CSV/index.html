@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Pick out the text from many tweets - Learn Why to Code</title>
+  <title>Reading from a spreadsheet-like file - Learn Why to Code</title>
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Pick out the text of a tweet Next: Loop and repeat &raquo; Pick Out the Text From Many Tweets The problem: TK The solution: TK &hellip;">
+  <meta name="description" content="&laquo; Previous: Switching data locations Next: Filter a collection &raquo; Reading From a Spreadsheet-like File The problem: How to read data from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/">
+  <link rel="canonical" href="http://learnwhytocode.github.com/lessons/reading-a-CSV/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
+        <a class="basic-alignment left pagin" href="/lessons/moving-data-sources/" title="Previous Post: Switching data locations">&laquo; Previous: Switching data locations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
       
     </p>
 	
@@ -103,13 +103,13 @@
   
   <header>
     
-      <h1 class="entry-title">Pick Out the Text From Many Tweets</h1>
+      <h1 class="entry-title">Reading From a Spreadsheet-like File</h1>
     
 
     
 		<div class="lesson-matter">
-			<div class="q"><strong>The problem:</strong> TK</div>
-			<div class="q"><strong>The solution:</strong> TK Arrays object</div>	
+			<div class="q"><strong>The problem:</strong> How to read data from a spreadsheet-like file, such as CSV?</div>
+			<div class="q"><strong>The solution:</strong> Use the FasterCSV library and Hash objects to simplify reading the datafile.</div>	
 		</div>
     
 
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:20:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -142,16 +142,7 @@
 	
 	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
 	
-	<p>Open the JSON file for tweets</p>
-
-<p>Addressing each tweet</p>
-
-<p>Combine with hash notation</p>
-
-<h5>Exercise</h5>
-
-<p>get date of the 48th tweet
-get text of the 48th tweet</p>
+	
 </div>
 
 
@@ -159,10 +150,10 @@ get text of the 48th tweet</p>
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Previous Post: Pick out the text of a tweet">&laquo; Previous: Pick out the text of a tweet</a>
+        <a class="basic-alignment left pagin" href="/lessons/moving-data-sources/" title="Previous Post: Switching data locations">&laquo; Previous: Switching data locations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/loop-and-repeat/" title="Next Post: Loop and repeat">Next: Loop and repeat &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
       
     </p>
 
@@ -185,7 +176,7 @@ get text of the 48th tweet</p>
   
 
 
-<time datetime="2012-09-12T03:05:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T03:20:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 
@@ -193,7 +184,7 @@ get text of the 48th tweet</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnwhytocode.github.com/lessons/reading-a-CSV/" data-via="" data-counturl="http://learnwhytocode.github.com/lessons/reading-a-CSV/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -261,8 +252,8 @@ get text of the 48th tweet</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/';
-        var disqus_url = 'http://learnwhytocode.github.com/lessons/collect-text-from-many-tweets/';
+        var disqus_identifier = 'http://learnwhytocode.github.com/lessons/reading-a-CSV/';
+        var disqus_url = 'http://learnwhytocode.github.com/lessons/reading-a-CSV/';
         var disqus_script = 'embed.js';
       
     (function () {

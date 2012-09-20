@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Adding strings together Next: How to download a file &raquo; Methods and the Dot Operator The problem: How do we tell numbers and &hellip;">
+  <meta name="description" content="&laquo; Previous: Adding strings together Next: Methods with arguments &raquo; Methods and the Dot Operator The problem: How do we tell numbers and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,7 @@
         <a class="basic-alignment left pagin" href="/lessons/adding-strings-together/" title="Previous Post: Adding strings together">&laquo; Previous: Adding strings together</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/how-to-download-a-file/" title="Next Post: How to download a file">Next: How to download a file &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/methods-with-arguments/" title="Next Post: Methods with arguments">Next: Methods with arguments &raquo;</a>
       
     </p>
 	
@@ -144,9 +144,9 @@
 	
 	<p>This chapter &ndash; and this entire tutorial, actually &ndash; tip-toes around the topic of <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">object-oriented programming</a>.</p>
 
-<p>In Ruby, everything is considered an &#8220;object&#8221;. We&#8217;ve encountered at least two different objects: <code>String</code> and <code>Fixnum</code>.</p>
+<p>In Ruby, everything is considered an &#8220;object&#8221;. We&#8217;ve encountered at least two different objects: strings and numbers, also known as <code>String</code> and <code>Fixnum</code>, respectively.</p>
 
-<p>In the last chapter, we saw how they don&#8217;t add together so easily:</p>
+<p>We saw how they don&#8217;t mix so easily:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -156,11 +156,11 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="s2">&quot;two&quot;</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;two&quot;</span> <span class="o">+</span> <span class="mi">2</span>
 </span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
 </span><span class='line'><span class="s1"> from (irb#1):1:in `+&#39;</span>
 </span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):1</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="s2">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span>
+</span><span class='line'><span class="s2">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span>
 </span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
 </span><span class='line'><span class="s1"> from (irb#1):2:in `+&#39;</span>
 </span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):2</span>
@@ -190,12 +190,12 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="no">Fixnum</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">004</span> <span class="o">&gt;</span> <span class="s2">&quot;1&quot;</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="s2">&quot;one&quot;</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="nb">String</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; Fixnum </span>
+</span><span class='line'><span class="s2">&quot;1&quot;</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; String</span>
+</span><span class='line'><span class="s2">&quot;one&quot;</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; String</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -215,28 +215,37 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">005</span> <span class="o">&gt;</span> <span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span>
+</span><span class='line'><span class="c1"># =&gt; 20</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>But the <code>length</code> method does not exist for numbers:</p>
+<p>But the <code>length</code> method does not exist for numbers, because it doesn&#8217;t make sense to have that functionality:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">006</span> <span class="o">&gt;</span> <span class="mi">42</span><span class="o">.</span><span class="n">length</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">42</span><span class="o">.</span><span class="n">length</span>
 </span><span class='line'><span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`length&#39; for 42:Fixnum</span>
 </span><span class='line'><span class="sb"> from (irb#1):6</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Methods <strong>return</strong> a value. This means you can <strong>chain</strong> together methods. Let&#8217;s find out type of object string&#8217;s <code>length</code> method returns by invoking the <code>class</code> method like so:</p>
+<p>Methods <strong>return</strong> a value. The <code>upcase</code> method returns a string:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">00</span><span class="mi">9</span> <span class="o">&gt;</span> <span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">class</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="no">Fixnum</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;chicken&quot;</span><span class="o">.</span><span class="n">upcase</span>
+</span><span class='line'><span class="c1">#=&gt; CHICKEN</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This means you can <strong>chain</strong> together methods. Let&#8217;s find out the <em>type of object</em> that the <strong>string</strong>&#8217;s <code>length</code> method <strong>returns</strong> by invoking the <code>class</code> method, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1"># =&gt; Fixnum</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -244,8 +253,8 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">010</span> <span class="o">&gt;</span> <span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">42</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;supercalifragilistic&quot;</span><span class="o">.</span><span class="n">length</span> <span class="o">+</span> <span class="s2">&quot;http://www.nytimes.com&quot;</span><span class="o">.</span><span class="n">length</span>
+</span><span class='line'><span class="c1"># =&gt; 42 </span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -259,12 +268,14 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">011</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span>
 </span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
 </span><span class='line'><span class="s1"> from (irb#1):11:in `+&#39;</span>
 </span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="c1">#1):11</span>
-</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">012</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span><span class="o">.</span><span class="n">to_s</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;1020&quot;</span>
+</span><span class='line'>  
+</span><span class='line'><span class="s2">&quot;10&quot;</span> <span class="o">+</span> <span class="mi">20</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;1020&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -272,8 +283,8 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">013</span> <span class="o">&gt;</span> <span class="s2">&quot;10&quot;</span><span class="o">.</span><span class="n">to_i</span> <span class="o">+</span> <span class="s2">&quot;20&quot;</span><span class="o">.</span><span class="n">to_i</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="mi">30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;10&quot;</span><span class="o">.</span><span class="n">to_i</span> <span class="o">+</span> <span class="s2">&quot;20&quot;</span><span class="o">.</span><span class="n">to_i</span>
+</span><span class='line'><span class="c1"># =&gt; 30</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -294,7 +305,7 @@
 
 <p>What is the resulting <code>class</code> of: <code>100 + 42.2</code> ?</p>
 
-<p>Use addition and a conversion method to join these objects:  <code>"http://TK_DATA_ROOT_PATH/"</code>, <code>TKissa</code>, <code>"/"</code>, <code>2</code>, <code>"/"</code>, <code>"user_timeline.json"</code></p>
+<p>Use addition and a conversion method to join these objects:  <code>"http://nottwitter.danwin.com/statuses/"</code>, <code>"DarrellIssa"</code>, <code>"/"</code>, <code>2</code>, <code>"/"</code>, <code>"user_timeline.json"</code></p>
 
 <p>Check out Ruby&#8217;s <a href="http://www.ruby-doc.org/core-1.9.3/String.html" title="Class: String (Ruby 1.9.3)">documentation of the String class</a> for more <code>String</code> methods. See if you can find the method that replaces characters in a string with other characters.</p>
 </div>
@@ -307,7 +318,7 @@
         <a class="basic-alignment left pagin" href="/lessons/adding-strings-together/" title="Previous Post: Adding strings together">&laquo; Previous: Adding strings together</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/how-to-download-a-file/" title="Next Post: How to download a file">Next: How to download a file &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/methods-with-arguments/" title="Next Post: Methods with arguments">Next: Methods with arguments &raquo;</a>
       
     </p>
 

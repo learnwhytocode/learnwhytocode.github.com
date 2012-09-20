@@ -273,17 +273,56 @@
 
 <p>We&#8217;ll figure out this pattern later. For now, let&#8217;s see if someone has already written the code to interpret JSON files for us.</p>
 
-<h2>The json gem</h2>
+<h2>The json library</h2>
 
-<p>(TK parse exercise)</p>
+<p>Ruby&#8217;s standard library contains the JSON module, which has exactly what we need. Include it in your code environment as you would a gem:</p>
 
-<h2>Write our own methods</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'json'</span></code></pre></td></tr></table></div></figure>
 
-<h5>Exercise</h5>
 
-<p>Write a <code>download_and_parse_json</code> method that, given a url to a json file, returns the result of <code>JSON.parse</code>.</p>
+<p>Given a <strong>string</strong> of text in JSON format, the <code>JSON.parse</code> method will convert it to one of these Ruby collection classes: the <code>Hash</code> and the <code>Array</code>.</p>
 
-<h5>Answer</h5>
+<p>The next two chapters will cover the basic parts of handling hashes and arrays.</p>
+
+<h2>Exercise</h2>
+
+<p>Write a routine that downloads a JSON file at a given URL and parses it with the <code>JSON</code> module. Check the <code>class</code> of what&#8217;s returned by the parsing.</p>
+
+<h3>Answer</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+</span><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">json</span><span class="o">.</span><span class="n">class</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;re beginning to add complex methods atop of complex methods now, so it&#8217;s worth reviewing what happens at each step:</p>
+
+<ol>
+<li>We start with a <code>url</code>, which is just a <code>String</code></li>
+<li>Passing <code>url</code> into <code>HTTParty.get</code> gets us a <code>HTTParty::Response</code> object,</li>
+<li>The <code>body</code> method of the <code>HTTParty::Response</code> method returns a <code>String</code></li>
+<li>The <code>JSON.parse</code> method accepts a <code>String</code> which it converts to a Ruby object (either a <code>Hash</code> or an <code>Array</code>)</li>
+</ol>
+
+
+<p>Note that <code>JSON.parse</code>is expecting a specially-formatted string. Try passing in a normal string to that method, such as <code>"Hello world"</code></p>
 </div>
 
 

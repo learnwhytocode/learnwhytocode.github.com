@@ -144,29 +144,25 @@
 	
 	<p>Now that we know how to enter URLs as <strong>strings</strong>, let&#8217;s review the URL format for retrieving a user&#8217;s account information:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json</code></p>
+<p><code>http://nottwitter.danwin.com/users/NancyPelosi/show.json</code></p>
 
-<p>That gets us the information the Twitter account, <code>TKPelosi</code></p>
+<p>That gets us the information the Twitter account, <code>NancyPelosi</code></p>
 
-<p>To get the information for <code>TKBohner</code>:</p>
+<p>Likewise, to get the information for <code>DarrellIssa</code>:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/users/TKBohner/show.json</code></p>
-
-<p>And for <code>TKrandpaul</code>:</p>
-
-<p><code>http://TK_DATA_ROOT_PATH/users/TKrandpaul/show.json</code></p>
+<p><code>http://nottwitter.danwin.com.s3.amazonaws.com/users/DarrellIssa/show.json</code></p>
 
 <p>In other words, the URL pattern for the account information for any given user is:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/users/TWEET_USER_NAME/show.json</code></p>
+<p><code>http://nottwitter.danwin.com/users/_SCREENNAME_/show.json</code></p>
 
-<p>&ndash; where <code>TWEET_USER_NAME</code> is the name of the account.</p>
+<p>&ndash; where <code>_SCREENNAME_</code> is the name of the account.</p>
 
 <h2>Add strings to remove repetition</h2>
 
-<p>We&#8217;re not at this point yet, but conceivably, the program we write would exploit that pattern.</p>
+<p>Conceivably, the program we write would exploit that pattern.</p>
 
-<p>That is, it will use the same <em>root</em> string for that URL and append (i.e. <em>add</em>) the <code>TWEET_USER_NAME</code> part.</p>
+<p>That is, it will use the same <em>root</em> string for that URL (<code>http://nottwitter.danwin.com/users/</code>) and append (i.e. <em>add</em>) the <code>_SCREENNAME_</code> part and the <code>show.json</code>.</p>
 
 <p>But how do we add two strings together? Let&#8217;s try the first thing that comes to mind:</p>
 
@@ -174,19 +170,19 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :019 &gt; "http://TK_DATA_ROOT_PATH/users/"  + "TKPelosi/" + "show.json"
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKPelosi/show.json" 
-</span><span class='line'>1.9.3p258 :020 &gt; "http://TK_DATA_ROOT_PATH/users/" + "TKBohner/" + "show.json"
-</span><span class='line'> =&gt; "http://TK_DATA_ROOT_PATH/users/TKBohner/show.json"</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"http://nottwitter.danwin.com/users/"  + "NancyPelosi/" + "show.json"
+</span><span class='line'> =&gt; "http://nottwitter.danwin.com/users/NancyPelosi/show.json" 
+</span><span class='line'>"http://nottwitter.danwin.com/users/" + "DarrellIssa/" + "show.json"
+</span><span class='line'> =&gt; "http://nottwitter.danwin.com/users/DarrellIssa/show.json"</span></code></pre></td></tr></table></div></figure>
 
 
-<p>That was easy. Let&#8217;s examine the pattern for getting pages of tweets for user <code>TKissa</code>:</p>
+<p>That was easy. Let&#8217;s examine the pattern for getting pages of tweets for user <code>DarrellIssa</code>:</p>
 
-<p><code>http://TK_DATA_ROOT_PATH/statuses/TKissa/1/user_timeline.json</code>
-<code>http://TK_DATA_ROOT_PATH/statuses/TKissa/2/user_timeline.json</code>
-<code>http://TK_DATA_ROOT_PATH/statuses/TKissa/3/user_timeline.json</code></p>
+<p><code>http://nottwitter.danwin.com/statuses/DarrellIssa/1/user_timeline.json</code>
+<code>http://nottwitter.danwin.com/statuses/DarrellIssa/2/user_timeline.json</code>
+<code>http://nottwitter.danwin.com/statuses/DarrellIssa/3/user_timeline.json</code></p>
 
-<p>Before we <a href="TK">first learned of strings</a>, we saw that the Ruby interpreter interprets numbers as they are:</p>
+<p>Before we <a href="/lessons/how-to-write-an-address">first learned of strings</a>, we saw that the Ruby interpreter interprets numbers as they are:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -194,11 +190,11 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :021 &gt; 1
+</pre></td><td class='code'><pre><code class=''><span class='line'>1
 </span><span class='line'> =&gt; 1 
-</span><span class='line'>1.9.3p258 :022 &gt; 2
+</span><span class='line'>2
 </span><span class='line'> =&gt; 2 
-</span><span class='line'>1.9.3p258 :023 &gt; 42
+</span><span class='line'>42
 </span><span class='line'> =&gt; 42</span></code></pre></td></tr></table></div></figure>
 
 
@@ -206,7 +202,7 @@
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1.9.3p258 :024 &gt; 21 + 21
+</pre></td><td class='code'><pre><code class=''><span class='line'>21 + 21
 </span><span class='line'> =&gt; 42</span></code></pre></td></tr></table></div></figure>
 
 
@@ -216,7 +212,7 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">025</span> <span class="o">&gt;</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/TKissa/&quot;</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="s2">&quot;/user_timeline.json&quot;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;http://nottwitter.danwin.com/statuses/DarrellIssa/&quot;</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="s2">&quot;/user_timeline.json&quot;</span>
 </span><span class='line'><span class="no">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s1">&#39;t convert Fixnum into String</span>
 </span><span class='line'><span class="s1"> from (irb):25:in `+&#39;</span>
 </span><span class='line'>  <span class="n">from</span> <span class="p">(</span><span class="n">irb</span><span class="p">):</span><span class="mi">25</span>
@@ -233,8 +229,8 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span><span class="n">p258</span> <span class="p">:</span><span class="mo">026</span> <span class="o">&gt;</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/TKissa/&quot;</span> <span class="o">+</span> <span class="s2">&quot;5&quot;</span> <span class="o">+</span> <span class="s2">&quot;/user_timeline.json&quot;</span>
-</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;http://TK_DATA_ROOT_PATH/statuses/TKissa/5/user_timeline.json&quot;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;http://nottwitter.danwin.com/statuses/DarrellIssa/&quot;</span> <span class="o">+</span> <span class="s2">&quot;5&quot;</span> <span class="o">+</span> <span class="s2">&quot;/user_timeline.json&quot;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;http://nottwitter.danwin.com/statuses/DarrellIssa/5/user_timeline.json&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -255,10 +251,18 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="s2">&quot;en.wikipedia.org&quot;</span> <span class="o">+</span> <span class="s2">&quot;/wiki&quot;</span> <span class="o">+</span> <span class="s2">&quot;/Ruby&quot;</span>
+</span><span class='line'>
 </span><span class='line'><span class="mi">12</span> <span class="o">+</span> <span class="mi">300</span>
+</span><span class='line'>
 </span><span class='line'><span class="s2">&quot;11&quot;</span> <span class="o">+</span> <span class="s2">&quot;11&quot;</span>
+</span><span class='line'>
 </span><span class='line'><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="s2">&quot;www.&quot;</span> <span class="o">+</span> <span class="s2">&quot;w&quot;</span> <span class="o">+</span> <span class="s2">&quot;3&quot;</span> <span class="o">+</span> <span class="s2">&quot;.org&quot;</span>
+</span><span class='line'>
 </span><span class='line'><span class="s2">&quot;2&quot;</span> <span class="o">+</span> <span class="mi">2</span>
 </span></code></pre></td></tr></table></div></figure>
 
