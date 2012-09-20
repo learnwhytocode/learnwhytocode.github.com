@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Terminals and Text Editors"
-date: 2012-09-12 00:10
+date: 2012-09-12 01:10
 comments: true
 categories: 
 problem: "What do we use to write code?"

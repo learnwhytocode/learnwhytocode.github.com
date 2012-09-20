@@ -9,6 +9,10 @@ footer: true
 <ol>
 {% for post in paginator.posts %}
   	{% assign content = post.content %}
+
+	{% if post.section_header %}
+<h2>{{post.section_header}}</h2>
+	{% endif %}
 	<li class="post-listing">
 		
 		<div class="hed"><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></div>

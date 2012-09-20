@@ -6,4 +6,5 @@ comments: true
 categories: 
 problem: "How to read data from a spreadsheet-like file, such as CSV?"
 solution: "Use the FasterCSV library and Hash objects to simplify reading the datafile."
+section_header: "Advanced Projects"
 ---

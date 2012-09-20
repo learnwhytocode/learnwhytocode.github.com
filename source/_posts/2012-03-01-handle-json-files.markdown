@@ -7,6 +7,7 @@ categories:
 problem: "How do we deal with JSON data files?"
 solution: "Use Ruby's JSON library"
 status: checked
+section_header: "Patterns and Branching"
 ---
  
 In the last chapter, we learned how to download a file using HTTParty and save its contents to a variable:

@@ -7,6 +7,7 @@ categories:
 problem: "How do we even put URLs into our programs?"
 solution: "Use the String class to represent text characters."
 status: checked
+section_header: "Basic Data Types"
 ---
 
 

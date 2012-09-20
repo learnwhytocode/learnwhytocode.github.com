@@ -6,6 +6,7 @@ comments: true
 categories: 
 problem: "We're writing too much boilerplate code over and over."
 solution: "Move the code into a separate text file and begin using our text-editor."
+section_header: "Organizing a Project"
 ---
 
 If you've taken a break from this tutorial and exited **irb**, you would've had to go through the annoying step of re-running the `require` statements to bring in the `HTTParty` and `JSON` library.
