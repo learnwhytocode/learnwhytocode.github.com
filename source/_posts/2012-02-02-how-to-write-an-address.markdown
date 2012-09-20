@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to write an address"
-date: 2012-09-12 01:10
+date: 2012-09-12 02:02
 comments: true
 categories: 
 problem: "How do we even put URLs into our programs?"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Methods with arguments"
-date: 2012-09-12 02:05
+date: 2012-09-12 02:06
 comments: true
 categories: 
 problem: "Adding strings together with plus signs is annoying and hard to read."
