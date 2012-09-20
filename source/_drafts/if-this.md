@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Find the needle in the hay."
-date: 2012-09-12 04:10
+date: 2012-09-20 04:10
 comments: true
 categories: 
 problem: "We want to find something specific in this collection"

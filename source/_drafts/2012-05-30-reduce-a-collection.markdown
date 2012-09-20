@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Reduce a collection"
-date: 2012-09-12 05:30
+date: 2012-09-20 05:30
 comments: true
 categories: 
 problem: "How do I find the oldest Congressmember? And his/her shortest tweet?"

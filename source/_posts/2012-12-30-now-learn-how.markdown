@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Now learn how"
-date: 2012-09-12 12:30
+date: 2012-09-20 12:30
 comments: true
 categories: 
 problem: "What now?"

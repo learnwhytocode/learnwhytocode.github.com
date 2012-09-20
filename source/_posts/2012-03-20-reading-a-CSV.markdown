@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Reading from a spreadsheet-like file"
-date: 2012-09-12 03:20
+date: 2012-09-20 03:20
 comments: true
 categories: 
 problem: "How to read data from a spreadsheet-like file, such as CSV?"
@@ -70,7 +70,7 @@ Each data row is represented as a hash, with the column names conveniently used 
 ### Convenience method for congressmembers
 
 In our **my_code.rb**
-
+``` ruby
 def get_congress_data_from_file(fname)
   # pre: fname is a CSV file where congressmember data is located
   # returns: an array of Hash objects
@@ -84,3 +84,4 @@ def get_congress_data_from_file(fname)
     return FasterCSV.new(data, {:headers=>true})
   end
 end
+```

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Labeling the data"
-date: 2012-09-12 02:07
+date: 2012-09-20 02:07
 comments: true
 categories: 
 problem: "A lot of the text we're using is repeated over and over."

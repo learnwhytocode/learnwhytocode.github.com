@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Pick out the text of a tweet"
-date: 2012-09-12 03:03
+date: 2012-09-20 03:03
 comments: true
 categories: 
 problem: "How does Ruby represent the data found for a Twitter account?"

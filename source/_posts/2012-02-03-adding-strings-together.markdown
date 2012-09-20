@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding strings together"
-date: 2012-09-12 02:03
+date: 2012-09-20 02:03
 comments: true
 categories: 
 problem: "The URLs all share common patterns. How do we combine these together? "

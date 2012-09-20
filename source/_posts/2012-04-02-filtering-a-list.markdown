@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Filter a collection"
-date: 2012-09-12 04:02
+date: 2012-09-20 04:02
 comments: true
 categories: 
 problem: "How do I filter for just the Congressmembers of a given state? Or above a certain age?"

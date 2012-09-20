@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Installing Ruby"
-date: 2012-09-12 01:12
+date: 2012-09-20 01:12
 comments: true
 categories: 
 problem: "How do we install Ruby and run Ruby programs?"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Methods and the dot operator"
-date: 2012-09-12 02:05
+date: 2012-09-20 02:05
 comments: true
 categories: 
 problem: "How do we tell numbers and strings apart?"

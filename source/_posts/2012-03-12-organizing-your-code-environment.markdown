@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Organizing your code environment"
-date: 2012-09-12 03:12
+date: 2012-09-20 03:12
 comments: true
 categories: 
 problem: "We're writing too much boilerplate code over and over."

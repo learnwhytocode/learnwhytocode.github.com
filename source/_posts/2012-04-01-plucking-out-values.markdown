@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Plucking out values"
-date: 2012-09-12 04:01
+date: 2012-09-20 04:01
 comments: true
 categories: 
 problem: "How can easily collect just one attribute from a collection of Twitter account info or tweets?"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Pick out the text from many tweets"
-date: 2012-09-12 03:05
+date: 2012-09-20 03:05
 comments: true
 categories: 
 problem: "How do we work with the JSON for a page of tweets?"

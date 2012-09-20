@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Loop and repeat"
-date: 2012-09-12 03:06
+date: 2012-09-20 03:06
 comments: true
 categories: 
 problem: "How to read from hundreds of tweets without writing hundreds of commands."
@@ -53,6 +53,7 @@ There are other variations of the `each` method. For a `Hash` object, you could 
 
 ``` ruby
 my_hash = {'a'=>'alpha', 'b'=>'beta', 'c'=>'charlie'}
+
 my_hash.each_pair do |k,v|
 	puts k.to_s + " is the key for: " + v.to_s
 end  
@@ -82,7 +83,15 @@ require 'rubygems'
 require 'json'
 require 'httparty'
 
-url = "http://nottwitter.danwin.com/statuses/ChuckGrassley/1/user_timeline.json"
+screenname = "ChuckGrassley"
+
+
+url = File.join( "http://nottwitter.danwin.com", 
+	"statuses",
+	screenname,
+	1.to_s,
+	"user_timeline.json" )	
+
 json_str = HTTParty.get(url).body
 tweets_obj = JSON.parse(json_str)
 ``` 

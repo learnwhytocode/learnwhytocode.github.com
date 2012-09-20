@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Switching data locations"
-date: 2012-09-12 03:18
+date: 2012-09-20 03:18
 comments: true
 categories: 
 problem: "The data source just up and changed its location!"
@@ -13,6 +13,11 @@ As I said at the outset, we're working with a very small sample of Twitter's dat
 At some point, you're going to want to remove the training wheels and get data straight from the source.
 
 We won't get to that in this tutorial, but we'll go through the motions. I'm going to change up the data source and show you how our **my_code.rb** can adapt to it.
+
+**A note** 
+What follows is a bit of tedium, which is the re-organizing of old code so that we can better re-use it. It's good for practice and to ground some design concepts in, but is not necessary to get worked up about if time is short. After downloading the data-file as listed in the lesson, you can just download the [my_code.rb library here](/downloads/local-data-env/my_code.rb) and include it going forward.
+
+
 
 
 ## More data, more problems
@@ -26,9 +31,11 @@ The bad news is that you're going to have to adapt.
 
 ### Download the data
 
-The full dataset (which is not even quite complete, but more on that later) is more than 300MB. You can download it [here TK](TK). If you have a fast computer, sure, go for it.
+The full dataset (which is not even quite complete, but more on that later) is more than 600MB unzipped. If you have a fast computer, sure, go for it. However, because we're still just practicing, there's not really a need to process tens of thousands of tweets. So there is a 'lite' version with fewer tweets included:
 
-However, because we're still just practicing, there's not really a need to process tens of thousands of tweets. So here's a subset, about TK MB: [TK](TK). It contains the same number of Twitter accounts to process, just fewer tweets.
+* [Large dataset](http://nottwitter.danwin.com/pkg-full.zip) (600+ MB unzipped)
+* [Lite dataset](http://nottwitter.danwin.com/pkg-lite.zip) (80+ MB unzipped)
+
 
 
 The best place to store this data is as a **sub-directory** in your **working directory**.

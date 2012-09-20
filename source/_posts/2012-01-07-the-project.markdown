@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Project"
-date: 2012-09-12 01:07
+date: 2012-09-20 01:07
 comments: true
 categories: 
 problem: "How to gather and analyze U.S. Congressmembers tweets"
@@ -60,7 +60,7 @@ After we've gone through the ropes of basic programming routines, we move on to 
 For your convenience, I've created bulk data that can be downloaded and unzipped to your hard drive. Your scripts have to be adapted then to point from the remote `http://nottwitter.danwin.com/` domain to `/yourcomputer/working-directory/`
 
 * [Large dataset](http://nottwitter.danwin.com/pkg-full.zip) (600+ MB unzipped)
-* [Lite datasetTK](http://nottwitter.danwin.com/pkg-lite.zip) (80+ MB unzipped)
+* [Lite dataset](http://nottwitter.danwin.com/pkg-lite.zip) (80+ MB unzipped)
 
 The main difference is that the lite version has far fewer tweets per user. When testing scripts, you may find it easier to do a run through the lite version of the data to save time.
 

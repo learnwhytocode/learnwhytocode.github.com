@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "File existence and other considerations"
-date: 2012-09-12 03:18
+date: 2012-09-20 03:18
 comments: true
 categories: 
 problem: "How do we loop through all the tweet pages on the local drive?"

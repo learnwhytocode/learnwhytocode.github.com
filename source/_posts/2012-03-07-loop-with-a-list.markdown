@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Loop with a list"
-date: 2012-09-12 03:07
+date: 2012-09-20 03:07
 comments: true
 categories: 
 problem: "We want to get tweets from more than one Congressmember"

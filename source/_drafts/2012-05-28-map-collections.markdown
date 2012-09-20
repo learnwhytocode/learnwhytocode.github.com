@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Transforming collections"
-date: 2012-09-12 05:28
+date: 2012-09-20 05:28
 comments: true
 categories: 
 problem: "How do we get just the text of the tweets belonging to a Congressmember? Or an array of the length of tweets?"

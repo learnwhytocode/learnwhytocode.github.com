@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Writing more wrappers"
-date: 2012-09-12 03:15
+date: 2012-09-20 03:15
 comments: true
 categories: 
 problem: "We're having trouble understanding the code we're reusing."

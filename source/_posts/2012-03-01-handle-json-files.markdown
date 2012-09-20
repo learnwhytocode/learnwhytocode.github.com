@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Handle JSON files"
-date: 2012-09-12 03:01
+date: 2012-09-20 03:01
 comments: true
 categories: 
 problem: "How do we deal with JSON data files?"

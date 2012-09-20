@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Making the complex, routine"
-date: 2012-09-12 03:08
+date: 2012-09-20 03:08
 comments: true
 categories: 
 problem: "All these simple steps are adding up to many lines of intimidating code."

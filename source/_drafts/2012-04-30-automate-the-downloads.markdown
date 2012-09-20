@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Automate the downloads"
-date: 2012-09-12 04:30
+date: 2012-09-20 04:30
 comments: true
 categories: 
 problem: "How do we put everything together into a smoothly-running routine?"

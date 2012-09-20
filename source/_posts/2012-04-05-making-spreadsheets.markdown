@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Making spreadsheets"
-date: 2012-09-12 04:05
+date: 2012-09-20 04:05
 comments: true
 categories: 
 problem: "My coworkers want to work with the data but none of them can read JSON"

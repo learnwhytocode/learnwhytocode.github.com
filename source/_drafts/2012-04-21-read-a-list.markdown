@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Read a list"
-date: 2012-09-12 04:21
+date: 2012-09-20 04:21
 comments: true
 categories: 
 problem: "We don't want to manually enter each line of a datafile into our program."
