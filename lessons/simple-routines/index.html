@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<h2>Label our work</h2>
 
@@ -160,9 +160,48 @@
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>TK copy and paste</p>
+<h2>The return value</h2>
+
+<p>The <code>return</code> keyword designates the value returned by the method In Ruby, if <code>return</code> isn&#8217;t used, the method automatically returns what was in the last line.</p>
+
+<p>(If you invoke <code>return</code> before the last line of a method, the method will <strong>exit</strong> at that point.)</p>
+
+<p>In the <code>hello_world</code> method above, the return value is <code>"Hello world"</code>, a string</p>
 
 <h3>Methods with arguments</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def hello(some_target)
+</span><span class='line'>  "Hello " + some_target.to_s
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def generic_salutation(a, b)
+</span><span class='line'>  a.to_s + " " + b.to_s
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def loud_generic_salutation(x, y)
+</span><span class='line'>  generic_salutation(x,y).upcase + '!!!' 
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def hello(some_target)
+</span><span class='line'>  generic_salutation("Hello", some_target)
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Naming methods</h2>
 

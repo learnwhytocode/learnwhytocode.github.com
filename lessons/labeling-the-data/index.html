@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Handle JSON files Next: Pick out the text of a tweet &raquo; Labeling the Data The problem: A lot of the text we're using is &hellip;">
+  <meta name="description" content="&laquo; Previous: Methods with arguments Next: How to download a file &raquo; Labeling the Data The problem: A lot of the text we're using is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/handle-json-files/" title="Previous Post: Handle JSON files">&laquo; Previous: Handle JSON files</a>
+        <a class="basic-alignment left pagin" href="/lessons/methods-with-arguments/" title="Previous Post: Methods with arguments">&laquo; Previous: Methods with arguments</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Next Post: Pick out the text of a tweet">Next: Pick out the text of a tweet &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/how-to-download-a-file/" title="Next Post: How to download a file">Next: How to download a file &raquo;</a>
       
     </p>
 	
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T02:07:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<p>We&#8217;ve seen how the URLs for pulling in Twitter information have a pattern. For example, the user info URLs for 4 different users looks like this:</p>
 
@@ -278,7 +278,7 @@
 <p>The first thing to note is that the data server, <code>http://nottwitter.danwin.com</code>, is going to be the same for each data URL. So our first variable can be:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">data_host</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">data_host_name</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -306,10 +306,23 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># for user info:</span>
-</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host</span><span class="p">,</span> <span class="n">user_info_path</span><span class="p">,</span> <span class="s1">&#39;SenRandPaul&#39;</span><span class="p">,</span> <span class="n">user_info_basefile</span><span class="p">)</span>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host_name</span><span class="p">,</span> <span class="n">user_info_path</span><span class="p">,</span> <span class="s1">&#39;SenRandPaul&#39;</span><span class="p">,</span> <span class="n">user_info_basefile</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host</span><span class="p">,</span> <span class="n">tweets_page_path</span><span class="p">,</span> <span class="s1">&#39;senatorboxer&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">tweets_page_basefile</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># for tweet pages</span>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_host_name</span><span class="p">,</span> <span class="n">tweets_page_path</span><span class="p">,</span> <span class="s1">&#39;senatorboxer&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">tweets_page_basefile</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note: in actual practice, we would consider these variables to be <strong>constants</strong>. The convention is to uppercase constants&#8217; names:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">DATA_HOST_NAME</span><span class="p">,</span> <span class="no">USER_INFO_PATH</span><span class="p">,</span> <span class="s1">&#39;SenRandPaul&#39;</span><span class="p">,</span> <span class="no">USER_INFO_BASEFILE</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">DATA_HOST_NAME</span><span class="p">,</span> <span class="no">TWEETS_PAGE_PATH</span><span class="p">,</span> <span class="s1">&#39;senatorboxer&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="no">TWEETS_PAGE_BASEFILE</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -330,10 +343,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/handle-json-files/" title="Previous Post: Handle JSON files">&laquo; Previous: Handle JSON files</a>
+        <a class="basic-alignment left pagin" href="/lessons/methods-with-arguments/" title="Previous Post: Methods with arguments">&laquo; Previous: Methods with arguments</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Next Post: Pick out the text of a tweet">Next: Pick out the text of a tweet &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/how-to-download-a-file/" title="Next Post: How to download a file">Next: How to download a file &raquo;</a>
       
     </p>
 
@@ -356,7 +369,7 @@
   
 
 
-<time datetime="2012-09-12T03:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T02:07:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 

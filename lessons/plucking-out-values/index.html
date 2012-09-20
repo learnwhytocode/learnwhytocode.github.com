@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Organizing your code environment Next: Writing more wrappers &raquo; Plucking Out Values The problem: How can easily collect just &hellip;">
+  <meta name="description" content="&laquo; Previous: Reading from a spreadsheet-like file Next: Filter a collection &raquo; Plucking Out Values The problem: How can easily collect &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/organizing-your-code-environment/" title="Previous Post: Organizing your code environment">&laquo; Previous: Organizing your code environment</a>
+        <a class="basic-alignment left pagin" href="/lessons/reading-a-CSV/" title="Previous Post: Reading from a spreadsheet-like file">&laquo; Previous: Reading from a spreadsheet-like file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/writing-wrapper-methods/" title="Next Post: Writing more wrappers">Next: Writing more wrappers &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
       
     </p>
 	
@@ -128,7 +128,7 @@
   
 
 
-<time datetime="2012-09-12T03:15:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
         
       </p>
     
@@ -140,17 +140,121 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
-	<h1>Transforming an array</h1>
+	<p>Sometimes, we just want <em>one</em> value from a collection, just like when we wanted the Twitter account names from each line in the Congressmembers&#8217; datafile. To make an array of these values, we can use <code>each</code> to fill a new array:</p>
 
-<p>&#8211; create an array of uppercased words</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cmember_twitter_names</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>    
+</span></code></pre></td></tr></table></div></figure>
 
-<p>TK (use the tweet rate method)</p>
 
-<h1>Sort an array</h1>
+<h2>Transforming an array</h2>
 
-<h1>Sort inside a block</h1>
+<p>Creating an array of values plucked out of a collection is such a common pattern that Ruby has the <code>map</code> method (also known as <code>collect</code>)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>do..end</code> block can also be expressed with <strong>curly braces</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Think of the code inside these blocks as methods. Like methods, the last line is the <strong>return</strong> value:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="n">new_arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+</span><span class='line'><span class="c1">#=&gt; [&quot;CAT&quot;, &quot;DOG&quot;, &quot;MOUSE&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>`</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt; [4, 6, 8]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Sort an array</h2>
+
+<p>(draft)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="o">].</span><span class="n">sort</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span> <span class="p">}</span><span class="o">.</span><span class="n">sort</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The sort method</h2>
+
+<p>The <code>sort</code> method also accepts a block, for cases when a collection&#8217;s data objects need custom sorting methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exercise</h2>
+
+<p>Sort the congressmembers by highest tweet rate.</p>
 </div>
 
 
@@ -158,10 +262,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/organizing-your-code-environment/" title="Previous Post: Organizing your code environment">&laquo; Previous: Organizing your code environment</a>
+        <a class="basic-alignment left pagin" href="/lessons/reading-a-CSV/" title="Previous Post: Reading from a spreadsheet-like file">&laquo; Previous: Reading from a spreadsheet-like file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/writing-wrapper-methods/" title="Next Post: Writing more wrappers">Next: Writing more wrappers &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
       
     </p>
 
@@ -184,7 +288,7 @@
   
 
 
-<time datetime="2012-09-12T03:15:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
+<time datetime="2012-09-12T04:01:00-04:00" pubdate data-updated="true">Sep 12<span>th</span>, 2012</time>
       
 
 

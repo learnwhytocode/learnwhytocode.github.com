@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Labeling the data Next: Pick out the text from many tweets &raquo; Pick Out the Text of a Tweet The problem: How does Ruby &hellip;">
+  <meta name="description" content="&laquo; Previous: Handle JSON files Next: Pick out the text from many tweets &raquo; Pick Out the Text of a Tweet The problem: How does Ruby &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,7 +90,7 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/labeling-the-data/" title="Previous Post: Labeling the data">&laquo; Previous: Labeling the data</a>
+        <a class="basic-alignment left pagin" href="/lessons/handle-json-files/" title="Previous Post: Handle JSON files">&laquo; Previous: Handle JSON files</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Next Post: Pick out the text from many tweets">Next: Pick out the text from many tweets &raquo;</a>
@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<p>In the last chapter we parsed a JSON file containing Twitter account information.</p>
 
@@ -159,7 +159,7 @@
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/users/NancyPelosi/show.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">twitter_user</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -185,7 +185,7 @@
 <p>Here&#8217;s how a simple <code>Hash</code> object is initialized:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="mi">101</span><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -273,7 +273,7 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/labeling-the-data/" title="Previous Post: Labeling the data">&laquo; Previous: Labeling the data</a>
+        <a class="basic-alignment left pagin" href="/lessons/handle-json-files/" title="Previous Post: Handle JSON files">&laquo; Previous: Handle JSON files</a>
       
       
         <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-many-tweets/" title="Next Post: Pick out the text from many tweets">Next: Pick out the text from many tweets &raquo;</a>

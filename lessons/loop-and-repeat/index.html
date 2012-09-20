@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<p>We&#8217;ve run through a fair number of concepts and code but really haven&#8217;t done anything we couldn&#8217;t do (and do faster) with a web browser, such as look up a Twitter user&#8217;s number of followers, or how many people retweeted his/her most recent tweet.</p>
 
@@ -237,7 +237,7 @@
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -258,6 +258,19 @@
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, <em>on the same line with a semi-colon as separation</em>. Like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
 
 <ol>
 <li>Printing out the length of each tweet</li>
@@ -311,24 +324,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, like so:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
-</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
 </div>
 
 

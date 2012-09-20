@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: How to download a file Next: Labeling the data &raquo; Handle JSON Files The problem: How do we deal with JSON data files? The &hellip;">
+  <meta name="description" content="&laquo; Previous: How to download a file Next: Pick out the text of a tweet &raquo; Handle JSON Files The problem: How do we deal with JSON data &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,7 @@
         <a class="basic-alignment left pagin" href="/lessons/how-to-download-a-file/" title="Previous Post: How to download a file">&laquo; Previous: How to download a file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/labeling-the-data/" title="Next Post: Labeling the data">Next: Labeling the data &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Next Post: Pick out the text of a tweet">Next: Pick out the text of a tweet &raquo;</a>
       
     </p>
 	
@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<p>In the last chapter, we learned how to download a file using HTTParty and save its contents to a variable:</p>
 
@@ -300,15 +300,17 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
+<span class='line-number'>10</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/users/joebiden/show.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
-</span><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</span><span class='line'><span class="n">an_object</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">json</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">an_object</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="c1">#=&gt; Hash</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -323,6 +325,8 @@
 
 
 <p>Note that <code>JSON.parse</code>is expecting a specially-formatted string. Try passing in a normal string to that method, such as <code>"Hello world"</code></p>
+
+<p>Again, in this tutorial, our world is safe and narrow. You can expect all data-files to <em>be</em> what they say, in this case, properly formatted JSON. In the real world, this won&#8217;t be the case, and the JSON parser may choke on what is ostensibly a JSON file.</p>
 </div>
 
 
@@ -333,7 +337,7 @@
         <a class="basic-alignment left pagin" href="/lessons/how-to-download-a-file/" title="Previous Post: How to download a file">&laquo; Previous: How to download a file</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/labeling-the-data/" title="Next Post: Labeling the data">Next: Labeling the data &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/pick-out-the-text-from-a-tweet/" title="Next Post: Pick out the text of a tweet">Next: Pick out the text of a tweet &raquo;</a>
       
     </p>
 

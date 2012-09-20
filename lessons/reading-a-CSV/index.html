@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Switching data locations Next: Filter a collection &raquo; Reading From a Spreadsheet-like File The problem: How to read data from &hellip;">
+  <meta name="description" content="&laquo; Previous: Switching data locations Next: Plucking out values &raquo; Reading From a Spreadsheet-like File The problem: How to read data from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,7 @@
         <a class="basic-alignment left pagin" href="/lessons/moving-data-sources/" title="Previous Post: Switching data locations">&laquo; Previous: Switching data locations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/plucking-out-values/" title="Next Post: Plucking out values">Next: Plucking out values &raquo;</a>
       
     </p>
 	
@@ -140,9 +140,97 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
-	
+	<h2>The CSV (or FasterCSV) library</h2>
+
+<p>(draft)</p>
+
+<p>If you have Ruby 1.8, install the <a href="http://fastercsv.rubyforge.org/">FasterCSV gem.</a></p>
+
+<p>If you have Ruby 1.9, FasterCSV is part of the CSV library, so you just need to have the <code>require</code> statement.</p>
+
+<p>In our <code>my_code.rb</code> file, I&#8217;ve handled both conditions like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;fastercsv&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>CSV Files</h2>
+
+<p>(draft)</p>
+
+<p>The <a href="http://services.sunlightlabs.com/">Sunlight Foundation</a> maintains a spreadsheet of Congressmember data, including social media usernames.</p>
+
+<p>Download our mirroed copy for this tutorial here: <a href="http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv">http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv</a></p>
+
+<p>It is also in your <strong>working-directory</strong></p>
+
+<h2>Parsing CSV</h2>
+
+<p>We could parse with the string <code>split</code> method, but even a simple CSV file can have many ugly variations and irregularities.</p>
+
+<p>Use the CSV library instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="no">CSV_DATA_MAIN_FILENAME</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># or</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>The headers option</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Each data row is represented as a hash, with the column names conveniently used as keys.</p>
+
+<h3>Convenience method for congressmembers</h3>
+
+<p>In our <strong>my_code.rb</strong></p>
+
+<p>def get_congress_data_from_file(fname)
+  # pre: fname is a CSV file where congressmember data is located
+  # returns: an array of Hash objects</p>
+
+<p>  data = get_data_file(fname)</p>
+
+<p>  if RUBY_VERSION > &#8220;1.9&#8221;</p>
+
+<pre><code>return CSV.new(data, {:headers=&gt;true} )
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>return FasterCSV.new(data, {:headers=&gt;true})
+</code></pre>
+
+<p>  end
+end</p>
 </div>
 
 
@@ -153,7 +241,7 @@
         <a class="basic-alignment left pagin" href="/lessons/moving-data-sources/" title="Previous Post: Switching data locations">&laquo; Previous: Switching data locations</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/filtering-a-list/" title="Next Post: Filter a collection">Next: Filter a collection &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/plucking-out-values/" title="Next Post: Plucking out values">Next: Plucking out values &raquo;</a>
       
     </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Dan Nguyen">
 
   
-  <meta name="description" content="&laquo; Previous: Reading from a spreadsheet-like file Next: Making spreadsheets &raquo; Filter a Collection The problem: How do I filter for just &hellip;">
+  <meta name="description" content="&laquo; Previous: Plucking out values Next: Making spreadsheets &raquo; Filter a Collection The problem: How do I filter for just the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,10 +90,10 @@
 <article class="hentry" role="article">
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/reading-a-CSV/" title="Previous Post: Reading from a spreadsheet-like file">&laquo; Previous: Reading from a spreadsheet-like file</a>
+        <a class="basic-alignment left pagin" href="/lessons/plucking-out-values/" title="Previous Post: Plucking out values">&laquo; Previous: Plucking out values</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/data-printing/" title="Next Post: Making spreadsheets">Next: Making spreadsheets &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/making-spreadsheets/" title="Next Post: Making spreadsheets">Next: Making spreadsheets &raquo;</a>
       
     </p>
 	
@@ -140,9 +140,28 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
-	
+	<p>The <code>select</code> method accepts a block and filters a collection on whether each of its members passes the <code>true</code>/<code>false</code> condition:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="o">].</span><span class="n">select</span> <span class="k">do</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">4</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="c1">#=&gt; [5, 6, 7]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ignoring bad data</h2>
+
+<p>Use the <code>select</code> method to only work with the Congressmember data in which a <code>twitter_id</code> is included</p>
+
+<h2>Exercise</h2>
+
+<p>Compare the average tweet rate between over 50-year-olds and under 50-year-olds.</p>
 </div>
 
 
@@ -150,10 +169,10 @@
 	
 	<p class="meta">
       
-        <a class="basic-alignment left pagin" href="/lessons/reading-a-CSV/" title="Previous Post: Reading from a spreadsheet-like file">&laquo; Previous: Reading from a spreadsheet-like file</a>
+        <a class="basic-alignment left pagin" href="/lessons/plucking-out-values/" title="Previous Post: Plucking out values">&laquo; Previous: Plucking out values</a>
       
       
-        <a class="basic-alignment right pagin" href="/lessons/data-printing/" title="Next Post: Making spreadsheets">Next: Making spreadsheets &raquo;</a>
+        <a class="basic-alignment right pagin" href="/lessons/making-spreadsheets/" title="Next Post: Making spreadsheets">Next: Making spreadsheets &raquo;</a>
       
     </p>
 

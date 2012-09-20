@@ -140,7 +140,7 @@
 
 <div class="entry-content lesson">
 	
-	<p class="alert-note"><em>This is just a skeleton of the actual lesson. Content is added as it is edited and polished.</em></p>
+	<p class="alert-note"><em>Lesson content is currently in draft form.</em></p>
 	
 	<h2>Do something on if</h2>
 
@@ -148,7 +148,7 @@
 
 <p>So how do we pick out that one standout item?</p>
 
-<p>Let&#8217;s start off by grabbing all the account names from last chapter&#8217;s sample list. Then loop through that list and retrieve the <strong>user info</strong> for each account name. Then parse the JSON and store the object into an array.</p>
+<p>Let&#8217;s start off by grabbing all the account names from last chapter&#8217;s <a href="http://nottwitter.danwin.com/simple-congress-list.txt">sample list</a>. Then loop through that list and retrieve the <strong>user info</strong> for each account name. Then parse the JSON and store the object into an array.</p>
 
 <p>We&#8217;ll use this array (call it <code>cmembers</code>) for the rest of the chapter.</p>
 
@@ -161,7 +161,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>To add members to <code>arr</code>, you can &#8220;push&#8221; objects into the array with the <code>&lt;&lt;</code> (TK html entity) operator.</p>
+<p>To add members to <code>arr</code>, you can &#8220;push&#8221; objects into the array with the <code>&lt;&lt;</code>  operator.</p>
 
 <p>Or you can specify an address for each object using the bracket notation; both methods are shown below:</p>
 
@@ -188,6 +188,8 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>Building cmembers array</h3>
+
 <p>The code to create array <code>cmembers</code> containing the Hash object representation of each Twitter account is as follows:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -210,7 +212,7 @@
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="no">HOST_PATH</span> <span class="o">=</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">nottwitter</span><span class="o">.</span><span class="n">danwin</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</span><span class='line'><span class="no">HOST_PATH</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/&quot;</span>
 </span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">HOST_PATH</span><span class="p">,</span> <span class="s2">&quot;simple-congress-list.txt&quot;</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">cmembers</span> <span class="o">=</span> <span class="o">[]</span>
@@ -402,7 +404,7 @@
 </span><span class='line'><span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="no">Time</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;Sep. 1, 2012&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="c1"># =&gt; 1581937.303837</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1"># TK (works in Ruby 1.8.7?)</span>
+</span><span class='line'><span class="c1"># (works in Ruby 1.8.7?)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

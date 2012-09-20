@@ -4,7 +4,7 @@
   <title><![CDATA[Learn Why to Code]]></title>
   <link href="http://learnwhytocode.github.com/atom.xml" rel="self"/>
   <link href="http://learnwhytocode.github.com/"/>
-  <updated>2012-09-20T08:43:55-04:00</updated>
+  <updated>2012-09-20T10:23:21-04:00</updated>
   <id>http://learnwhytocode.github.com/</id>
   <author>
     <name><![CDATA[Dan Nguyen]]></name>
@@ -87,9 +87,9 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   
   <entry>
     <title type="html"><![CDATA[Making spreadsheets]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/data-printing/"/>
-    <updated>2012-09-12T06:05:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/data-printing</id>
+    <link href="http://learnwhytocode.github.com/lessons/making-spreadsheets/"/>
+    <updated>2012-09-12T04:05:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/making-spreadsheets</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
@@ -99,7 +99,147 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
     <link href="http://learnwhytocode.github.com/lessons/filtering-a-list/"/>
     <updated>2012-09-12T04:02:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/filtering-a-list</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>The <code>select</code> method accepts a block and filters a collection on whether each of its members passes the <code>true</code>/<code>false</code> condition:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="o">].</span><span class="n">select</span> <span class="k">do</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">4</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="c1">#=&gt; [5, 6, 7]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ignoring bad data</h2>
+
+<p>Use the <code>select</code> method to only work with the Congressmember data in which a <code>twitter_id</code> is included</p>
+
+<h2>Exercise</h2>
+
+<p>Compare the average tweet rate between over 50-year-olds and under 50-year-olds.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Plucking out values]]></title>
+    <link href="http://learnwhytocode.github.com/lessons/plucking-out-values/"/>
+    <updated>2012-09-12T04:01:00-04:00</updated>
+    <id>http://learnwhytocode.github.com/lessons/plucking-out-values</id>
+    <content type="html"><![CDATA[<p>Sometimes, we just want <em>one</em> value from a collection, just like when we wanted the Twitter account names from each line in the Congressmembers&#8217; datafile. To make an array of these values, we can use <code>each</code> to fill a new array:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cmember_twitter_names</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>    
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Transforming an array</h2>
+
+<p>Creating an array of values plucked out of a collection is such a common pattern that Ruby has the <code>map</code> method (also known as <code>collect</code>)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>do..end</code> block can also be expressed with <strong>curly braces</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">load</span> <span class="s1">&#39;./my_code.rb&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cmember_data</span> <span class="o">=</span> <span class="n">get_congress_data_from_file</span><span class="p">(</span> <span class="no">CSV_DATA_MAIN_FILENAME</span> <span class="p">)</span>
+</span><span class='line'><span class="n">cmember_twitter_names</span> <span class="o">=</span> <span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;twitter_id&#39;</span><span class="o">]</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Think of the code inside these blocks as methods. Like methods, the last line is the <strong>return</strong> value:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="n">new_arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+</span><span class='line'><span class="c1">#=&gt; [&quot;CAT&quot;, &quot;DOG&quot;, &quot;MOUSE&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>`</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">arr</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#=&gt; [4, 6, 8]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Sort an array</h2>
+
+<p>(draft)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="o">].</span><span class="n">sort</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span> <span class="p">}</span><span class="o">.</span><span class="n">sort</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The sort method</h2>
+
+<p>The <code>sort</code> method also accepts a block, for cases when a collection&#8217;s data objects need custom sorting methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cmember_data</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="o">[</span><span class="s1">&#39;lastname&#39;</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exercise</h2>
+
+<p>Sort the congressmembers by highest tweet rate.</p>
 ]]></content>
   </entry>
   
@@ -108,7 +248,95 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
     <link href="http://learnwhytocode.github.com/lessons/reading-a-CSV/"/>
     <updated>2012-09-12T03:20:00-04:00</updated>
     <id>http://learnwhytocode.github.com/lessons/reading-a-CSV</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h2>The CSV (or FasterCSV) library</h2>
+
+<p>(draft)</p>
+
+<p>If you have Ruby 1.8, install the <a href="http://fastercsv.rubyforge.org/">FasterCSV gem.</a></p>
+
+<p>If you have Ruby 1.9, FasterCSV is part of the CSV library, so you just need to have the <code>require</code> statement.</p>
+
+<p>In our <code>my_code.rb</code> file, I&#8217;ve handled both conditions like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="no">RUBY_VERSION</span> <span class="o">&gt;</span> <span class="s2">&quot;1.9&quot;</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;csv&#39;</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;fastercsv&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>CSV Files</h2>
+
+<p>(draft)</p>
+
+<p>The <a href="http://services.sunlightlabs.com/">Sunlight Foundation</a> maintains a spreadsheet of Congressmember data, including social media usernames.</p>
+
+<p>Download our mirroed copy for this tutorial here: <a href="http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv">http://nottwitter.danwin.com.s3.amazonaws.com/sunlight-foundation-congress-master.csv</a></p>
+
+<p>It is also in your <strong>working-directory</strong></p>
+
+<h2>Parsing CSV</h2>
+
+<p>We could parse with the string <code>split</code> method, but even a simple CSV file can have many ugly variations and irregularities.</p>
+
+<p>Use the CSV library instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="n">get_data_file</span><span class="p">(</span><span class="no">CSV_DATA_MAIN_FILENAME</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">CSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># or</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>The headers option</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">FasterCSV</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="ss">:headers</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Each data row is represented as a hash, with the column names conveniently used as keys.</p>
+
+<h3>Convenience method for congressmembers</h3>
+
+<p>In our <strong>my_code.rb</strong></p>
+
+<p>def get_congress_data_from_file(fname)
+  # pre: fname is a CSV file where congressmember data is located
+  # returns: an array of Hash objects</p>
+
+<p>  data = get_data_file(fname)</p>
+
+<p>  if RUBY_VERSION > &#8220;1.9&#8221;</p>
+
+<pre><code>return CSV.new(data, {:headers=&gt;true} )
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>return FasterCSV.new(data, {:headers=&gt;true})
+</code></pre>
+
+<p>  end
+end</p>
 ]]></content>
   </entry>
   
@@ -926,23 +1154,6 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Plucking out values]]></title>
-    <link href="http://learnwhytocode.github.com/lessons/plucking-out-values/"/>
-    <updated>2012-09-12T03:15:00-04:00</updated>
-    <id>http://learnwhytocode.github.com/lessons/plucking-out-values</id>
-    <content type="html"><![CDATA[<h1>Transforming an array</h1>
-
-<p>&#8211; create an array of uppercased words</p>
-
-<p>TK (use the tweet rate method)</p>
-
-<h1>Sort an array</h1>
-
-<h1>Sort inside a block</h1>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Organizing your code environment]]></title>
     <link href="http://learnwhytocode.github.com/lessons/organizing-your-code-environment/"/>
     <updated>2012-09-12T03:12:00-04:00</updated>
@@ -955,7 +1166,7 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 
 <p>Remember when we installed a text-editor specific for programming (e.g. TextWrangler for OSX, Notepad++ or SciTE for Windows)? Let&#8217;s move out of <strong>irb</strong> for the moment and use the text-editor.</p>
 
-<p>Hopefully you followed the instructions in the early setup chapters (TK) about setting up a <strong>working-directory</strong>. If not, now&#8217;s the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your <strong>Downloads</strong> folder).</p>
+<p>Hopefully you followed the instructions <a href="http://learnwhytocode.github.com/lessons/terminals-and-text-editors">in the early setup chapters</a> about setting up a <strong>working-directory</strong>. If not, now&#8217;s the time to do so. Just create a new directory somewhere convenient to get to (such as a sub-directory in your <strong>Downloads</strong> folder).</p>
 
 <p>Then, <strong>in your text-editor</strong>, create a new text file and save it in your <strong>working-directory</strong> as <strong>my_code.rb</strong></p>
 
@@ -1081,9 +1292,48 @@ solution: &#8220;Once you&#8217;ve learned why programming is important for real
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>TK copy and paste</p>
+<h2>The return value</h2>
+
+<p>The <code>return</code> keyword designates the value returned by the method In Ruby, if <code>return</code> isn&#8217;t used, the method automatically returns what was in the last line.</p>
+
+<p>(If you invoke <code>return</code> before the last line of a method, the method will <strong>exit</strong> at that point.)</p>
+
+<p>In the <code>hello_world</code> method above, the return value is <code>"Hello world"</code>, a string</p>
 
 <h3>Methods with arguments</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def hello(some_target)
+</span><span class='line'>  "Hello " + some_target.to_s
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def generic_salutation(a, b)
+</span><span class='line'>  a.to_s + " " + b.to_s
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def loud_generic_salutation(x, y)
+</span><span class='line'>  generic_salutation(x,y).upcase + '!!!' 
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def hello(some_target)
+</span><span class='line'>  generic_salutation("Hello", some_target)
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Naming methods</h2>
 
@@ -1315,7 +1565,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 
 <p>So how do we pick out that one standout item?</p>
 
-<p>Let&#8217;s start off by grabbing all the account names from last chapter&#8217;s sample list. Then loop through that list and retrieve the <strong>user info</strong> for each account name. Then parse the JSON and store the object into an array.</p>
+<p>Let&#8217;s start off by grabbing all the account names from last chapter&#8217;s <a href="http://nottwitter.danwin.com/simple-congress-list.txt">sample list</a>. Then loop through that list and retrieve the <strong>user info</strong> for each account name. Then parse the JSON and store the object into an array.</p>
 
 <p>We&#8217;ll use this array (call it <code>cmembers</code>) for the rest of the chapter.</p>
 
@@ -1328,7 +1578,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>To add members to <code>arr</code>, you can &#8220;push&#8221; objects into the array with the <code>&lt;&lt;</code> (TK html entity) operator.</p>
+<p>To add members to <code>arr</code>, you can &#8220;push&#8221; objects into the array with the <code>&lt;&lt;</code>  operator.</p>
 
 <p>Or you can specify an address for each object using the bracket notation; both methods are shown below:</p>
 
@@ -1355,6 +1605,8 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>Building cmembers array</h3>
+
 <p>The code to create array <code>cmembers</code> containing the Hash object representation of each Twitter account is as follows:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1377,7 +1629,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="no">HOST_PATH</span> <span class="o">=</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">nottwitter</span><span class="o">.</span><span class="n">danwin</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</span><span class='line'><span class="no">HOST_PATH</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/&quot;</span>
 </span><span class='line'><span class="n">list_url</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">HOST_PATH</span><span class="p">,</span> <span class="s2">&quot;simple-congress-list.txt&quot;</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">cmembers</span> <span class="o">=</span> <span class="o">[]</span>
@@ -1569,7 +1821,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="no">Time</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;Sep. 1, 2012&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="c1"># =&gt; 1581937.303837</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1"># TK (works in Ruby 1.8.7?)</span>
+</span><span class='line'><span class="c1"># (works in Ruby 1.8.7?)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -1612,7 +1864,18 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 
 <p>Here&#8217;s a <a href="http://nottwitter.danwin.com/simple-congress-list.txt">sample list of ten congressmembers</a>. It&#8217;s just a straightforward textfile with one Twitter name per line:</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;txt&#8217; found</p>
+<p><code>
+joebiden
+RoyBlunt
+senatorboxer
+ChuckGrassley
+DarrellIssa
+JoeLieberman
+RepRonPaul
+jaredpolis
+SenRandPaul
+NancyPelosi
+</code></p>
 
 <p>Wouldn&#8217;t it be nice if we could break this into an array?</p>
 
@@ -1815,7 +2078,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/ChuckGrassley/1/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -1836,6 +2099,19 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, <em>on the same line with a semi-colon as separation</em>. Like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
 
 <ol>
 <li>Printing out the length of each tweet</li>
@@ -1889,24 +2165,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>Note:</strong> if you are using <strong>irb</strong>, the result of each <code>each</code> invocation will spit out the entire contents of the collection. This is <strong>irb</strong>&#8217;s normal behavior, to return the value of each method call after you hit <strong>Enter</strong>. It&#8217;s slightly annoying and means you&#8217;ll have to scroll up a bit to find the output you want. Or you could append a trivial line of code after the keyword <code>end</code>, like so:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_length</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'><span class="n">tweets_obj</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">tweet</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">total_length</span> <span class="o">=</span> <span class="n">total_length</span> <span class="o">+</span> <span class="n">tweet</span><span class="o">[</span><span class="s1">&#39;text&#39;</span><span class="o">].</span><span class="n">length</span>
-</span><span class='line'><span class="k">end</span><span class="p">;</span> <span class="nb">puts</span> <span class="s2">&quot;done with each&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">total_length</span> <span class="o">/</span> <span class="n">tweets_obj</span><span class="o">.</span><span class="n">length</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
 ]]></content>
   </entry>
   
@@ -1933,7 +2192,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com.s3.amazonaws.com/statuses/RoyBlunt/3/user_timeline.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">tweets_obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span><span class='line'>
@@ -2018,7 +2277,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p><strong>Bonus:</strong> What happens when you try to access an address outside of an Array&#8217;s range? Use the <code>length</code> method to find the number of items in an array.</p>
 ]]></content>
   </entry>
   
@@ -2044,7 +2303,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
 </span><span class='line'><span class="nb">require</span> <span class="s1">&#39;httparty&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;TK&quot;</span>
+</span><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nottwitter.danwin.com/users/NancyPelosi/show.json&quot;</span>
 </span><span class='line'><span class="n">json_str</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
 </span><span class='line'><span class="n">twitter_user</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -2070,7 +2329,7 @@ return user_hash['statuses_count'].to_f / calc_twitter_user_age_days(user_hash)
 <p>Here&#8217;s how a simple <code>Hash</code> object is initialized:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="mi">101</span><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">simple_hash</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="mi">101</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
